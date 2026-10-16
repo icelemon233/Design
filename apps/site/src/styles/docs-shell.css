@@ -1,0 +1,292 @@
+.docs-layout {
+  display: grid;
+  grid-template-columns: 264px minmax(0, 1fr);
+  min-height: 100vh;
+  background:
+    linear-gradient(90deg, #fffcf6eb, #fffcf600 36%),
+    radial-gradient(circle at 78% 0%, rgba(168, 223, 241, 0.28), transparent 30%),
+    var(--cinna-color-bg);
+}
+
+.docs-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 18px 14px;
+  overflow: auto;
+  scrollbar-width: none;
+  border-right: 1px solid rgba(230, 214, 196, 0.74);
+  background:
+    radial-gradient(circle at 20% 14%, rgba(255, 255, 255, 0.8), transparent 32%),
+    linear-gradient(180deg, #f0fafeeb, #fff8eef5);
+}
+
+.docs-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.docs-sidebar__top {
+  display: grid;
+  gap: 10px;
+}
+
+.docs-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 12px;
+  border-radius: 18px;
+  color: var(--cinna-color-primary-deep);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.docs-nav-search {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  min-height: 42px;
+  margin-top: 14px;
+  padding: 0 12px;
+}
+
+.docs-nav {
+  margin-top: 14px;
+}
+
+.docs-nav__group + .docs-nav__group {
+  margin-top: 24px;
+}
+
+.docs-nav__label {
+  padding: 8px 12px 6px;
+  color: var(--cinna-color-text-muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.docs-nav__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-height: 42px;
+  margin: 8px 0;
+  padding: 8px 10px 8px 14px;
+  border: 1.5px solid transparent;
+  border-radius: 16px;
+  color: var(--cinna-color-text-secondary);
+  font-weight: 800;
+  text-align: left;
+  transition:
+    background var(--cinna-motion-base) var(--cinna-ease-standard),
+    border-color var(--cinna-motion-base) var(--cinna-ease-standard),
+    color var(--cinna-motion-base) var(--cinna-ease-standard),
+    box-shadow var(--cinna-motion-base) var(--cinna-ease-standard),
+    transform var(--cinna-motion-base) var(--cinna-ease-standard);
+}
+
+.docs-nav__item:not(.docs-nav__item--active):hover {
+  border-color: #a8dff1ad;
+  background: #f0fafee0;
+  box-shadow: 0 3px #78bdd43d;
+  color: var(--cinna-color-text);
+  transform: translateY(-1px);
+}
+
+.docs-nav__item--active {
+  background: var(--cinna-color-primary);
+  border-color: #3d8eaa42;
+  color: var(--cinna-color-text);
+  box-shadow: 0 4px #78bdd4;
+  transform: translateY(-1px);
+}
+
+.docs-nav__item--active:hover {
+  background: var(--cinna-color-primary-hover);
+  border-color: #3d8eaa57;
+  box-shadow: 0 5px #78bdd4;
+  color: var(--cinna-color-text);
+}
+
+.docs-nav__item small {
+  margin-left: 4px;
+  color: inherit;
+  font-family: var(--cinna-font-family);
+  font-size: 12px;
+  opacity: 0.78;
+}
+
+.docs-nav__item em {
+  flex-shrink: 0;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #fffcf6cc;
+  color: var(--cinna-color-primary-deep);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.docs-nav__empty {
+  margin: 18px 12px 0;
+  color: var(--cinna-color-text-muted);
+  font-family: var(--cinna-font-family);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.docs-main {
+  width: min(100%, 1060px);
+  padding: 42px clamp(20px, 5vw, 64px) 80px;
+}
+
+.docs-title-card {
+  margin-bottom: 26px;
+  padding: 30px;
+  border: 1.5px solid rgba(230, 214, 196, 0.82);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 92% 18%, rgba(168, 223, 241, 0.35), transparent 18%),
+    linear-gradient(135deg, #ffffffb8, #fffcf6e6);
+  box-shadow: var(--cinna-shadow-soft);
+}
+
+.docs-title-card h1 {
+  font-size: clamp(36px, 7vw, 72px);
+  line-height: 1;
+}
+
+.docs-title-card h1 span {
+  display: inline-block;
+  margin-left: 10px;
+  color: var(--cinna-color-primary-deep);
+  font-family: var(--cinna-font-family);
+  font-size: 0.42em;
+  vertical-align: middle;
+}
+
+.docs-title-meta {
+  display: grid;
+  gap: 10px;
+  max-width: 900px;
+  margin-top: 22px;
+  font-family: var(--cinna-font-family);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.docs-title-meta__row {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+}
+
+.docs-title-meta__label {
+  padding-top: 8px;
+  color: var(--cinna-color-text-muted);
+  font-weight: 900;
+}
+
+.docs-title-meta__row:not(:first-child) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+}
+
+.docs-title-meta__row:not(:first-child) .docs-title-meta__label {
+  flex: 0 0 72px;
+  padding-top: 0;
+}
+
+.docs-title-meta__import,
+.docs-title-meta__item {
+  min-height: 36px;
+  border: 1.5px solid rgba(230, 214, 196, 0.8);
+  border-radius: 18px;
+  background: #fffcf6bd;
+  box-shadow: 0 4px #dcc7ad73;
+}
+
+.docs-title-meta__items {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.docs-title-meta__import {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 8px 12px;
+  overflow-wrap: anywhere;
+  color: #6c5548;
+  font-family: var(--cinna-font-family), 'SF Mono', Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: normal;
+}
+
+.docs-title-meta__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 6px 11px;
+  color: var(--cinna-color-text-secondary);
+  text-decoration: none;
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.docs-title-meta__item[href]:hover {
+  border-color: #a8dff1e6;
+  background: #f0fafedb;
+  transform: translateY(-1px);
+}
+
+.docs-title-meta__item[href]:focus-visible {
+  outline: none;
+  box-shadow:
+    0 4px #78bdd45c,
+    var(--cinna-shadow-ring);
+}
+
+.docs-title-meta__item strong {
+  color: var(--cinna-color-primary-deep);
+}
+
+.docs-title-meta__row:nth-child(2) .docs-title-meta__item:last-child .docs-title-meta__glyph {
+  display: none;
+}
+
+.docs-title-meta__item[href*='/issues?q='] .docs-title-meta__glyph {
+  display: none;
+}
+
+.docs-title-meta__glyph {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--cinna-color-primary);
+  color: var(--cinna-color-text);
+  box-shadow: 0 2px #78bdd4;
+  font-size: 11px;
+  font-weight: 900;
+}

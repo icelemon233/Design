@@ -1,5 +1,5 @@
-import React from 'react';
 import * as Cinna from '@cinna-design/react';
+import React from 'react';
 import type { ComponentDocConfig } from '../../types';
 
 const popupMenuItems = [
@@ -19,7 +19,8 @@ export const popupDoc: ComponentDocConfig = {
       },
       en: {
         title: 'Hint',
-        description: 'Use mode="tooltip" for short hints. It opens on hover and appears above by default.',
+        description:
+          'Use mode="tooltip" for short hints. It opens on hover and appears above by default.',
         codeToggle: 'View hint code',
       },
       code: `import { Button, Popup } from '@cinna-design/react';
@@ -59,10 +60,18 @@ export default () => (
 );`,
       render: () => (
         <Cinna.Space wrap>
-          <Cinna.Popup mode="tooltip" placement="top" title="Top"><Cinna.Button>Top</Cinna.Button></Cinna.Popup>
-          <Cinna.Popup mode="tooltip" placement="bottom" title="Bottom"><Cinna.Button>Bottom</Cinna.Button></Cinna.Popup>
-          <Cinna.Popup mode="tooltip" placement="left" title="Left"><Cinna.Button>Left</Cinna.Button></Cinna.Popup>
-          <Cinna.Popup mode="tooltip" placement="right" title="Right"><Cinna.Button>Right</Cinna.Button></Cinna.Popup>
+          <Cinna.Popup mode="tooltip" placement="top" title="Top">
+            <Cinna.Button>Top</Cinna.Button>
+          </Cinna.Popup>
+          <Cinna.Popup mode="tooltip" placement="bottom" title="Bottom">
+            <Cinna.Button>Bottom</Cinna.Button>
+          </Cinna.Popup>
+          <Cinna.Popup mode="tooltip" placement="left" title="Left">
+            <Cinna.Button>Left</Cinna.Button>
+          </Cinna.Popup>
+          <Cinna.Popup mode="tooltip" placement="right" title="Right">
+            <Cinna.Button>Right</Cinna.Button>
+          </Cinna.Popup>
         </Cinna.Space>
       ),
     },
@@ -111,7 +120,10 @@ export default () => (
   </Popup>
 );`,
       render: () => (
-        <Cinna.Popup mode="tooltip" title={<Cinna.Text tone="secondary">Updated 2 minutes ago</Cinna.Text>}>
+        <Cinna.Popup
+          mode="tooltip"
+          title={<Cinna.Text tone="secondary">Updated 2 minutes ago</Cinna.Text>}
+        >
           <span>Last sync</span>
         </Cinna.Popup>
       ),
@@ -150,7 +162,8 @@ export default () => (
       },
       en: {
         title: 'Click menu',
-        description: 'Use mode="menu" for related actions. It opens from a button trigger by default.',
+        description:
+          'Use mode="menu" for related actions. It opens from a button trigger by default.',
         codeToggle: 'View click menu code',
       },
       code: `import { Popup } from '@cinna-design/react';
@@ -166,13 +179,7 @@ export default () => (
     ]}
   />
 );`,
-      render: () => (
-        <Cinna.Popup
-          mode="menu"
-          label="Actions"
-          items={popupMenuItems}
-        />
-      ),
+      render: () => <Cinna.Popup mode="menu" label="Actions" items={popupMenuItems} />,
     },
     {
       id: 'popup-menu-hover',
@@ -220,7 +227,8 @@ export default () => (
       },
       en: {
         title: 'Menu placement',
-        description: 'Use align for left, center, or right alignment, and placement for opening direction.',
+        description:
+          'Use align for left, center, or right alignment, and placement for opening direction.',
         codeToggle: 'View menu placement code',
       },
       code: `import { Popup, Space } from '@cinna-design/react';
@@ -235,10 +243,34 @@ export default () => (
 );`,
       render: () => (
         <Cinna.Space wrap>
-          <Cinna.Popup mode="menu" trigger="hover" align="left" label="Left" items={[{ key: 'one', label: 'Left aligned' }]} />
-          <Cinna.Popup mode="menu" trigger="hover" align="center" label="Center" items={[{ key: 'one', label: 'Centered' }]} />
-          <Cinna.Popup mode="menu" trigger="hover" align="right" label="Right" items={[{ key: 'one', label: 'Right aligned' }]} />
-          <Cinna.Popup mode="menu" trigger="hover" placement="top" label="Open up" items={[{ key: 'one', label: 'Upward menu' }]} />
+          <Cinna.Popup
+            mode="menu"
+            trigger="hover"
+            align="left"
+            label="Left"
+            items={[{ key: 'one', label: 'Left aligned' }]}
+          />
+          <Cinna.Popup
+            mode="menu"
+            trigger="hover"
+            align="center"
+            label="Center"
+            items={[{ key: 'one', label: 'Centered' }]}
+          />
+          <Cinna.Popup
+            mode="menu"
+            trigger="hover"
+            align="right"
+            label="Right"
+            items={[{ key: 'one', label: 'Right aligned' }]}
+          />
+          <Cinna.Popup
+            mode="menu"
+            trigger="hover"
+            placement="top"
+            label="Open up"
+            items={[{ key: 'one', label: 'Upward menu' }]}
+          />
         </Cinna.Space>
       ),
     },
@@ -400,7 +432,9 @@ export default () => (
             <Cinna.Space direction="vertical" align="flex-start">
               <Cinna.Text strong>Build is ready</Cinna.Text>
               <Cinna.Text tone="secondary">3 checks passed.</Cinna.Text>
-              <Cinna.Button size="small" variant="cream">Open report</Cinna.Button>
+              <Cinna.Button size="small" variant="cream">
+                Open report
+              </Cinna.Button>
             </Cinna.Space>
           }
         />
@@ -415,7 +449,8 @@ export default () => (
       },
       en: {
         title: 'Menu styles',
-        description: 'styles can tune the menu panel, item text, hover color, divider, and trigger.',
+        description:
+          'styles can tune the menu panel, item text, hover color, divider, and trigger.',
         codeToggle: 'View menu styles code',
       },
       code: `import { Popup } from '@cinna-design/react';
@@ -539,10 +574,18 @@ export default () => (
 );`,
       render: () => (
         <Cinna.Space wrap>
-          <Cinna.Popup mode="popover" placement="top" content="Top"><Cinna.Button>Top</Cinna.Button></Cinna.Popup>
-          <Cinna.Popup mode="popover" placement="bottom" content="Bottom"><Cinna.Button>Bottom</Cinna.Button></Cinna.Popup>
-          <Cinna.Popup mode="popover" placement="left" content="Left"><Cinna.Button>Left</Cinna.Button></Cinna.Popup>
-          <Cinna.Popup mode="popover" placement="right" content="Right"><Cinna.Button>Right</Cinna.Button></Cinna.Popup>
+          <Cinna.Popup mode="popover" placement="top" content="Top">
+            <Cinna.Button>Top</Cinna.Button>
+          </Cinna.Popup>
+          <Cinna.Popup mode="popover" placement="bottom" content="Bottom">
+            <Cinna.Button>Bottom</Cinna.Button>
+          </Cinna.Popup>
+          <Cinna.Popup mode="popover" placement="left" content="Left">
+            <Cinna.Button>Left</Cinna.Button>
+          </Cinna.Popup>
+          <Cinna.Popup mode="popover" placement="right" content="Right">
+            <Cinna.Button>Right</Cinna.Button>
+          </Cinna.Popup>
         </Cinna.Space>
       ),
     },
@@ -566,7 +609,12 @@ export default () => (
   </Popup>
 );`,
       render: () => (
-        <Cinna.Popup mode="popover" trigger="click" title="Click panel" content="Click again to close.">
+        <Cinna.Popup
+          mode="popover"
+          trigger="click"
+          title="Click panel"
+          content="Click again to close."
+        >
           <Cinna.Button>Click me</Cinna.Button>
         </Cinna.Popup>
       ),
@@ -678,7 +726,8 @@ export default () => (
       },
       en: {
         title: 'Confirmation panel',
-        description: 'Use mode="confirm" to open a confirmation panel on click, with title as the heading.',
+        description:
+          'Use mode="confirm" to open a confirmation panel on click, with title as the heading.',
         codeToggle: 'View confirmation panel code',
       },
       code: `import { Button, Popup } from '@cinna-design/react';
@@ -703,7 +752,8 @@ export default () => (
       },
       en: {
         title: 'Confirmation description',
-        description: 'Use description to add impact details for destructive or irreversible actions.',
+        description:
+          'Use description to add impact details for destructive or irreversible actions.',
         codeToggle: 'View confirmation description code',
       },
       code: `import { Button, Popup } from '@cinna-design/react';
@@ -774,8 +824,12 @@ export default () => (
 );`,
       render: () => (
         <Cinna.Space wrap>
-          <Cinna.Popup mode="confirm" placement="top" title="Confirm top?"><Cinna.Button>Top</Cinna.Button></Cinna.Popup>
-          <Cinna.Popup mode="confirm" placement="bottom" title="Confirm bottom?"><Cinna.Button>Bottom</Cinna.Button></Cinna.Popup>
+          <Cinna.Popup mode="confirm" placement="top" title="Confirm top?">
+            <Cinna.Button>Top</Cinna.Button>
+          </Cinna.Popup>
+          <Cinna.Popup mode="confirm" placement="bottom" title="Confirm bottom?">
+            <Cinna.Button>Bottom</Cinna.Button>
+          </Cinna.Popup>
         </Cinna.Space>
       ),
     },
@@ -890,12 +944,14 @@ export default () => (
       id: 'popup-trigger-placement',
       zh: {
         title: '触发与位置',
-        description: 'trigger 支持点击、悬浮和右键，placement 支持上下左右，align 控制菜单相对触发器的对齐。',
+        description:
+          'trigger 支持点击、悬浮和右键，placement 支持上下左右，align 控制菜单相对触发器的对齐。',
         codeToggle: '查看触发与位置代码',
       },
       en: {
         title: 'Trigger and placement',
-        description: 'trigger supports click, hover, and context menu. placement supports all four directions.',
+        description:
+          'trigger supports click, hover, and context menu. placement supports all four directions.',
         codeToggle: 'View trigger and placement code',
       },
       code: `import { Button, Popup, Space } from '@cinna-design/react';
@@ -912,12 +968,29 @@ export default () => (
 );`,
       render: () => (
         <Cinna.Space wrap>
-          <Cinna.Popup mode="menu" label="Left" trigger="hover" align="left" items={[{ key: 'one', label: 'Left aligned' }]} />
-          <Cinna.Popup mode="menu" label="Top" trigger="hover" placement="top" items={[{ key: 'one', label: 'Open upward' }]} />
+          <Cinna.Popup
+            mode="menu"
+            label="Left"
+            trigger="hover"
+            align="left"
+            items={[{ key: 'one', label: 'Left aligned' }]}
+          />
+          <Cinna.Popup
+            mode="menu"
+            label="Top"
+            trigger="hover"
+            placement="top"
+            items={[{ key: 'one', label: 'Open upward' }]}
+          />
           <Cinna.Popup mode="popover" trigger="click" placement="left" content="Click to toggle.">
             <Cinna.Button>Click panel</Cinna.Button>
           </Cinna.Popup>
-          <Cinna.Popup mode="menu" label="Right click" trigger="contextMenu" items={[{ key: 'refresh', label: 'Refresh' }]} />
+          <Cinna.Popup
+            mode="menu"
+            label="Right click"
+            trigger="contextMenu"
+            items={[{ key: 'refresh', label: 'Refresh' }]}
+          />
         </Cinna.Space>
       ),
     },

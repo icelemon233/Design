@@ -1,0 +1,6 @@
+/* The documentation site owns its reset; library styles stay scoped. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

@@ -1,0 +1,18 @@
+.cinna-form--disabled {
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.cinna-form-item--error small {
+  color: var(--cinna-color-danger);
+}
+
+.cinna-form-item--warning small {
+  color: var(--cinna-color-warning);
+}
+
+.cinna-form-item em {
+  color: var(--cinna-color-text-muted);
+  font-style: normal;
+  font-weight: 700;
+}

@@ -1,0 +1,288 @@
+import type { ApiSection, SiteLanguage } from '../../../types';
+
+export const stepsApiRows: Record<SiteLanguage, ApiSection[]> = {
+  zh: [
+    {
+      title: '步骤条整体属性',
+      rows: [
+        ['items', '步骤数据列表。', 'StepItem[]', '[]'],
+        ['current', '当前步骤，从 0 开始；传入后进入受控模式。', 'number', '-'],
+        ['defaultCurrent', '非受控模式下的默认当前步骤。', 'number', '0'],
+        [
+          'direction',
+          '步骤条方向，vertical 会纵向排列。',
+          "'horizontal' | 'vertical'",
+          "'horizontal'",
+        ],
+        ['size', '步骤条尺寸。', "'small' | 'medium' | 'large'", "'medium'"],
+        ['status', '当前步骤的默认状态。', 'StepStatus', "'process'"],
+        [
+          'type',
+          '步骤条类型，minimal 仅展示圆点和当前步骤摘要。',
+          "'default' | 'minimal'",
+          "'default'",
+        ],
+        ['clickable', '是否允许点击步骤切换当前步骤。', 'boolean', 'false'],
+        [
+          'onChange',
+          '点击步骤时触发，返回步骤序号、步骤数据和事件。',
+          '(current, item, event) => void',
+          '-',
+        ],
+        ['className', '根节点自定义 className。', 'string', '-'],
+        ['style', '根节点自定义样式。', 'CSSProperties', '-'],
+      ],
+    },
+    {
+      title: '布局和高亮',
+      rows: [
+        [
+          'labelPlacement',
+          '标题和描述相对序号或图标的位置。',
+          "'right' | 'bottom' | 'horizontal' | 'vertical'",
+          "'right'",
+        ],
+        ['underline', '是否在当前步骤标题下方展示主题下划线。', 'boolean', 'false'],
+        ['markerShape', '序号或图标容器形状。', "'circle' | 'rounded'", "'circle'"],
+        ['connector', '自定义步骤之间的连接符；未传时使用默认连线。', 'ReactNode', '-'],
+        ['connectorCount', '自定义连接符重复数量，会自动保持间距。', 'number', '1'],
+        ['connectorColor', '连接符颜色。', 'string', '-'],
+      ],
+    },
+    {
+      title: '自定义样式',
+      rows: [
+        ['markerFontSize', '序号或图标容器字体大小，数字按 px 处理。', 'number | string', '-'],
+        ['markerFontWeight', '序号或图标容器字重。', 'CSSProperties["fontWeight"]', '-'],
+        ['markerColor', '序号或图标容器文字颜色。', 'string', '-'],
+        ['markerBackgroundColor', '序号或图标容器背景色。', 'string', '-'],
+        ['markerBorderColor', '序号或图标容器边框颜色。', 'string', '-'],
+        ['titleFontSize', '主标题字体大小，数字按 px 处理。', 'number | string', '-'],
+        ['titleFontWeight', '主标题字重。', 'CSSProperties["fontWeight"]', '-'],
+        ['titleColor', '主标题颜色。', 'string', '-'],
+        ['subTitleFontSize', '副标题字体大小，数字按 px 处理。', 'number | string', '-'],
+        ['subTitleColor', '副标题颜色。', 'string', '-'],
+        ['descriptionFontSize', '描述字体大小，数字按 px 处理。', 'number | string', '-'],
+        ['descriptionColor', '描述颜色。', 'string', '-'],
+      ],
+    },
+    {
+      title: '单个步骤项属性',
+      rows: [
+        ['key', '步骤唯一标识；不传时使用序号。', 'string | number', '-'],
+        ['title', '步骤主标题。', 'ReactNode', '-'],
+        ['subTitle', '步骤副标题，展示在主标题旁边。', 'ReactNode', '-'],
+        ['description / content', '步骤描述内容。', 'ReactNode', '-'],
+        ['status', '覆盖当前步骤的自动状态。', 'StepStatus', '-'],
+        ['icon', '自定义序号区域内容。', 'ReactNode', '-'],
+        ['logo', '自定义 logo 内容，优先级高于 icon。', 'ReactNode', '-'],
+        ['disabled', '禁用当前步骤点击。', 'boolean', 'false'],
+        ['onClick', '点击当前步骤时触发。', '(index, event) => void', '-'],
+        ['className / style', '当前步骤自定义 className 和样式。', 'string / CSSProperties', '-'],
+      ],
+    },
+    {
+      title: '自动状态规则',
+      rows: [
+        [
+          'index < current',
+          '未设置单个步骤项 status 时，当前步骤之前的步骤自动展示为完成状态。',
+          "'finish'",
+          '-',
+        ],
+        [
+          'index === current',
+          '未设置单个步骤项 status 时，当前步骤使用步骤条的 status。',
+          'StepStatus',
+          "'process'",
+        ],
+        [
+          'index > current',
+          '未设置单个步骤项 status 时，当前步骤之后的步骤展示为等待状态。',
+          "'wait'",
+          '-',
+        ],
+        ['status（步骤项）', '单个步骤项设置 status 后，会覆盖自动计算结果。', 'StepStatus', '-'],
+      ],
+    },
+    {
+      title: '类型说明',
+      rows: [
+        ['StepStatus', '步骤状态。', "'wait' | 'process' | 'finish' | 'error' | 'loading'", '-'],
+        [
+          'StepsLabelPlacement',
+          '标签位置；horizontal 等同 right，vertical 等同 bottom。',
+          "'right' | 'bottom' | 'horizontal' | 'vertical'",
+          '-',
+        ],
+      ],
+    },
+  ],
+  en: [
+    {
+      title: 'Steps',
+      rows: [
+        ['items', 'Step data list.', 'StepItem[]', '[]'],
+        [
+          'current',
+          'Current step index starting from 0. Enables controlled mode when provided.',
+          'number',
+          '-',
+        ],
+        ['defaultCurrent', 'Initial current step in uncontrolled mode.', 'number', '0'],
+        [
+          'direction',
+          'Steps direction. vertical stacks items vertically.',
+          "'horizontal' | 'vertical'",
+          "'horizontal'",
+        ],
+        ['size', 'Steps size.', "'small' | 'medium' | 'large'", "'medium'"],
+        ['status', 'Default status for the current step.', 'StepStatus', "'process'"],
+        [
+          'type',
+          'Steps type. minimal renders only dots and the active summary.',
+          "'default' | 'minimal'",
+          "'default'",
+        ],
+        [
+          'clickable',
+          'Whether steps can be clicked to change the current step.',
+          'boolean',
+          'false',
+        ],
+        [
+          'onChange',
+          'Fires when a step is clicked with the index, item, and event.',
+          '(current, item, event) => void',
+          '-',
+        ],
+        ['className', 'Custom className for the root node.', 'string', '-'],
+        ['style', 'Custom inline styles for the root node.', 'CSSProperties', '-'],
+      ],
+    },
+    {
+      title: 'Layout And Highlight',
+      rows: [
+        [
+          'labelPlacement',
+          'Label position relative to the marker.',
+          "'right' | 'bottom' | 'horizontal' | 'vertical'",
+          "'right'",
+        ],
+        [
+          'underline',
+          'Whether to show a themed underline below the current step title.',
+          'boolean',
+          'false',
+        ],
+        ['markerShape', 'Marker container shape.', "'circle' | 'rounded'", "'circle'"],
+        [
+          'connector',
+          'Custom connector between steps. The default is a line when omitted.',
+          'ReactNode',
+          '-',
+        ],
+        [
+          'connectorCount',
+          'How many custom connector tokens to render, with spacing kept automatically.',
+          'number',
+          '1',
+        ],
+        ['connectorColor', 'Connector color.', 'string', '-'],
+      ],
+    },
+    {
+      title: 'Custom Style',
+      rows: [
+        ['markerFontSize', 'Marker font size. Numbers are treated as px.', 'number | string', '-'],
+        ['markerFontWeight', 'Marker font weight.', 'CSSProperties["fontWeight"]', '-'],
+        ['markerColor', 'Marker text color.', 'string', '-'],
+        ['markerBackgroundColor', 'Marker background color.', 'string', '-'],
+        ['markerBorderColor', 'Marker border color.', 'string', '-'],
+        ['titleFontSize', 'Title font size. Numbers are treated as px.', 'number | string', '-'],
+        ['titleFontWeight', 'Title font weight.', 'CSSProperties["fontWeight"]', '-'],
+        ['titleColor', 'Title color.', 'string', '-'],
+        [
+          'subTitleFontSize',
+          'Subtitle font size. Numbers are treated as px.',
+          'number | string',
+          '-',
+        ],
+        ['subTitleColor', 'Subtitle color.', 'string', '-'],
+        [
+          'descriptionFontSize',
+          'Description font size. Numbers are treated as px.',
+          'number | string',
+          '-',
+        ],
+        ['descriptionColor', 'Description color.', 'string', '-'],
+      ],
+    },
+    {
+      title: 'Step',
+      rows: [
+        [
+          'key',
+          'Unique step key. Falls back to the item index when omitted.',
+          'string | number',
+          '-',
+        ],
+        ['title', 'Step title.', 'ReactNode', '-'],
+        ['subTitle', 'Step subtitle rendered beside the title.', 'ReactNode', '-'],
+        ['description / content', 'Step description content.', 'ReactNode', '-'],
+        ['status', 'Overrides the automatic status for this step.', 'StepStatus', '-'],
+        ['icon', 'Custom marker content.', 'ReactNode', '-'],
+        ['logo', 'Custom logo content with priority over icon.', 'ReactNode', '-'],
+        ['disabled', 'Disables clicking this step.', 'boolean', 'false'],
+        ['onClick', 'Fires when this step is clicked.', '(index, event) => void', '-'],
+        [
+          'className / style',
+          'Custom className and style for this step.',
+          'string / CSSProperties',
+          '-',
+        ],
+      ],
+    },
+    {
+      title: 'Automatic Status',
+      rows: [
+        [
+          'index < current',
+          'When Step.status is omitted, steps before current render as finished.',
+          "'finish'",
+          '-',
+        ],
+        [
+          'index === current',
+          'When Step.status is omitted, the current step uses Steps.status.',
+          'StepStatus',
+          "'process'",
+        ],
+        [
+          'index > current',
+          'When Step.status is omitted, steps after current render as waiting.',
+          "'wait'",
+          '-',
+        ],
+        [
+          'Step.status',
+          'A status on an individual step overrides the automatic result.',
+          'StepStatus',
+          '-',
+        ],
+      ],
+    },
+    {
+      title: 'Types',
+      rows: [
+        ['StepStatus', 'Step status.', "'wait' | 'process' | 'finish' | 'error' | 'loading'", '-'],
+        [
+          'StepsLabelPlacement',
+          'Label placement. horizontal equals right, vertical equals bottom.',
+          "'right' | 'bottom' | 'horizontal' | 'vertical'",
+          '-',
+        ],
+      ],
+    },
+  ],
+};

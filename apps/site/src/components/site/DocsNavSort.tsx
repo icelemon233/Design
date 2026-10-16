@@ -10,9 +10,10 @@ export const DocsNavSort = ({
   mode: DocsNavSortMode;
   setMode: (mode: DocsNavSortMode) => void;
 }) => {
-  const copy = language === 'zh'
-    ? { label: '导航排序', default: '默认' }
-    : { label: 'Navigation order', default: 'Default' };
+  const copy =
+    language === 'zh'
+      ? { label: '导航排序', default: '默认' }
+      : { label: 'Navigation order', default: 'Default' };
 
   return (
     <SiteSegmented

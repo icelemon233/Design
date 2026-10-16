@@ -1,5 +1,5 @@
-import React from 'react';
 import * as Cinna from '@cinna-design/react';
+import React from 'react';
 import type { ComponentDocConfig } from '../../types';
 
 const workspaceItems = [
@@ -36,7 +36,8 @@ export const menuDoc: ComponentDocConfig = {
       },
       en: {
         title: 'Horizontal navigation',
-        description: 'Use mode="horizontal" for global navigation with icons, submenus, and selection.',
+        description:
+          'Use mode="horizontal" for global navigation with icons, submenus, and selection.',
         codeToggle: 'View horizontal navigation code',
       },
       code: `import { Menu } from '@cinna-design/react';
@@ -87,7 +88,8 @@ export default () => (
       },
       en: {
         title: 'Inline menu',
-        description: 'Use mode="inline" for side navigation and control expanded submenus with openKeys.',
+        description:
+          'Use mode="inline" for side navigation and control expanded submenus with openKeys.',
         codeToggle: 'View inline menu code',
       },
       code: `import { Menu } from '@cinna-design/react';
@@ -230,7 +232,9 @@ export default () => {
 
           return (
             <Cinna.Space direction="vertical" align="flex-start">
-              <Cinna.Button size="small" onClick={() => setCollapsed(!collapsed)}>Toggle</Cinna.Button>
+              <Cinna.Button size="small" onClick={() => setCollapsed(!collapsed)}>
+                Toggle
+              </Cinna.Button>
               <Cinna.Menu
                 mode="inline"
                 inlineCollapsed={collapsed}
@@ -252,12 +256,14 @@ export default () => {
       id: 'menu-popup-submenu',
       zh: {
         title: '弹出子菜单',
-        description: '垂直和顶部菜单的子级默认以浮层形式出现，triggerSubMenuAction 可切换悬浮或点击展开。',
+        description:
+          '垂直和顶部菜单的子级默认以浮层形式出现，triggerSubMenuAction 可切换悬浮或点击展开。',
         codeToggle: '查看弹出子菜单代码',
       },
       en: {
         title: 'Popup submenu',
-        description: 'Submenus in vertical and horizontal menus open as floating panels; triggerSubMenuAction switches hover or click.',
+        description:
+          'Submenus in vertical and horizontal menus open as floating panels; triggerSubMenuAction switches hover or click.',
         codeToggle: 'View popup submenu code',
       },
       code: `import { Menu } from '@cinna-design/react';
@@ -306,7 +312,8 @@ export default () => (
       },
       en: {
         title: 'Multiple selection',
-        description: 'Use multiple to keep several items selected and receive onDeselect when an item is removed.',
+        description:
+          'Use multiple to keep several items selected and receive onDeselect when an item is removed.',
         codeToggle: 'View multiple selection code',
       },
       code: `import { Menu, Space, Text } from '@cinna-design/react';
@@ -366,7 +373,8 @@ export default () => {
       },
       en: {
         title: 'Groups, dividers, and states',
-        description: 'Items support group, divider, disabled, danger, and extra for organizing complex actions.',
+        description:
+          'Items support group, divider, disabled, danger, and extra for organizing complex actions.',
         codeToggle: 'View item states code',
       },
       code: `import { Menu } from '@cinna-design/react';
@@ -417,7 +425,8 @@ export default () => (
       },
       en: {
         title: 'Theme and submenu theme',
-        description: 'Use theme to switch the whole menu tone, and set theme on a submenu independently.',
+        description:
+          'Use theme to switch the whole menu tone, and set theme on a submenu independently.',
         codeToggle: 'View theme code',
       },
       code: `import { Menu } from '@cinna-design/react';
@@ -537,7 +546,8 @@ export default () => {
       },
       en: {
         title: 'Custom semantic styles and popup',
-        description: 'Use classNames, styles, and popupRender to tune semantic nodes and submenu panels.',
+        description:
+          'Use classNames, styles, and popupRender to tune semantic nodes and submenu panels.',
         codeToggle: 'View custom semantic styles code',
       },
       code: `import { Menu } from '@cinna-design/react';
@@ -579,9 +589,7 @@ export default () => (
             popup: { minWidth: 220 },
           }}
           popupRender={(node) => (
-            <div style={{ padding: 4, borderRadius: 14, background: '#effaff' }}>
-              {node}
-            </div>
+            <div style={{ padding: 4, borderRadius: 14, background: '#effaff' }}>{node}</div>
           )}
           items={[
             {

@@ -6,7 +6,7 @@
 Primary / Milk Cloud Blue: #A8DFF1
 Primary Hover:             #BDEAF7
 Primary Active:            #73C4E0
-Primary Deep:              #3D8EAA
+Primary Deep:              #28738D
 
 Background / Cream Sky:    #FFF8EE
 Surface / Cloud Cream:     #FFFCF6

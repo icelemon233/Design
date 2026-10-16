@@ -27,7 +27,12 @@ export const SiteSegmented = <T extends string>({
       <button
         key={option.value}
         type="button"
-        className={['site-segmented__item', option.value === value ? 'site-segmented__item--active' : undefined].filter(Boolean).join(' ')}
+        className={[
+          'site-segmented__item',
+          option.value === value ? 'site-segmented__item--active' : undefined,
+        ]
+          .filter(Boolean)
+          .join(' ')}
         aria-pressed={option.value === value}
         onClick={() => onChange(option.value)}
       >

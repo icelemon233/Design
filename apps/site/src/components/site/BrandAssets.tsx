@@ -1,13 +1,24 @@
-import mascotSrc from '../../assets/cinna-cloud-cat.webp';
+import mascotSrc from '../../assets/cinna-avatar.webp';
 import apiIconSrc from '../../assets/cinna-doc-icon-api.webp';
 import sampleIconSrc from '../../assets/cinna-doc-icon-sample.webp';
 import usageIconSrc from '../../assets/cinna-doc-icon-usage.webp';
+import portraitSrc from '../../assets/cinna-portrait.webp';
 
-export const Mascot = ({ className, size, alt = '' }: { className?: string; size?: number; alt?: string }) => (
+export const Mascot = ({
+  className,
+  size,
+  alt = '',
+  variant = 'avatar',
+}: {
+  className?: string;
+  size?: number;
+  alt?: string;
+  variant?: 'avatar' | 'portrait';
+}) => (
   <img
     alt={alt}
     className={['cinna-mascot', className ?? ''].filter(Boolean).join(' ')}
-    src={mascotSrc}
+    src={variant === 'portrait' ? portraitSrc : mascotSrc}
     style={size ? { width: size, height: size } : undefined}
   />
 );

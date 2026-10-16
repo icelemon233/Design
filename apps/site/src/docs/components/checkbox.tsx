@@ -1,5 +1,5 @@
-import React from 'react';
 import * as Cinna from '@cinna-design/react';
+import React from 'react';
 import type { ComponentDocConfig } from '../../types';
 
 const plainOptions = [
@@ -31,12 +31,14 @@ export default () => <Checkbox label="Receive release notes" />;`,
       id: 'checkbox-animation',
       zh: {
         title: '动效选择',
-        description: 'animation 支持粒子、弹出、手写勾号和无动效，点击文字也会触发动效，粒子范围仍限制在勾选框区域。',
+        description:
+          'animation 支持粒子、弹出、手写勾号和无动效，点击文字也会触发动效，粒子范围仍限制在勾选框区域。',
         codeToggle: '查看动效选择代码',
       },
       en: {
         title: 'Animation',
-        description: 'animation supports particles, pop, handwriting, and none. Clicking the label also triggers motion, while particles stay scoped to the box.',
+        description:
+          'animation supports particles, pop, handwriting, and none. Clicking the label also triggers motion, while particles stay scoped to the box.',
         codeToggle: 'View animation code',
       },
       code: `import { Checkbox, Space } from '@cinna-design/react';
@@ -67,7 +69,8 @@ export default () => (
       },
       en: {
         title: 'Checkbox group',
-        description: 'CheckboxGroup manages related options and returns checked values from onChange.',
+        description:
+          'CheckboxGroup manages related options and returns checked values from onChange.',
         codeToggle: 'View checkbox group code',
       },
       code: `import { CheckboxGroup, Space, Text } from '@cinna-design/react';
@@ -113,7 +116,8 @@ export default () => {
       },
       en: {
         title: 'Indeterminate linkage',
-        description: 'A parent checkbox can use indeterminate for partial selection and link with children.',
+        description:
+          'A parent checkbox can use indeterminate for partial selection and link with children.',
         codeToggle: 'View indeterminate linkage code',
       },
       code: `import { Checkbox, CheckboxGroup, Space } from '@cinna-design/react';
@@ -154,7 +158,11 @@ export default () => {
                 label="Select all resources"
                 checked={allChecked}
                 indeterminate={indeterminate}
-                onChange={(event) => setChecked(event.currentTarget.checked ? plainOptions.map((item) => item.value) : [])}
+                onChange={(event) =>
+                  setChecked(
+                    event.currentTarget.checked ? plainOptions.map((item) => item.value) : [],
+                  )
+                }
               />
               <Cinna.CheckboxGroup options={plainOptions} value={checked} onChange={setChecked} />
             </Cinna.Space>
@@ -200,7 +208,8 @@ export default () => (
       },
       en: {
         title: 'Font and color',
-        description: 'Use fontSize, labelColor, checkedColor, and related props to tune text and box color.',
+        description:
+          'Use fontSize, labelColor, checkedColor, and related props to tune text and box color.',
         codeToggle: 'View font and color code',
       },
       code: `import { Checkbox, Space } from '@cinna-design/react';

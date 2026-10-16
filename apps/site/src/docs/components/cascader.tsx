@@ -1,6 +1,6 @@
-import React from 'react';
-import * as Cinna from '@cinna-design/react';
 import type { CascaderValue } from '@cinna-design/react';
+import * as Cinna from '@cinna-design/react';
+import React from 'react';
 import type { ComponentDocConfig } from '../../types';
 
 const docsOptions = [
@@ -86,7 +86,8 @@ export default () => <Cascader options={options} placeholder="Choose path" />;`,
       },
       en: {
         title: 'Default value and display',
-        description: 'Use a path array as defaultValue, and customize selected display with displayRender.',
+        description:
+          'Use a path array as defaultValue, and customize selected display with displayRender.',
         codeToggle: 'View default display code',
       },
       code: `import { Cascader } from '@cinna-design/react';
@@ -128,11 +129,7 @@ export default () => (
   />
 );`,
       render: () => (
-        <Cinna.Cascader
-          expandTrigger="hover"
-          options={teamOptions}
-          placeholder="Hover to expand"
-        />
+        <Cinna.Cascader expandTrigger="hover" options={teamOptions} placeholder="Hover to expand" />
       ),
     },
     {
@@ -144,7 +141,8 @@ export default () => (
       },
       en: {
         title: 'Change on select',
-        description: 'changeOnSelect allows selecting parent nodes and emits changes at each level.',
+        description:
+          'changeOnSelect allows selecting parent nodes and emits changes at each level.',
         codeToggle: 'View change on select code',
       },
       code: `import { Cascader, Space, Text } from '@cinna-design/react';
@@ -166,7 +164,11 @@ export default () => {
 
           return (
             <Cinna.Space direction="vertical" align="flex-start">
-              <Cinna.Cascader changeOnSelect options={teamOptions} onChange={(next) => setValue(next as CascaderValue)} />
+              <Cinna.Cascader
+                changeOnSelect
+                options={teamOptions}
+                onChange={(next) => setValue(next as CascaderValue)}
+              />
               <Cinna.Text tone="secondary">Selected: {value.join(' / ') || 'none'}</Cinna.Text>
             </Cinna.Space>
           );
@@ -184,7 +186,8 @@ export default () => {
       },
       en: {
         title: 'Multiple selection and tags',
-        description: 'multiple selects several paths, while maxTagCount and tagRender control tag display.',
+        description:
+          'multiple selects several paths, while maxTagCount and tagRender control tag display.',
         codeToggle: 'View multiple code',
       },
       code: `import { Cascader } from '@cinna-design/react';
@@ -216,7 +219,8 @@ export default () => (
       id: 'cascader-search',
       zh: {
         title: '搜索路径',
-        description: 'showSearch 可在弹层中搜索完整路径，也可以传入 filter、sort 和 render 定制结果。',
+        description:
+          'showSearch 可在弹层中搜索完整路径，也可以传入 filter、sort 和 render 定制结果。',
         codeToggle: '查看搜索路径代码',
       },
       en: {
@@ -241,7 +245,9 @@ export default () => (
         <Cinna.Cascader
           showSearch={{
             filter: (input, path) =>
-              path.some((option) => String(option.label).toLowerCase().includes(input.toLowerCase())),
+              path.some((option) =>
+                String(option.label).toLowerCase().includes(input.toLowerCase()),
+              ),
             render: (_, path) => path.map((option) => option.label).join(' -> '),
           }}
           options={docsOptions}
@@ -253,12 +259,14 @@ export default () => (
       id: 'cascader-load-field-names',
       zh: {
         title: '动态加载与字段名',
-        description: 'isLeaf=false 会展示可展开状态，loadData 用于接入异步加载；fieldNames 可适配不同数据结构。',
+        description:
+          'isLeaf=false 会展示可展开状态，loadData 用于接入异步加载；fieldNames 可适配不同数据结构。',
         codeToggle: '查看动态加载代码',
       },
       en: {
         title: 'Lazy loading and field names',
-        description: 'isLeaf=false marks expandable nodes for loadData, and fieldNames adapts custom data shapes.',
+        description:
+          'isLeaf=false marks expandable nodes for loadData, and fieldNames adapts custom data shapes.',
         codeToggle: 'View lazy loading code',
       },
       code: `import { Cascader } from '@cinna-design/react';
@@ -304,7 +312,8 @@ export default () => (
                   { name: 'Release notes', id: 'release-notes' },
                 ]);
               }, 900);
-            })}
+            })
+          }
         />
       ),
     },
@@ -317,7 +326,8 @@ export default () => (
       },
       en: {
         title: 'Variant, status, and popup',
-        description: 'Combine variant, status, prefix, suffixIcon, popupRender, and semantic styles.',
+        description:
+          'Combine variant, status, prefix, suffixIcon, popupRender, and semantic styles.',
         codeToggle: 'View variant and popup code',
       },
       code: `import { Cascader, Icon } from '@cinna-design/react';
@@ -378,7 +388,11 @@ export default () => (
       render: () => (
         <Cinna.Space wrap>
           <Cinna.Cascader placement="bottomLeft" options={docsOptions} placeholder="Bottom left" />
-          <Cinna.Cascader placement="bottomRight" options={docsOptions} placeholder="Bottom right" />
+          <Cinna.Cascader
+            placement="bottomRight"
+            options={docsOptions}
+            placeholder="Bottom right"
+          />
         </Cinna.Space>
       ),
     },

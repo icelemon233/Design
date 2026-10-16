@@ -1,0 +1,330 @@
+.cinna-alert,
+.cinna-message,
+.cinna-notification,
+.cinna-result,
+.cinna-tour {
+  border: 1.5px solid var(--cinna-color-border);
+  border-radius: var(--cinna-radius-md);
+  background: var(--cinna-color-surface);
+  box-shadow: var(--cinna-shadow-soft);
+}
+
+.cinna-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.cinna-alert--info,
+.cinna-message--info,
+.cinna-notification--info {
+  border-color: rgba(61, 142, 170, 0.24);
+  background: #f0fafe;
+}
+
+.cinna-alert--success,
+.cinna-message--success,
+.cinna-notification--success {
+  border-color: rgba(114, 184, 102, 0.28);
+  background: #f3faef;
+}
+
+.cinna-alert--warning,
+.cinna-message--warning,
+.cinna-notification--warning {
+  border-color: rgba(233, 169, 61, 0.32);
+  background: #fff3ce;
+}
+
+.cinna-alert--error,
+.cinna-message--error,
+.cinna-notification--error {
+  border-color: rgba(223, 102, 119, 0.3);
+  background: #fff0f2;
+}
+
+.cinna-alert__icon,
+.cinna-result__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--cinna-color-primary);
+  color: var(--cinna-color-text);
+  font-weight: 900;
+}
+
+.cinna-alert__content {
+  flex: 1;
+}
+
+.cinna-alert__message {
+  color: var(--cinna-color-text);
+  font-weight: 900;
+}
+
+.cinna-alert__description,
+.cinna-result__subtitle,
+.cinna-notification > span {
+  margin-top: 4px;
+  color: var(--cinna-color-text-secondary);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.cinna-alert__close,
+.cinna-tag__close,
+.cinna-modal__header button,
+.cinna-drawer__header button {
+  border: 0;
+  background: transparent;
+  color: var(--cinna-color-text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+}
+
+.cinna-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 3px 10px;
+  border: 1.5px solid var(--cinna-color-border);
+  border-radius: var(--cinna-radius-pill);
+  background: var(--cinna-color-surface);
+  color: var(--cinna-color-text);
+  font-size: var(--cinna-font-size-sm);
+  font-weight: 800;
+}
+
+.cinna-tag--blue {
+  background: #f0fafe;
+  border-color: rgba(61, 142, 170, 0.22);
+}
+
+.cinna-tag--butter {
+  background: #fff3ce;
+  border-color: rgba(233, 169, 61, 0.28);
+}
+
+.cinna-tag--strawberry {
+  background: #fff0f2;
+  border-color: rgba(223, 102, 119, 0.24);
+}
+
+.cinna-tag--pistachio {
+  background: #f3faef;
+  border-color: rgba(114, 184, 102, 0.26);
+}
+
+.cinna-tag--lavender {
+  background: #f5f1ff;
+  border-color: rgba(185, 167, 234, 0.32);
+}
+
+.cinna-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cinna-badge__mark {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  min-height: 20px;
+  padding: 0 6px;
+  border: 2px solid var(--cinna-color-surface);
+  border-radius: 999px;
+  background: var(--cinna-color-strawberry);
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.cinna-badge__mark--dot {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  min-height: 12px;
+  padding: 0;
+}
+
+.cinna-badge--status .cinna-badge__mark--info {
+  background: var(--cinna-color-primary-active);
+}
+
+.cinna-badge__mark--success {
+  background: var(--cinna-color-success);
+}
+
+.cinna-badge__mark--warning {
+  background: var(--cinna-color-warning);
+}
+
+.cinna-badge__mark--error {
+  background: var(--cinna-color-danger);
+}
+
+.cinna-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  background: var(--cinna-color-primary);
+  color: var(--cinna-color-text);
+  font-weight: 900;
+  box-shadow: 0 4px 0 rgba(120, 189, 212, 0.32);
+}
+
+.cinna-avatar--small {
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+}
+
+.cinna-avatar--medium {
+  width: 40px;
+  height: 40px;
+  font-size: 15px;
+}
+
+.cinna-avatar--large {
+  width: 52px;
+  height: 52px;
+  font-size: 18px;
+}
+
+.cinna-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cinna-empty {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  min-height: 150px;
+  padding: 24px;
+  border: 1.5px dashed var(--cinna-color-border);
+  border-radius: var(--cinna-radius-lg);
+  color: var(--cinna-color-text-secondary);
+  font-weight: 800;
+}
+
+.cinna-empty__cloud {
+  width: 70px;
+  height: 42px;
+  border-radius: 999px;
+  background: var(--cinna-color-primary);
+  opacity: 0.45;
+}
+
+.cinna-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 180px;
+}
+
+.cinna-progress__track {
+  flex: 1;
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(230, 214, 196, 0.54);
+}
+
+.cinna-progress__bar {
+  height: 100%;
+  border-radius: inherit;
+  background: var(
+    --cinna-progress-color,
+    linear-gradient(90deg, var(--cinna-color-primary), var(--cinna-color-butter))
+  );
+}
+
+.cinna-progress--success {
+  --cinna-progress-color: var(--cinna-color-success);
+}
+
+.cinna-progress--warning {
+  --cinna-progress-color: var(--cinna-color-warning);
+}
+
+.cinna-progress--error {
+  --cinna-progress-color: var(--cinna-color-danger);
+}
+
+.cinna-progress__text {
+  min-width: 42px;
+  color: var(--cinna-color-text-secondary);
+  font-size: var(--cinna-font-size-sm);
+  font-weight: 900;
+}
+
+.cinna-skeleton {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.cinna-skeleton__avatar,
+.cinna-skeleton__line {
+  display: block;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(230, 214, 196, 0.4),
+    rgba(168, 223, 241, 0.36),
+    rgba(230, 214, 196, 0.4)
+  );
+  background-size: 220% 100%;
+}
+
+.cinna-skeleton__avatar {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+}
+
+.cinna-skeleton__lines {
+  display: grid;
+  flex: 1;
+  gap: 10px;
+}
+
+.cinna-skeleton__line {
+  height: 14px;
+}
+
+.cinna-skeleton--active .cinna-skeleton__avatar,
+.cinna-skeleton--active .cinna-skeleton__line {
+  animation: cinna-skeleton 1400ms ease infinite;
+}
+
+.cinna-result {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 28px;
+  text-align: center;
+}
+
+.cinna-result__title {
+  color: var(--cinna-color-text);
+  font-size: var(--cinna-font-size-xl);
+  font-weight: 900;
+}

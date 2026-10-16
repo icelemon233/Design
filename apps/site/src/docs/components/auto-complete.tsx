@@ -1,5 +1,5 @@
-import React from 'react';
 import * as Cinna from '@cinna-design/react';
+import React from 'react';
 import type { ComponentDocConfig } from '../../types';
 
 const resourceOptions = [
@@ -216,7 +216,12 @@ export default () => (
         <Cinna.Space direction="vertical" align="stretch" style={{ width: 'min(420px, 100%)' }}>
           <Cinna.AutoComplete controlSize="small" options={['small']} placeholder="Small" />
           <Cinna.AutoComplete variant="filled" options={['filled']} placeholder="Filled" />
-          <Cinna.AutoComplete variant="underlined" status="warning" options={['warning']} placeholder="Warning" />
+          <Cinna.AutoComplete
+            variant="underlined"
+            status="warning"
+            options={['warning']}
+            placeholder="Warning"
+          />
           <Cinna.AutoComplete status="error" options={['error']} placeholder="Error" />
         </Cinna.Space>
       ),
@@ -230,7 +235,8 @@ export default () => (
       },
       en: {
         title: 'Keyboard and backfill',
-        description: 'Arrow keys move the active option and Enter selects it; backfill previews the active value.',
+        description:
+          'Arrow keys move the active option and Enter selects it; backfill previews the active value.',
         codeToggle: 'View keyboard code',
       },
       code: `import { AutoComplete } from '@cinna-design/react';
@@ -261,7 +267,8 @@ export default () => (
       },
       en: {
         title: 'Popup and semantic styles',
-        description: 'Use popupRender to wrap popup content, and classNames/styles for semantic nodes.',
+        description:
+          'Use popupRender to wrap popup content, and classNames/styles for semantic nodes.',
         codeToggle: 'View popup style code',
       },
       code: `import { AutoComplete } from '@cinna-design/react';

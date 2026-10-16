@@ -1,0 +1,38 @@
+.cinna-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cinna-calendar__header button,
+.cinna-carousel__arrows button,
+.cinna-carousel__dots button,
+.cinna-tour__actions button {
+  border: 0;
+  border-radius: var(--cinna-radius-pill);
+  background: var(--cinna-color-surface-blue);
+  color: var(--cinna-color-primary-deep);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+}
+
+.cinna-calendar__header button {
+  width: 32px;
+  height: 32px;
+}
+
+.cinna-calendar__day--today {
+  box-shadow: inset 0 0 0 2px rgba(61, 142, 170, 0.25);
+}
+
+.cinna-calendar--fullscreen {
+  width: 100%;
+}
+
+.cinna-carousel {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  overflow: hidden;
+}

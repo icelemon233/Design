@@ -16,7 +16,12 @@ export const DocFrame = ({
   className?: string;
   children: ReactNode;
 }) => (
-  <section className={['cinna-doc-frame', `cinna-doc-frame--${tone}`, className ?? ''].filter(Boolean).join(' ')} aria-labelledby={id}>
+  <section
+    className={['cinna-doc-frame', `cinna-doc-frame--${tone}`, className ?? '']
+      .filter(Boolean)
+      .join(' ')}
+    aria-labelledby={id}
+  >
     <div className="cinna-doc-frame__header">
       <span className="cinna-doc-frame__mark" aria-hidden="true">
         <DocIcon kind={icon} />

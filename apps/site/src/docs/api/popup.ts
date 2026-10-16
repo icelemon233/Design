@@ -1,0 +1,96 @@
+// Generated from component types. Run pnpm docs:api after changing props.
+import type { ApiSection, SiteLanguage } from '../../types';
+import { popupApiRows as curated } from './curated/popup';
+import { mergeApiSections } from './merge';
+const generated: Record<SiteLanguage, ApiSection[]> = {
+  zh: [
+    {
+      title: 'Popup',
+      rows: [
+        ['mode', '显示或选择模式。', 'PopupMode', "'popover'"],
+        ['label', '关联控件的标签。', 'React.ReactNode', '-'],
+        ['items', '展示项目。', 'MenuItem[]', '-'],
+        ['menu', 'menu 的配置或回调。', 'React.ReactNode', '-'],
+        ['title', '标题内容。', 'React.ReactNode', '-'],
+        ['content', '正文内容。', 'React.ReactNode', '-'],
+        ['description', '辅助描述内容；false 可隐藏。', 'React.ReactNode', '-'],
+        [
+          'trigger',
+          '字段值变更事件名。',
+          'PopupTrigger',
+          "mode === 'menu' || mode === 'confirm' ? 'click' : 'hover'",
+        ],
+        ['placement', 'placement 的配置或回调。', 'PopupPlacement', "'bottom'"],
+        ['align', 'align 的配置或回调。', 'PopupAlign', "'center'"],
+        ['arrow', 'arrow 的配置或回调。', 'boolean', 'false'],
+        ['open', '受控的打开状态。', 'boolean', '-'],
+        ['defaultOpen', '初始打开状态。', 'boolean', 'false'],
+        ['disabled', '禁用用户输入和操作。', 'boolean', 'false'],
+        ['closeOnSelect', 'closeOnSelect 的配置或回调。', 'boolean', 'true'],
+        ['overlayClassName', 'overlayClassName 的配置或回调。', 'string', '-'],
+        ['overlayStyle', 'overlayStyle 的配置或回调。', 'React.CSSProperties', '-'],
+        ['styles', 'styles 的配置或回调。', 'PopupStyles', '-'],
+        ['onOpenChange', '打开状态变化时调用。', '((open: boolean) => void)', '-'],
+        ['onSelect', '选中项目时调用。', '((key: string) => void)', '-'],
+        ['okText', 'okText 的配置或回调。', 'React.ReactNode', "'OK'"],
+        ['cancelText', 'cancelText 的配置或回调。', 'React.ReactNode', "'Cancel'"],
+        ['onConfirm', 'onConfirm 的配置或回调。', '(() => void | Promise<void>)', '-'],
+        ['onCancel', '取消或请求关闭时调用。', '(() => void)', '-'],
+        ['okButtonProps', 'okButtonProps 的配置或回调。', 'ButtonProps', '-'],
+        ['cancelButtonProps', 'cancelButtonProps 的配置或回调。', 'ButtonProps', '-'],
+      ],
+    },
+  ],
+  en: [
+    {
+      title: 'Popup',
+      rows: [
+        ['mode', 'Display or selection mode.', 'PopupMode', "'popover'"],
+        ['label', 'Label for the associated control.', 'React.ReactNode', '-'],
+        ['items', 'Items to display.', 'MenuItem[]', '-'],
+        ['menu', 'Configuration or callback for menu.', 'React.ReactNode', '-'],
+        ['title', 'Title content.', 'React.ReactNode', '-'],
+        ['content', 'Body content.', 'React.ReactNode', '-'],
+        ['description', 'Description; false hides it.', 'React.ReactNode', '-'],
+        [
+          'trigger',
+          'Event used to update the field value.',
+          'PopupTrigger',
+          "mode === 'menu' || mode === 'confirm' ? 'click' : 'hover'",
+        ],
+        ['placement', 'Configuration or callback for placement.', 'PopupPlacement', "'bottom'"],
+        ['align', 'Configuration or callback for align.', 'PopupAlign', "'center'"],
+        ['arrow', 'Configuration or callback for arrow.', 'boolean', 'false'],
+        ['open', 'Controlled open state.', 'boolean', '-'],
+        ['defaultOpen', 'Initial open state.', 'boolean', 'false'],
+        ['disabled', 'Disable user input and interaction.', 'boolean', 'false'],
+        ['closeOnSelect', 'Configuration or callback for closeOnSelect.', 'boolean', 'true'],
+        ['overlayClassName', 'Configuration or callback for overlayClassName.', 'string', '-'],
+        ['overlayStyle', 'Configuration or callback for overlayStyle.', 'React.CSSProperties', '-'],
+        ['styles', 'Configuration or callback for styles.', 'PopupStyles', '-'],
+        ['onOpenChange', 'Called when the open state changes.', '((open: boolean) => void)', '-'],
+        ['onSelect', 'Called when an item is selected.', '((key: string) => void)', '-'],
+        ['okText', 'Configuration or callback for okText.', 'React.ReactNode', "'OK'"],
+        ['cancelText', 'Configuration or callback for cancelText.', 'React.ReactNode', "'Cancel'"],
+        [
+          'onConfirm',
+          'Configuration or callback for onConfirm.',
+          '(() => void | Promise<void>)',
+          '-',
+        ],
+        ['onCancel', 'Called on cancel or dismissal.', '(() => void)', '-'],
+        ['okButtonProps', 'Configuration or callback for okButtonProps.', 'ButtonProps', '-'],
+        [
+          'cancelButtonProps',
+          'Configuration or callback for cancelButtonProps.',
+          'ButtonProps',
+          '-',
+        ],
+      ],
+    },
+  ],
+};
+export const popupApiRows = {
+  zh: mergeApiSections(curated.zh, generated.zh),
+  en: mergeApiSections(curated.en, generated.en),
+};

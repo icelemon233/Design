@@ -1,5 +1,5 @@
-import React from 'react';
 import * as Cinna from '@cinna-design/react';
+import React from 'react';
 import type { ComponentDocConfig } from '../../types';
 
 const PaginationControlledExample = () => {
@@ -8,7 +8,9 @@ const PaginationControlledExample = () => {
 
   return (
     <Cinna.Space direction="vertical" align="flex-start">
-      <Cinna.Text tone="secondary">Page {page}, {pageSize} items per page</Cinna.Text>
+      <Cinna.Text tone="secondary">
+        Page {page}, {pageSize} items per page
+      </Cinna.Text>
       <Cinna.Pagination
         current={page}
         pageSize={pageSize}
@@ -70,7 +72,8 @@ export default () => (
       },
       en: {
         title: 'Size and alignment',
-        description: 'Use size for density and align to position the pagination inside its container.',
+        description:
+          'Use size for density and align to position the pagination inside its container.',
         codeToggle: 'View size and alignment code',
       },
       code: `import { Icon, Pagination, Space } from '@cinna-design/react';
@@ -99,7 +102,8 @@ export default () => (
       },
       en: {
         title: 'Page size',
-        description: 'showSizeChanger displays the page-size selector and pageSizeOptions controls its options.',
+        description:
+          'showSizeChanger displays the page-size selector and pageSizeOptions controls its options.',
         codeToggle: 'View page size code',
       },
       code: `import { Pagination } from '@cinna-design/react';
@@ -130,7 +134,8 @@ export default () => (
       },
       en: {
         title: 'Quick jumper',
-        description: 'showQuickJumper lets users enter a page number and press Enter or a custom button.',
+        description:
+          'showQuickJumper lets users enter a page number and press Enter or a custom button.',
         codeToggle: 'View quick jumper code',
       },
       code: `import { Pagination } from '@cinna-design/react';
@@ -149,7 +154,8 @@ export default () => (
       },
       en: {
         title: 'Simple mode',
-        description: 'Use simple mode in compact areas; readOnly keeps the current page display static.',
+        description:
+          'Use simple mode in compact areas; readOnly keeps the current page display static.',
         codeToggle: 'View simple mode code',
       },
       code: `import { Pagination, Space } from '@cinna-design/react';
@@ -213,7 +219,8 @@ export default () => {
       },
       en: {
         title: 'Total and hiding',
-        description: 'showTotal displays the visible range; hideOnSinglePage hides the control for one-page data.',
+        description:
+          'showTotal displays the visible range; hideOnSinglePage hides the control for one-page data.',
         codeToggle: 'View total and hiding code',
       },
       code: `import { Pagination, Space, Text } from '@cinna-design/react';
@@ -238,7 +245,9 @@ export default () => (
             defaultCurrent={2}
             showTotal={(total, range) => `${range[0]}-${range[1]} of ${total}`}
           />
-          <Cinna.Text tone="secondary">The next pagination is hidden because it has one page.</Cinna.Text>
+          <Cinna.Text tone="secondary">
+            The next pagination is hidden because it has one page.
+          </Cinna.Text>
           <Cinna.Pagination total={8} hideOnSinglePage />
         </Cinna.Space>
       ),
@@ -252,7 +261,8 @@ export default () => (
       },
       en: {
         title: 'Show all pages',
-        description: 'showAllPages keeps every page visible when the page count is still manageable.',
+        description:
+          'showAllPages keeps every page visible when the page count is still manageable.',
         codeToggle: 'View show all pages code',
       },
       code: `import { Pagination } from '@cinna-design/react';
@@ -264,12 +274,14 @@ export default () => <Pagination total={120} showAllPages />;`,
       id: 'custom-pagination',
       zh: {
         title: '自定义页码样式和图标',
-        description: '可以自定义页码字体、边框、圆角、激活态颜色、当前页横条，以及上一页和下一页图标。',
+        description:
+          '可以自定义页码字体、边框、圆角、激活态颜色、当前页横条，以及上一页和下一页图标。',
         codeToggle: '查看自定义页码样式和图标代码',
       },
       en: {
         title: 'Custom page style and icons',
-        description: 'Customize page font, border, radius, active color, active underline, and previous or next icons.',
+        description:
+          'Customize page font, border, radius, active color, active underline, and previous or next icons.',
         codeToggle: 'View custom style and icons code',
       },
       code: `import { Pagination, Space } from '@cinna-design/react';
@@ -362,7 +374,8 @@ export default () => (
       },
       en: {
         title: 'Disabled',
-        description: 'disabled turns off page buttons, navigation buttons, inputs, and the page-size selector.',
+        description:
+          'disabled turns off page buttons, navigation buttons, inputs, and the page-size selector.',
         codeToggle: 'View disabled code',
       },
       code: `import { Pagination } from '@cinna-design/react';

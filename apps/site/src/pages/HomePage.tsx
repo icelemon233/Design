@@ -1,9 +1,9 @@
 import * as Cinna from '@cinna-design/react';
-import { siteI18n } from '../i18n';
-import type { SiteLanguage } from '../types';
 import { Mascot } from '../components/site/BrandAssets';
 import { CodeBlock } from '../components/site/CodeBlock';
 import { LanguageSwitch } from '../components/site/LanguageSwitch';
+import { siteI18n } from '../i18n';
+import type { SiteLanguage } from '../types';
 
 export const HomePage = ({
   language,
@@ -23,7 +23,7 @@ import '@cinna-design/react/style.css';
 export default () => <Button>${language === 'zh' ? '云朵按钮' : 'Cloud button'}</Button>;`;
 
   return (
-    <main className="site-shell">
+    <main className="site-shell" id="main-content" tabIndex={-1}>
       <section className="hero home-panel" aria-labelledby="hero-title">
         <nav className="topbar" aria-label="Main navigation">
           <div className="topbar__actions">
@@ -31,11 +31,11 @@ export default () => <Button>${language === 'zh' ? '云朵按钮' : 'Cloud butto
           </div>
         </nav>
         <div className="hero__mascot" aria-hidden="true">
-          <Mascot className="hero__mascot-image" />
+          <Mascot className="hero__mascot-image" variant="portrait" />
         </div>
         <div className="hero__content">
-          <p className="eyebrow">{copy.packageIntro}</p>
           <h1 id="hero-title">{copy.themeCardTitle}</h1>
+          <p className="hero__subtitle">{copy.packageIntro}</p>
           <p className="hero__copy">{copy.storyIntro}</p>
           {copy.storyBody ? <p className="hero__copy">{copy.storyBody}</p> : null}
           <blockquote className="hero__quote">{copy.storyQuote}</blockquote>
@@ -48,10 +48,16 @@ export default () => <Button>${language === 'zh' ? '云朵按钮' : 'Cloud butto
         <button
           className="scroll-cue"
           type="button"
-          onClick={() => document.getElementById('install-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          onClick={() =>
+            document
+              .getElementById('install-title')
+              ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
         >
           <span>{copy.scrollHint}</span>
-          <span aria-hidden="true"><Cinna.Icon name="arrow-tail-down" size={22} /></span>
+          <span aria-hidden="true">
+            <Cinna.Icon name="arrow-tail-down" size={22} />
+          </span>
         </button>
       </section>
       <section className="home-section home-section--install" aria-labelledby="install-title">

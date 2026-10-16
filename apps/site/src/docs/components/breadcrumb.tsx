@@ -1,5 +1,5 @@
-import React from 'react';
 import * as Cinna from '@cinna-design/react';
+import React from 'react';
 import type { ComponentDocConfig } from '../../types';
 
 const breadcrumbPages = {
@@ -71,7 +71,9 @@ const CardBreadcrumbExample = () => {
             setActive(String(item.title));
           }}
         />
-        <Cinna.Title level={4}>{active === 'Products' ? 'Product catalog' : 'Cloud cake details'}</Cinna.Title>
+        <Cinna.Title level={4}>
+          {active === 'Products' ? 'Product catalog' : 'Cloud cake details'}
+        </Cinna.Title>
       </Cinna.Space>
     </Cinna.Card>
   );
@@ -108,7 +110,9 @@ const MenuBreadcrumbExample = () => {
           { key: 'breadcrumb', title: 'Breadcrumb' },
         ]}
         onItemClick={(event) => event.preventDefault()}
-        onMenuSelect={(key) => setActive(key === 'general' ? 'General' : key === 'feedback' ? 'Feedback' : 'Navigation')}
+        onMenuSelect={(key) =>
+          setActive(key === 'general' ? 'General' : key === 'feedback' ? 'Feedback' : 'Navigation')
+        }
       />
       <div style={breadcrumbPanelStyle}>
         <Cinna.Title level={5}>{active}</Cinna.Title>
@@ -129,20 +133,20 @@ const StyledBreadcrumbExample = () => (
 );
 
 export const breadcrumbDoc: ComponentDocConfig = {
-    examples: [
-      {
-        id: 'basic-breadcrumb',
-        zh: {
-          title: '基本用法',
-          description: '展示当前页面在层级结构中的位置。',
-          codeToggle: '查看基本用法代码',
-        },
-        en: {
-          title: 'Basic breadcrumb',
-          description: 'Show where the current page sits in a hierarchy.',
-          codeToggle: 'View basic breadcrumb code',
-        },
-        code: `import { Breadcrumb } from '@cinna-design/react';
+  examples: [
+    {
+      id: 'basic-breadcrumb',
+      zh: {
+        title: '基本用法',
+        description: '展示当前页面在层级结构中的位置。',
+        codeToggle: '查看基本用法代码',
+      },
+      en: {
+        title: 'Basic breadcrumb',
+        description: 'Show where the current page sits in a hierarchy.',
+        codeToggle: 'View basic breadcrumb code',
+      },
+      code: `import { Breadcrumb } from '@cinna-design/react';
 
 export default () => (
   <Breadcrumb
@@ -153,29 +157,25 @@ export default () => (
     ]}
   />
 );`,
-        render: () => (
-          <Cinna.Breadcrumb
-            items={[
-              { title: 'Home' },
-              { title: 'Components' },
-              { title: 'Breadcrumb' },
-            ]}
-          />
-        ),
+      render: () => (
+        <Cinna.Breadcrumb
+          items={[{ title: 'Home' }, { title: 'Components' }, { title: 'Breadcrumb' }]}
+        />
+      ),
+    },
+    {
+      id: 'breadcrumb-links',
+      zh: {
+        title: '可点击上级',
+        description: '为上级节点提供 href，当前页保持普通文本。',
+        codeToggle: '查看可点击上级代码',
       },
-      {
-        id: 'breadcrumb-links',
-        zh: {
-          title: '可点击上级',
-          description: '为上级节点提供 href，当前页保持普通文本。',
-          codeToggle: '查看可点击上级代码',
-        },
-        en: {
-          title: 'Linked ancestors',
-          description: 'Give ancestor items href values while keeping the current page as text.',
-          codeToggle: 'View linked ancestors code',
-        },
-        code: `import { useState } from 'react';
+      en: {
+        title: 'Linked ancestors',
+        description: 'Give ancestor items href values while keeping the current page as text.',
+        codeToggle: 'View linked ancestors code',
+      },
+      code: `import { useState } from 'react';
 import { Breadcrumb, Text, Title } from '@cinna-design/react';
 
 export default () => {
@@ -199,21 +199,21 @@ export default () => {
     </>
   );
 };`,
-        render: () => <LinkedBreadcrumbExample />,
+      render: () => <LinkedBreadcrumbExample />,
+    },
+    {
+      id: 'breadcrumb-separator',
+      zh: {
+        title: '自定义分隔符',
+        description: '通过 separator 调整路径节点之间的分隔符。',
+        codeToggle: '查看自定义分隔符代码',
       },
-      {
-        id: 'breadcrumb-separator',
-        zh: {
-          title: '自定义分隔符',
-          description: '通过 separator 调整路径节点之间的分隔符。',
-          codeToggle: '查看自定义分隔符代码',
-        },
-        en: {
-          title: 'Custom separator',
-          description: 'Use separator to adjust the marker between path items.',
-          codeToggle: 'View custom separator code',
-        },
-        code: `import { Breadcrumb, Icon } from '@cinna-design/react';
+      en: {
+        title: 'Custom separator',
+        description: 'Use separator to adjust the marker between path items.',
+        codeToggle: 'View custom separator code',
+      },
+      code: `import { Breadcrumb, Icon } from '@cinna-design/react';
 
 export default () => (
   <Breadcrumb
@@ -225,30 +225,30 @@ export default () => (
     ]}
   />
 );`,
-        render: () => (
-          <Cinna.Breadcrumb
-            separator={<Cinna.Icon name="chevron-right" size={12} />}
-            items={[
-              { title: 'Projects' },
-              { title: 'Cinna', separator: ':' },
-              { title: 'Release notes' },
-            ]}
-          />
-        ),
+      render: () => (
+        <Cinna.Breadcrumb
+          separator={<Cinna.Icon name="chevron-right" size={12} />}
+          items={[
+            { title: 'Projects' },
+            { title: 'Cinna', separator: ':' },
+            { title: 'Release notes' },
+          ]}
+        />
+      ),
+    },
+    {
+      id: 'breadcrumb-icons',
+      zh: {
+        title: '带图标',
+        description: 'icon 可放在层级文字前，帮助用户快速识别路径类型。',
+        codeToggle: '查看带图标代码',
       },
-      {
-        id: 'breadcrumb-icons',
-        zh: {
-          title: '带图标',
-          description: 'icon 可放在层级文字前，帮助用户快速识别路径类型。',
-          codeToggle: '查看带图标代码',
-        },
-        en: {
-          title: 'With icons',
-          description: 'Use icon before item text to make path levels easier to scan.',
-          codeToggle: 'View icon breadcrumb code',
-        },
-        code: `import { Breadcrumb, Icon } from '@cinna-design/react';
+      en: {
+        title: 'With icons',
+        description: 'Use icon before item text to make path levels easier to scan.',
+        codeToggle: 'View icon breadcrumb code',
+      },
+      code: `import { Breadcrumb, Icon } from '@cinna-design/react';
 
 export default () => (
   <Breadcrumb
@@ -260,21 +260,21 @@ export default () => (
     ]}
   />
 );`,
-        render: () => <IconBreadcrumbExample />,
+      render: () => <IconBreadcrumbExample />,
+    },
+    {
+      id: 'breadcrumb-menu',
+      zh: {
+        title: '层级下拉菜单',
+        description: '为某一层设置 menu，可以在当前路径中切换同级入口。',
+        codeToggle: '查看层级下拉菜单代码',
       },
-      {
-        id: 'breadcrumb-menu',
-        zh: {
-          title: '层级下拉菜单',
-          description: '为某一层设置 menu，可以在当前路径中切换同级入口。',
-          codeToggle: '查看层级下拉菜单代码',
-        },
-        en: {
-          title: 'Item menu',
-          description: 'Set menu on a level to switch sibling entries inside the current path.',
-          codeToggle: 'View item menu code',
-        },
-        code: `import { useState } from 'react';
+      en: {
+        title: 'Item menu',
+        description: 'Set menu on a level to switch sibling entries inside the current path.',
+        codeToggle: 'View item menu code',
+      },
+      code: `import { useState } from 'react';
 import { Breadcrumb, Text, Title } from '@cinna-design/react';
 
 export default () => {
@@ -304,21 +304,21 @@ export default () => {
     </>
   );
 };`,
-        render: () => <MenuBreadcrumbExample />,
+      render: () => <MenuBreadcrumbExample />,
+    },
+    {
+      id: 'breadcrumb-rich-title',
+      zh: {
+        title: '分层文字样式',
+        description: '可以为不同层级设置颜色、字重、斜体或完整 style。',
+        codeToggle: '查看自定义标题代码',
       },
-      {
-        id: 'breadcrumb-rich-title',
-        zh: {
-          title: '分层文字样式',
-          description: '可以为不同层级设置颜色、字重、斜体或完整 style。',
-          codeToggle: '查看自定义标题代码',
-        },
-        en: {
-          title: 'Per-level text style',
-          description: 'Set color, font weight, italic style, or full style per breadcrumb level.',
-          codeToggle: 'View custom title code',
-        },
-        code: `import { Breadcrumb } from '@cinna-design/react';
+      en: {
+        title: 'Per-level text style',
+        description: 'Set color, font weight, italic style, or full style per breadcrumb level.',
+        codeToggle: 'View custom title code',
+      },
+      code: `import { Breadcrumb } from '@cinna-design/react';
 
 export default () => (
   <Breadcrumb
@@ -329,21 +329,21 @@ export default () => (
     ]}
   />
 );`,
-        render: () => <StyledBreadcrumbExample />,
+      render: () => <StyledBreadcrumbExample />,
+    },
+    {
+      id: 'breadcrumb-in-card',
+      zh: {
+        title: '页面标题前置',
+        description: '面包屑可放在卡片或标题区顶部，帮助用户快速确认当前位置。',
+        codeToggle: '查看页面标题前置代码',
       },
-      {
-        id: 'breadcrumb-in-card',
-        zh: {
-          title: '页面标题前置',
-          description: '面包屑可放在卡片或标题区顶部，帮助用户快速确认当前位置。',
-          codeToggle: '查看页面标题前置代码',
-        },
-        en: {
-          title: 'Before a page title',
-          description: 'Place Breadcrumb above a card or title area to clarify page position.',
-          codeToggle: 'View page title breadcrumb code',
-        },
-        code: `import { useState } from 'react';
+      en: {
+        title: 'Before a page title',
+        description: 'Place Breadcrumb above a card or title area to clarify page position.',
+        codeToggle: 'View page title breadcrumb code',
+      },
+      code: `import { useState } from 'react';
 import { Breadcrumb, Card, Space, Title } from '@cinna-design/react';
 
 export default () => {
@@ -367,7 +367,7 @@ export default () => {
     </Card>
   );
 };`,
-        render: () => <CardBreadcrumbExample />,
-      },
-    ],
-  };
+      render: () => <CardBreadcrumbExample />,
+    },
+  ],
+};

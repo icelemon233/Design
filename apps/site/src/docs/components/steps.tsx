@@ -1,5 +1,5 @@
-import React from 'react';
 import * as Cinna from '@cinna-design/react';
+import React from 'react';
 import type { ComponentDocConfig } from '../../types';
 
 const ClickableStepsExample = () => {
@@ -30,7 +30,8 @@ export const stepsDoc: ComponentDocConfig = {
       },
       en: {
         title: 'Basic steps',
-        description: 'Break an ordered task into clear stages. Steps before current become finished automatically.',
+        description:
+          'Break an ordered task into clear stages. Steps before current become finished automatically.',
         codeToggle: 'View basic steps code',
       },
       code: `import { Icon, Steps } from '@cinna-design/react';
@@ -48,11 +49,7 @@ export default () => (
       render: () => (
         <Cinna.Steps
           current={1}
-          items={[
-            { title: 'Create' },
-            { title: 'Review' },
-            { title: 'Publish' },
-          ]}
+          items={[{ title: 'Create' }, { title: 'Review' }, { title: 'Publish' }]}
         />
       ),
     },
@@ -65,7 +62,8 @@ export default () => (
       },
       en: {
         title: 'Clickable steps',
-        description: 'Use clickable to switch steps. Previous steps render as finished after selection.',
+        description:
+          'Use clickable to switch steps. Previous steps render as finished after selection.',
         codeToggle: 'View clickable steps code',
       },
       code: `import { Steps } from '@cinna-design/react';
@@ -98,7 +96,8 @@ export default () => {
       },
       en: {
         title: 'Step status',
-        description: 'Use status to override automatic progress with finish, process, loading, error, or wait.',
+        description:
+          'Use status to override automatic progress with finish, process, loading, error, or wait.',
         codeToggle: 'View step status code',
       },
       code: `import { Steps } from '@cinna-design/react';
@@ -135,7 +134,8 @@ export default () => (
       },
       en: {
         title: 'Vertical steps',
-        description: 'direction="vertical" stacks steps vertically for narrow areas or longer descriptions.',
+        description:
+          'direction="vertical" stacks steps vertically for narrow areas or longer descriptions.',
         codeToggle: 'View vertical steps code',
       },
       code: `import { Steps } from '@cinna-design/react';
@@ -172,7 +172,8 @@ export default () => (
       },
       en: {
         title: 'Size comparison',
-        description: 'small, medium, and large adjust marker, title, and description hierarchy together.',
+        description:
+          'small, medium, and large adjust marker, title, and description hierarchy together.',
         codeToggle: 'View size comparison code',
       },
       code: `import { Space, Steps } from '@cinna-design/react';
@@ -186,9 +187,20 @@ export default () => (
 );`,
       render: () => (
         <Cinna.Space direction="vertical" align="stretch">
-          <Cinna.Steps size="small" current={1} items={[{ title: 'Queued' }, { title: 'Running' }, { title: 'Done' }]} />
-          <Cinna.Steps current={1} items={[{ title: 'Queued' }, { title: 'Running' }, { title: 'Done' }]} />
-          <Cinna.Steps size="large" current={1} items={[{ title: 'Queued' }, { title: 'Running' }, { title: 'Done' }]} />
+          <Cinna.Steps
+            size="small"
+            current={1}
+            items={[{ title: 'Queued' }, { title: 'Running' }, { title: 'Done' }]}
+          />
+          <Cinna.Steps
+            current={1}
+            items={[{ title: 'Queued' }, { title: 'Running' }, { title: 'Done' }]}
+          />
+          <Cinna.Steps
+            size="large"
+            current={1}
+            items={[{ title: 'Queued' }, { title: 'Running' }, { title: 'Done' }]}
+          />
         </Cinna.Space>
       ),
     },
@@ -201,7 +213,8 @@ export default () => (
       },
       en: {
         title: 'Icon and label placement',
-        description: 'logo or icon replaces the default number. labelPlacement puts labels beside or below markers.',
+        description:
+          'logo or icon replaces the default number. labelPlacement puts labels beside or below markers.',
         codeToggle: 'View icon and label placement code',
       },
       code: `import { Space, Steps } from '@cinna-design/react';
@@ -278,11 +291,7 @@ export default () => (
         <Cinna.Steps
           underline
           current={1}
-          items={[
-            { title: 'Draft' },
-            { title: 'Review' },
-            { title: 'Release' },
-          ]}
+          items={[{ title: 'Draft' }, { title: 'Review' }, { title: 'Release' }]}
         />
       ),
     },
@@ -295,7 +304,8 @@ export default () => (
       },
       en: {
         title: 'Minimal steps',
-        description: 'type="minimal" renders only dots and one title-description summary for the current step.',
+        description:
+          'type="minimal" renders only dots and one title-description summary for the current step.',
         codeToggle: 'View minimal steps code',
       },
       code: `import { Steps } from '@cinna-design/react';
@@ -332,7 +342,8 @@ export default () => (
       },
       en: {
         title: 'Custom appearance',
-        description: 'Customize marker shape, fonts, colors, title typography, and connector content or count.',
+        description:
+          'Customize marker shape, fonts, colors, title typography, and connector content or count.',
         codeToggle: 'View custom appearance code',
       },
       code: `import { Steps } from '@cinna-design/react';

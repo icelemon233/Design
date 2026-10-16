@@ -80,7 +80,11 @@ export const docsNavItems: DocsNavItem[] = [
   { key: 'tour', name: 'Tour', zhName: '漫游式引导', category: 'overlay' },
 ];
 
-export const matchesDocsNavSearch = (item: DocsNavItem, searchValue: string, language: SiteLanguage) => {
+export const matchesDocsNavSearch = (
+  item: DocsNavItem,
+  searchValue: string,
+  language: SiteLanguage,
+) => {
   if (!searchValue) return true;
 
   const label = language === 'zh' ? `${item.name} ${item.zhName}` : item.name;
@@ -90,7 +94,9 @@ export const matchesDocsNavSearch = (item: DocsNavItem, searchValue: string, lan
 export const sortDocsNavItems = (items: DocsNavItem[], mode: DocsNavSortMode | 'az' = 'az') => {
   const direction = mode === 'za' ? -1 : 1;
 
-  return [...items].sort((a, b) => direction * a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }));
+  return [...items].sort(
+    (a, b) => direction * a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }),
+  );
 };
 
 export const getComponentCategoryLabel = (item: DocsNavItem, language: SiteLanguage) => {
@@ -100,6 +106,7 @@ export const getComponentCategoryLabel = (item: DocsNavItem, language: SiteLangu
 
 export const getImportCode = (item: DocsNavItem) => {
   if (item.key === 'grid') return "import { Grid, Row, Col } from '@cinna-design/react';";
-  if (item.key === 'layout') return "import { Layout, LayoutHeader, LayoutSider, LayoutContent, LayoutFooter } from '@cinna-design/react';";
+  if (item.key === 'layout')
+    return "import { Layout, LayoutHeader, LayoutSider, LayoutContent, LayoutFooter } from '@cinna-design/react';";
   return `import { ${item.name} } from '@cinna-design/react';`;
 };

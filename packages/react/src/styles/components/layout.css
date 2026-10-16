@@ -1,0 +1,268 @@
+.cinna-space,
+.cinna-flex,
+.cinna-row,
+.cinna-radio-group,
+.cinna-steps {
+  display: flex;
+}
+
+.cinna-space--vertical,
+.cinna-flex--vertical {
+  flex-direction: column;
+}
+
+.cinna-space--wrap,
+.cinna-flex--wrap,
+.cinna-row {
+  flex-wrap: wrap;
+}
+
+.cinna-space--small,
+.cinna-flex--small {
+  gap: 8px;
+}
+
+.cinna-space--medium,
+.cinna-flex--medium {
+  gap: 14px;
+}
+
+.cinna-space--large,
+.cinna-flex--large {
+  gap: 22px;
+}
+
+.cinna-grid {
+  display: grid;
+  grid-template-columns: var(--cinna-grid-template, repeat(1, minmax(0, 1fr)));
+  column-gap: var(--cinna-grid-gap-x, 16px);
+  row-gap: var(--cinna-grid-gap-y, 16px);
+}
+
+.cinna-grid--inline {
+  display: inline-grid;
+}
+
+.cinna-divider--horizontal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 20px 0;
+  color: var(--cinna-divider-color, var(--cinna-color-text-muted));
+  font-weight: 800;
+}
+
+.cinna-divider--horizontal::before,
+.cinna-divider--horizontal::after {
+  content: '';
+  flex: 1 1 0;
+  min-width: 0;
+  border-top: 1.5px dashed var(--cinna-divider-color, var(--cinna-color-border));
+}
+
+.cinna-divider--horizontal > span {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.cinna-divider--horizontal:empty {
+  gap: 0;
+}
+
+.cinna-divider--left::before,
+.cinna-divider--right::after {
+  flex: 0.2;
+}
+
+.cinna-divider--custom-left::before {
+  flex: 0 0 var(--cinna-divider-left, 0);
+}
+
+.cinna-divider--custom-left::after {
+  flex: 1 1 0;
+}
+
+.cinna-divider--custom-right::before {
+  flex: 1 1 0;
+}
+
+.cinna-divider--custom-right::after {
+  flex: 0 0 var(--cinna-divider-right, 0);
+}
+
+.cinna-divider--character::before,
+.cinna-divider--character::after {
+  content: attr(data-divider-character);
+  overflow: hidden;
+  border-top: 0;
+  color: var(--cinna-divider-color, var(--cinna-color-border-strong));
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 4px;
+  white-space: nowrap;
+}
+
+.cinna-divider--vertical {
+  display: inline-block;
+  width: 1px;
+  height: 1.2em;
+  margin: 0 8px;
+  background: var(--cinna-divider-color, var(--cinna-color-border));
+  vertical-align: middle;
+}
+
+.cinna-col {
+  box-sizing: border-box;
+  min-width: 0;
+  padding-right: calc(var(--cinna-row-gutter-x, 0px) / 2);
+  padding-left: calc(var(--cinna-row-gutter-x, 0px) / 2);
+  flex: 0 0 auto;
+}
+
+.cinna-row--nowrap {
+  flex-wrap: nowrap;
+}
+
+.cinna-layout {
+  --cinna-layout-padding: 14px;
+  --cinna-layout-gap: 14px;
+  display: grid;
+  gap: var(--cinna-layout-gap);
+  min-width: 0;
+  padding: var(--cinna-layout-padding);
+  border: 1.5px solid var(--cinna-color-border);
+  border-radius: var(--cinna-radius-lg);
+  background: rgba(255, 252, 246, 0.72);
+}
+
+.cinna-layout--has-sider {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.cinna-layout__header,
+.cinna-layout__footer,
+.cinna-layout__sider,
+.cinna-layout__content {
+  padding: 16px;
+  border-radius: var(--cinna-radius-md);
+  background: var(--cinna-color-surface-blue);
+  color: var(--cinna-color-text-secondary);
+  font-weight: 800;
+}
+
+.cinna-layout__header {
+  min-height: var(--cinna-layout-header-height, auto);
+}
+
+.cinna-layout__footer {
+  min-height: var(--cinna-layout-footer-height, auto);
+}
+
+.cinna-layout__header--sticky {
+  position: sticky;
+  top: var(--cinna-layout-header-top, 0);
+  z-index: 8;
+  margin: calc(var(--cinna-layout-padding) * -1) calc(var(--cinna-layout-padding) * -1) 0;
+  transform: translateY(calc(var(--cinna-layout-padding) * -1));
+  border-bottom-right-radius: var(--cinna-radius-md);
+  border-bottom-left-radius: var(--cinna-radius-md);
+  box-shadow: 0 10px 18px rgba(96, 155, 185, 0.1);
+}
+
+.cinna-layout__footer--sticky {
+  position: sticky;
+  bottom: var(--cinna-layout-footer-bottom, 0);
+  z-index: 8;
+  margin: 0 calc(var(--cinna-layout-padding) * -1) calc(var(--cinna-layout-padding) * -1);
+  transform: translateY(var(--cinna-layout-padding));
+  border-top-left-radius: var(--cinna-radius-md);
+  border-top-right-radius: var(--cinna-radius-md);
+  box-shadow: 0 -10px 18px rgba(96, 155, 185, 0.1);
+}
+
+.cinna-layout__sider {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  width: var(--cinna-layout-sider-width, 200px);
+  min-width: var(--cinna-layout-sider-width, 200px);
+  overflow: hidden;
+  transition:
+    width var(--cinna-motion-base) var(--cinna-ease-standard),
+    min-width var(--cinna-motion-base) var(--cinna-ease-standard),
+    background var(--cinna-motion-base) var(--cinna-ease-standard);
+}
+
+.cinna-layout__sider--right {
+  order: 2;
+}
+
+.cinna-layout__sider--sticky {
+  position: sticky;
+  top: var(--cinna-layout-sider-top, 0);
+  align-self: start;
+  max-height: calc(100vh - var(--cinna-layout-sider-top, 0px));
+}
+
+.cinna-layout__sider--collapsed {
+  width: var(--cinna-layout-sider-collapsed-width, 72px);
+  min-width: var(--cinna-layout-sider-collapsed-width, 72px);
+}
+
+.cinna-layout__sider--with-menu {
+  padding: 10px;
+}
+
+.cinna-layout__sider-content {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.cinna-layout__sider--with-menu .cinna-layout__sider-content {
+  overflow: visible;
+}
+
+.cinna-layout__sider--with-menu .cinna-menu {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.cinna-layout__sider--with-menu .cinna-menu--collapsed {
+  width: 100%;
+  min-width: 0;
+}
+
+.cinna-layout__sider--collapsed .cinna-layout__sider-content {
+  white-space: nowrap;
+}
+
+.cinna-layout__sider-trigger {
+  display: inline-grid;
+  place-items: center;
+  min-width: 34px;
+  min-height: 30px;
+  margin-top: 12px;
+  border: 1.5px solid rgba(61, 142, 170, 0.18);
+  border-radius: var(--cinna-radius-pill);
+  background: var(--cinna-color-primary);
+  color: var(--cinna-color-text);
+  box-shadow: 0 2px #78bdd4;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.cinna-layout__sider-trigger:hover {
+  background: var(--cinna-color-primary-hover);
+}

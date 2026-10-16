@@ -1,5 +1,5 @@
-import React from 'react';
 import * as Cinna from '@cinna-design/react';
+import React from 'react';
 import type { ComponentDocConfig } from '../../types';
 
 const manyTabs = Array.from({ length: 14 }, (_, index) => ({
@@ -22,7 +22,15 @@ const EditableTabsExample = () => {
       addable
       onAdd={() => {
         const next = items.length + 1;
-        setItems([...items, { key: `tab-${next}`, label: `Tab ${next}`, children: `Tab ${next} content`, closable: true }]);
+        setItems([
+          ...items,
+          {
+            key: `tab-${next}`,
+            label: `Tab ${next}`,
+            children: `Tab ${next} content`,
+            closable: true,
+          },
+        ]);
       }}
       onClose={(key) => setItems(items.filter((item) => item.key !== key))}
     />
@@ -128,7 +136,8 @@ export default () => (
       },
       en: {
         title: 'Horizontal and vertical',
-        description: 'tabPosition supports top, bottom, left, and right for horizontal or vertical layouts.',
+        description:
+          'tabPosition supports top, bottom, left, and right for horizontal or vertical layouts.',
         codeToggle: 'View direction code',
       },
       code: `import { Space, Tabs } from '@cinna-design/react';
@@ -242,7 +251,8 @@ export default () => <Tabs items={items} />;`,
       },
       en: {
         title: 'Add and close',
-        description: 'addable renders an add entry, and closable can be enabled globally or per item.',
+        description:
+          'addable renders an add entry, and closable can be enabled globally or per item.',
         codeToggle: 'View add and close code',
       },
       code: `import { Tabs } from '@cinna-design/react';
@@ -313,7 +323,8 @@ export default () => {
       },
       en: {
         title: 'Custom font and color',
-        description: 'Customize tab, active state, indicator, and panel font, color, background, and border.',
+        description:
+          'Customize tab, active state, indicator, and panel font, color, background, and border.',
         codeToggle: 'View custom style code',
       },
       code: `import { Tabs } from '@cinna-design/react';

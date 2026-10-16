@@ -1,5 +1,5 @@
-import React from 'react';
 import * as Cinna from '@cinna-design/react';
+import React from 'react';
 import type { ComponentDocConfig } from '../../types';
 
 const anchorTargets = [
@@ -80,7 +80,15 @@ const horizontalScrollStyle: React.CSSProperties = {
   scrollBehavior: 'smooth',
 };
 
-const AnchorSection = ({ id, title, description }: { id: string; title: string; description: string }) => (
+const AnchorSection = ({
+  id,
+  title,
+  description,
+}: {
+  id: string;
+  title: string;
+  description: string;
+}) => (
   <section id={id} style={sectionStyle}>
     <div style={sectionCardStyle}>
       <Cinna.Title level={5}>{title}</Cinna.Title>
@@ -97,11 +105,17 @@ const VerticalAnchorExample = () => {
       <aside style={anchorPaneStyle}>
         <Cinna.Anchor
           getContainer={() => scrollRef.current}
-          items={anchorTargets.map((item) => ({ key: item.id, href: `#${item.id}`, title: item.title }))}
+          items={anchorTargets.map((item) => ({
+            key: item.id,
+            href: `#${item.id}`,
+            title: item.title,
+          }))}
         />
       </aside>
       <div ref={scrollRef} style={scrollPaneStyle}>
-        {anchorTargets.map((item) => <AnchorSection key={item.id} {...item} />)}
+        {anchorTargets.map((item) => (
+          <AnchorSection key={item.id} {...item} />
+        ))}
       </div>
     </div>
   );
@@ -116,11 +130,17 @@ const HorizontalAnchorExample = () => {
         <Cinna.Anchor
           direction="horizontal"
           getContainer={() => scrollRef.current}
-          items={compactTargets.map((item) => ({ key: item.id, href: `#${item.id}`, title: item.title }))}
+          items={compactTargets.map((item) => ({
+            key: item.id,
+            href: `#${item.id}`,
+            title: item.title,
+          }))}
         />
       </div>
       <div ref={scrollRef} style={horizontalScrollStyle}>
-        {compactTargets.map((item) => <AnchorSection key={item.id} {...item} />)}
+        {compactTargets.map((item) => (
+          <AnchorSection key={item.id} {...item} />
+        ))}
       </div>
     </div>
   );
@@ -144,9 +164,21 @@ const AffixAnchorExample = () => {
         />
       </aside>
       <div ref={scrollRef} style={scrollPaneStyle}>
-        <AnchorSection id="anchor-affix-plan" title="Plan" description="This anchor sticks when the page scrolls." />
-        <AnchorSection id="anchor-affix-build" title="Build" description="offsetTop controls the sticky top distance." />
-        <AnchorSection id="anchor-affix-ship" title="Ship" description="Omit affix to keep it in normal document flow." />
+        <AnchorSection
+          id="anchor-affix-plan"
+          title="Plan"
+          description="This anchor sticks when the page scrolls."
+        />
+        <AnchorSection
+          id="anchor-affix-build"
+          title="Build"
+          description="offsetTop controls the sticky top distance."
+        />
+        <AnchorSection
+          id="anchor-affix-ship"
+          title="Ship"
+          description="Omit affix to keep it in normal document flow."
+        />
       </div>
     </div>
   );
@@ -169,9 +201,21 @@ const OffsetAnchorExample = () => {
         />
       </aside>
       <div ref={scrollRef} style={scrollPaneStyle}>
-        <AnchorSection id="anchor-offset-one" title="First block" description="The target leaves a small offset from the pane top." />
-        <AnchorSection id="anchor-offset-two" title="Second block" description="Use this when the pane has sticky inner controls." />
-        <AnchorSection id="anchor-offset-three" title="Third block" description="The scroll remains inside this example window." />
+        <AnchorSection
+          id="anchor-offset-one"
+          title="First block"
+          description="The target leaves a small offset from the pane top."
+        />
+        <AnchorSection
+          id="anchor-offset-two"
+          title="Second block"
+          description="Use this when the pane has sticky inner controls."
+        />
+        <AnchorSection
+          id="anchor-offset-three"
+          title="Third block"
+          description="The scroll remains inside this example window."
+        />
       </div>
     </div>
   );
@@ -186,16 +230,36 @@ const RichAnchorExample = () => {
         <Cinna.Anchor
           getContainer={() => scrollRef.current}
           items={[
-            { key: 'stable', href: '#anchor-rich-stable', title: <Cinna.Text tone="success">Stable</Cinna.Text> },
-            { key: 'draft', href: '#anchor-rich-draft', title: <Cinna.Text tone="warning">Draft</Cinna.Text> },
-            { key: 'risk', href: '#anchor-rich-risk', title: <Cinna.Text tone="error">Needs review</Cinna.Text> },
+            {
+              key: 'stable',
+              href: '#anchor-rich-stable',
+              title: <Cinna.Text tone="success">Stable</Cinna.Text>,
+            },
+            {
+              key: 'draft',
+              href: '#anchor-rich-draft',
+              title: <Cinna.Text tone="warning">Draft</Cinna.Text>,
+            },
+            {
+              key: 'risk',
+              href: '#anchor-rich-risk',
+              title: <Cinna.Text tone="error">Needs review</Cinna.Text>,
+            },
           ]}
         />
       </aside>
       <div ref={scrollRef} style={scrollPaneStyle}>
-        <AnchorSection id="anchor-rich-stable" title="Stable" description="Ready for repeated use." />
+        <AnchorSection
+          id="anchor-rich-stable"
+          title="Stable"
+          description="Ready for repeated use."
+        />
         <AnchorSection id="anchor-rich-draft" title="Draft" description="Still being adjusted." />
-        <AnchorSection id="anchor-rich-risk" title="Needs review" description="Check copy and behavior again." />
+        <AnchorSection
+          id="anchor-rich-risk"
+          title="Needs review"
+          description="Check copy and behavior again."
+        />
       </div>
     </div>
   );
@@ -211,9 +275,25 @@ const CustomTargetAnchorExample = () => {
           targetOffset={18}
           getContainer={() => scrollRef.current}
           items={[
-            { key: 'brief', href: '#custom-brief-link', title: 'Brief', anchorTarget: '[data-anchor-point="brief"]' },
-            { key: 'timeline', href: '#custom-timeline-link', title: 'Timeline', anchorTarget: '[data-anchor-point="timeline"]', targetOffset: 34 },
-            { key: 'summary', href: '#custom-summary-link', title: 'Summary', anchorTarget: '[data-anchor-point="summary"]' },
+            {
+              key: 'brief',
+              href: '#custom-brief-link',
+              title: 'Brief',
+              anchorTarget: '[data-anchor-point="brief"]',
+            },
+            {
+              key: 'timeline',
+              href: '#custom-timeline-link',
+              title: 'Timeline',
+              anchorTarget: '[data-anchor-point="timeline"]',
+              targetOffset: 34,
+            },
+            {
+              key: 'summary',
+              href: '#custom-summary-link',
+              title: 'Summary',
+              anchorTarget: '[data-anchor-point="summary"]',
+            },
           ]}
         />
       </aside>
@@ -252,7 +332,8 @@ export const anchorDoc: ComponentDocConfig = {
       },
       en: {
         title: 'With content',
-        description: 'Place Anchor beside content; clicking only scrolls the content pane on the right.',
+        description:
+          'Place Anchor beside content; clicking only scrolls the content pane on the right.',
         codeToggle: 'View content composition code',
       },
       code: `import { useRef } from 'react';
@@ -398,12 +479,14 @@ export default () => {
       id: 'anchor-affix-mode',
       zh: {
         title: '固定吸附',
-        description: '默认随页面内容一起滚动；设置 affix 后会固定吸附，offsetTop 控制距离顶部的位置。',
+        description:
+          '默认随页面内容一起滚动；设置 affix 后会固定吸附，offsetTop 控制距离顶部的位置。',
         codeToggle: '查看固定吸附代码',
       },
       en: {
         title: 'Sticky mode',
-        description: 'By default Anchor follows page flow. Set affix to make it sticky, with offsetTop controlling the top distance.',
+        description:
+          'By default Anchor follows page flow. Set affix to make it sticky, with offsetTop controlling the top distance.',
         codeToggle: 'View sticky mode code',
       },
       code: `import { useRef } from 'react';
@@ -431,7 +514,8 @@ export default () => {
       id: 'anchor-custom-target',
       zh: {
         title: '自定义锚定点',
-        description: 'anchorTarget 可以把锚点链接和真实滚动目标分开，支持选择器、元素或返回元素的函数。',
+        description:
+          'anchorTarget 可以把锚点链接和真实滚动目标分开，支持选择器、元素或返回元素的函数。',
         codeToggle: '查看自定义锚定点代码',
       },
       en: {

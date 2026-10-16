@@ -1,1 +1,0 @@
-export { componentDocConfigs } from './components';

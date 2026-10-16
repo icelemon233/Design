@@ -1,0 +1,22 @@
+/* Native and composite controls share one visible keyboard focus treatment. */
+:where([class^='cinna-'], [class*=' cinna-']) :focus-visible,
+:where([class^='cinna-'], [class*=' cinna-']):focus-visible {
+  outline: 3px solid var(--cinna-color-primary-deep);
+  outline-offset: 3px;
+}
+.cinna-tabs__panel[hidden],
+.cinna-collapse__body[hidden] {
+  display: none !important;
+}
+:where([class^='cinna-'], [class*=' cinna-']) :disabled {
+  cursor: not-allowed;
+}
+@media (prefers-reduced-motion: reduce) {
+  :where([class^='cinna-'], [class*=' cinna-']),
+  :where([class^='cinna-'], [class*=' cinna-']) * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

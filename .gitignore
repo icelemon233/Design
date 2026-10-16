@@ -13,3 +13,4 @@ apps/site/dist
 playwright-report
 test-results
 tmp
+.taste-skill

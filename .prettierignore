@@ -1,0 +1,9 @@
+node_modules
+dist
+coverage
+playwright-report
+test-results
+.taste-skill
+pnpm-lock.yaml
+design/assets
+design/brand

@@ -5,11 +5,16 @@ const codeTokenPattern =
 
 const getCodeTokenClassName = (token: string) => {
   if (token.startsWith('//') || token.startsWith('/*')) return 'code-token code-token--comment';
-  if (token.startsWith('"') || token.startsWith("'") || token.startsWith('`')) return 'code-token code-token--string';
+  if (token.startsWith('"') || token.startsWith("'") || token.startsWith('`'))
+    return 'code-token code-token--string';
   if (token.startsWith('<') || token.startsWith('@')) return 'code-token code-token--tag';
   if (token.startsWith('#')) return 'code-token code-token--color';
   if (/^\d/.test(token)) return 'code-token code-token--number';
-  if (/^(import|from|export|default|function|const|let|return|type|interface|extends|new|true|false|null|undefined)$/.test(token)) {
+  if (
+    /^(import|from|export|default|function|const|let|return|type|interface|extends|new|true|false|null|undefined)$/.test(
+      token,
+    )
+  ) {
     return 'code-token code-token--keyword';
   }
   return 'code-token code-token--symbol';
@@ -30,7 +35,7 @@ const HighlightedCode = ({ code }: { code: string }) => {
     nodes.push(
       <span key={`${token}-${key}`} className={getCodeTokenClassName(token)}>
         {token}
-      </span>
+      </span>,
     );
     lastIndex = index + token.length;
     key += 1;
@@ -41,7 +46,13 @@ const HighlightedCode = ({ code }: { code: string }) => {
   return <>{nodes}</>;
 };
 
-export const CodeBlock = ({ code, className = 'code-block' }: { code: string; className?: string }) => (
+export const CodeBlock = ({
+  code,
+  className = 'code-block',
+}: {
+  code: string;
+  className?: string;
+}) => (
   <pre className={className}>
     <code>
       <HighlightedCode code={code} />
