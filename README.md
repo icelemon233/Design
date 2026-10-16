@@ -1,36 +1,18 @@
-# Cinna Design
+<p align="center"><img src="./apps/site/src/assets/cinna-cloud-cat.webp" alt="Cinna Design" width="150"></p>
 
-English | [简体中文](./README_zh_CN.md)
+<h1 align="center">Cinna Design</h1>
 
-<img src="./apps/site/src/assets/cinna-cloud-cat.webp" alt="Cinna Design cloud cat mascot" width="180" />
+<p align="center">English · <a href="./README_zh_CN.md">简体中文</a></p>
 
-React UI components with a soft cloud-and-dessert style: warm colors, rounded surfaces, and a playful cloud cat mascot.
+React components with pastel colors, rounded shapes, and a cloud cat mascot.
 
-[Explore the component demos](https://icelemon233.github.io/cinna-design/)
+[Component demos](https://icelemon233.github.io/cinna-design/) · [MIT license](./LICENSE)
 
-## What you can build with
+The library includes buttons, cards, inputs, loading animations, and components for forms, navigation, and data display. It supports React 18 and newer; some controls are experimental.
 
-- Buttons, cards, labeled inputs, and cloud cat loading animations.
-- Layout, navigation, forms, data displays, and feedback components.
-- Shared colors and theme settings for a consistent interface.
+## Example
 
-The library targets React 18 and newer. Core components sit alongside a broader set of experimental controls; check the demos for the behavior you need.
-
-## Preview locally
-
-Use Node.js and the pnpm version declared in this repository. From a clone, run:
-
-```sh
-pnpm install --frozen-lockfile
-pnpm build
-pnpm dev
-```
-
-Open the local address printed by the preview server.
-
-## Component example
-
-The components are available in this repository's workspace package, `@cinna-design/react`. A minimal example looks like this:
+The workspace package is `@cinna-design/react`. Its components can be composed like this:
 
 ```tsx
 import '@cinna-design/react/style.css';
@@ -38,17 +20,25 @@ import { Button, Card } from '@cinna-design/react';
 
 export function Example() {
   return (
-    <Card title="My project">
+    <Card title="Notes">
       <Button>Save</Button>
     </Card>
   );
 }
 ```
 
-## Acknowledgments
+## Browse locally
+
+Use Node.js and the pnpm version declared in the repository:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm build
+pnpm dev
+```
+
+Open the local address printed by the server. The public demo is also available without a local setup.
+
+## Credits
 
 Visual inspiration: [animal-island-ui](https://github.com/guokaigdg/animal-island-ui/tree/main).
-
-## License
-
-[MIT](./LICENSE).
