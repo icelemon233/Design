@@ -5,7 +5,7 @@ export const resultApiRows: Record<SiteLanguage, ApiSection[]> = {
     {
       title: 'Result',
       rows: [
-        ['status', '语义状态及反馈颜色。', 'CinnaStatus | "403" | "404" | "500"', "'info'"],
+        ['status', '语义状态及反馈颜色。', "CinnaStatus | '403' | '404' | '500'", "'info'"],
         ['title', '标题内容。', 'React.ReactNode', '-'],
         ['subTitle', 'subTitle 的配置或回调。', 'React.ReactNode', '-'],
         ['extra', '额外内容。', 'React.ReactNode', '-'],
@@ -20,7 +20,7 @@ export const resultApiRows: Record<SiteLanguage, ApiSection[]> = {
         [
           'status',
           'Semantic status and feedback color.',
-          'CinnaStatus | "403" | "404" | "500"',
+          "CinnaStatus | '403' | '404' | '500'",
           "'info'",
         ],
         ['title', 'Title content.', 'React.ReactNode', '-'],

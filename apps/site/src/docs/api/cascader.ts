@@ -14,24 +14,24 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         [
           'onChange',
           '值变更时调用。',
-          '((value: CascaderValue | CascaderMultipleValue, selectedOptions: CascaderOption[] | CascaderOption[][]) => void)',
+          '( value: CascaderValue | CascaderMultipleValue, selectedOptions: CascaderOption[] | CascaderOption[][], ) => void',
           '-',
         ],
         ['placeholder', '没有选中内容时的提示。', 'React.ReactNode', "'Select path'"],
         ['separator', 'separator 的配置或回调。', 'React.ReactNode', "' / '"],
-        ['allowClear', '显示清除操作。', 'boolean | { clearIcon?: React.ReactNode; }', 'true'],
+        ['allowClear', '显示清除操作。', 'boolean | { clearIcon?: React.ReactNode }', 'true'],
         ['changeOnSelect', 'changeOnSelect 的配置或回调。', 'boolean', 'false'],
         ['disabled', '禁用用户输入和操作。', 'boolean', 'false'],
         [
           'displayRender',
           'displayRender 的配置或回调。',
-          '((labels: React.ReactNode[], selectedOptions: CascaderOption[]) => React.ReactNode)',
+          '(labels: React.ReactNode[], selectedOptions: CascaderOption[]) => React.ReactNode',
           '-',
         ],
         [
           'tagRender',
           'tagRender 的配置或回调。',
-          '((info: CascaderTagRenderInfo) => React.ReactNode)',
+          '(info: CascaderTagRenderInfo) => React.ReactNode',
           '-',
         ],
         ['expandTrigger', 'expandTrigger 的配置或回调。', 'CascaderExpandTrigger', "'click'"],
@@ -45,13 +45,13 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         [
           'onLoadError',
           'onLoadError 的配置或回调。',
-          '((error: unknown, options: CascaderOption[]) => void)',
+          '(error: unknown, options: CascaderOption[]) => void',
           '-',
         ],
         [
           'loadData',
           'loadData 的配置或回调。',
-          '((selectedOptions: CascaderOption[]) => void | CascaderOption[] | Promise<void | CascaderOption[]>)',
+          '( selectedOptions: CascaderOption[], ) => void | CascaderOption[] | Promise<void | CascaderOption[]>',
           '-',
         ],
         [
@@ -60,7 +60,7 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
           'React.ReactNode',
           '<span className="cinna-cascader__loading" role="status" aria-label="Loading" />',
         ],
-        ['maxTagCount', 'maxTagCount 的配置或回调。', 'number | "responsive"', '-'],
+        ['maxTagCount', 'maxTagCount 的配置或回调。', "number | 'responsive'", '-'],
         [
           'maxTagPlaceholder',
           'maxTagPlaceholder 的配置或回调。',
@@ -71,13 +71,13 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         ['notFoundContent', '没有匹配选项时显示的内容。', 'React.ReactNode', "'Not Found'"],
         ['open', '受控的打开状态。', 'boolean', '-'],
         ['defaultOpen', '初始打开状态。', 'boolean', 'false'],
-        ['onOpenChange', '打开状态变化时调用。', '((open: boolean) => void)', '-'],
+        ['onOpenChange', '打开状态变化时调用。', '(open: boolean) => void', '-'],
         ['placement', 'placement 的配置或回调。', 'CascaderPlacement', "'bottomLeft'"],
         ['prefix', '前置内容。', 'React.ReactNode', '-'],
         [
           'popupRender',
           'popupRender 的配置或回调。',
-          '((menus: React.ReactNode) => React.ReactNode)',
+          '(menus: React.ReactNode) => React.ReactNode',
           '-',
         ],
         [
@@ -101,12 +101,12 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         ],
         ['controlSize', '控件尺寸。', 'CinnaSize', '-'],
         ['size', '组件尺寸。', 'CinnaSize', '-'],
-        ['status', '语义状态及反馈颜色。', '"success" | "warning" | "error"', '-'],
+        ['status', '语义状态及反馈颜色。', "Exclude<CinnaStatus, 'info'>", '-'],
         ['variant', 'variant 的配置或回调。', 'CascaderVariant', "'outlined'"],
         [
           'optionRender',
           'optionRender 的配置或回调。',
-          '((option: CascaderOption, path: CascaderOption[]) => React.ReactNode)',
+          '(option: CascaderOption, path: CascaderOption[]) => React.ReactNode',
           '-',
         ],
         [
@@ -140,7 +140,7 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         [
           'onChange',
           'Called when the value changes.',
-          '((value: CascaderValue | CascaderMultipleValue, selectedOptions: CascaderOption[] | CascaderOption[][]) => void)',
+          '( value: CascaderValue | CascaderMultipleValue, selectedOptions: CascaderOption[] | CascaderOption[][], ) => void',
           '-',
         ],
         [
@@ -150,24 +150,19 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
           "'Select path'",
         ],
         ['separator', 'Configuration or callback for separator.', 'React.ReactNode', "' / '"],
-        [
-          'allowClear',
-          'Show a clear action.',
-          'boolean | { clearIcon?: React.ReactNode; }',
-          'true',
-        ],
+        ['allowClear', 'Show a clear action.', 'boolean | { clearIcon?: React.ReactNode }', 'true'],
         ['changeOnSelect', 'Configuration or callback for changeOnSelect.', 'boolean', 'false'],
         ['disabled', 'Disable user input and interaction.', 'boolean', 'false'],
         [
           'displayRender',
           'Configuration or callback for displayRender.',
-          '((labels: React.ReactNode[], selectedOptions: CascaderOption[]) => React.ReactNode)',
+          '(labels: React.ReactNode[], selectedOptions: CascaderOption[]) => React.ReactNode',
           '-',
         ],
         [
           'tagRender',
           'Configuration or callback for tagRender.',
-          '((info: CascaderTagRenderInfo) => React.ReactNode)',
+          '(info: CascaderTagRenderInfo) => React.ReactNode',
           '-',
         ],
         [
@@ -186,13 +181,13 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         [
           'onLoadError',
           'Configuration or callback for onLoadError.',
-          '((error: unknown, options: CascaderOption[]) => void)',
+          '(error: unknown, options: CascaderOption[]) => void',
           '-',
         ],
         [
           'loadData',
           'Configuration or callback for loadData.',
-          '((selectedOptions: CascaderOption[]) => void | CascaderOption[] | Promise<void | CascaderOption[]>)',
+          '( selectedOptions: CascaderOption[], ) => void | CascaderOption[] | Promise<void | CascaderOption[]>',
           '-',
         ],
         [
@@ -201,7 +196,7 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
           'React.ReactNode',
           '<span className="cinna-cascader__loading" role="status" aria-label="Loading" />',
         ],
-        ['maxTagCount', 'Configuration or callback for maxTagCount.', 'number | "responsive"', '-'],
+        ['maxTagCount', 'Configuration or callback for maxTagCount.', "number | 'responsive'", '-'],
         [
           'maxTagPlaceholder',
           'Configuration or callback for maxTagPlaceholder.',
@@ -217,7 +212,7 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         ],
         ['open', 'Controlled open state.', 'boolean', '-'],
         ['defaultOpen', 'Initial open state.', 'boolean', 'false'],
-        ['onOpenChange', 'Called when the open state changes.', '((open: boolean) => void)', '-'],
+        ['onOpenChange', 'Called when the open state changes.', '(open: boolean) => void', '-'],
         [
           'placement',
           'Configuration or callback for placement.',
@@ -228,7 +223,7 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         [
           'popupRender',
           'Configuration or callback for popupRender.',
-          '((menus: React.ReactNode) => React.ReactNode)',
+          '(menus: React.ReactNode) => React.ReactNode',
           '-',
         ],
         [
@@ -252,12 +247,12 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         ],
         ['controlSize', 'Control size.', 'CinnaSize', '-'],
         ['size', 'Component size.', 'CinnaSize', '-'],
-        ['status', 'Semantic status and feedback color.', '"success" | "warning" | "error"', '-'],
+        ['status', 'Semantic status and feedback color.', "Exclude<CinnaStatus, 'info'>", '-'],
         ['variant', 'Configuration or callback for variant.', 'CascaderVariant', "'outlined'"],
         [
           'optionRender',
           'Configuration or callback for optionRender.',
-          '((option: CascaderOption, path: CascaderOption[]) => React.ReactNode)',
+          '(option: CascaderOption, path: CascaderOption[]) => React.ReactNode',
           '-',
         ],
         [

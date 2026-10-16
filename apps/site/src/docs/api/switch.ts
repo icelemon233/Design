@@ -7,7 +7,7 @@ export const switchApiRows: Record<SiteLanguage, ApiSection[]> = {
       rows: [
         ['checked', 'checked 的配置或回调。', 'boolean', '-'],
         ['defaultChecked', 'defaultChecked 的配置或回调。', 'boolean', '-'],
-        ['onChange', '值变更时调用。', '((checked: boolean) => void)', '-'],
+        ['onChange', '值变更时调用。', '(checked: boolean) => void', '-'],
         ['size', '组件尺寸。', 'CinnaSize', "'medium'"],
         ['checkedChildren', 'checkedChildren 的配置或回调。', 'React.ReactNode', '-'],
         ['unCheckedChildren', 'unCheckedChildren 的配置或回调。', 'React.ReactNode', '-'],
@@ -21,7 +21,7 @@ export const switchApiRows: Record<SiteLanguage, ApiSection[]> = {
       rows: [
         ['checked', 'Configuration or callback for checked.', 'boolean', '-'],
         ['defaultChecked', 'Configuration or callback for defaultChecked.', 'boolean', '-'],
-        ['onChange', 'Called when the value changes.', '((checked: boolean) => void)', '-'],
+        ['onChange', 'Called when the value changes.', '(checked: boolean) => void', '-'],
         ['size', 'Component size.', 'CinnaSize', "'medium'"],
         [
           'checkedChildren',

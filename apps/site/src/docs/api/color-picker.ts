@@ -7,7 +7,7 @@ export const colorPickerApiRows: Record<SiteLanguage, ApiSection[]> = {
       rows: [
         ['presets', '可选的预设颜色。', 'string[]', '[]'],
         ['showText', '显示颜色值。', 'boolean', '-'],
-        ['onChange', '值变更时调用。', '((value: string) => void)', '-'],
+        ['onChange', '值变更时调用。', '(value: string) => void', '-'],
       ],
     },
   ],
@@ -17,7 +17,7 @@ export const colorPickerApiRows: Record<SiteLanguage, ApiSection[]> = {
       rows: [
         ['presets', 'Preset color options.', 'string[]', '[]'],
         ['showText', 'Show the color value.', 'boolean', '-'],
-        ['onChange', 'Called when the value changes.', '((value: string) => void)', '-'],
+        ['onChange', 'Called when the value changes.', '(value: string) => void', '-'],
       ],
     },
   ],

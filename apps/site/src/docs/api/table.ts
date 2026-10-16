@@ -26,25 +26,25 @@ export const tableApiRows: Record<SiteLanguage, ApiSection[]> = {
         [
           'scroll',
           '表格横向最小宽度和纵向最大高度。',
-          '{ x?: number | string; y?: number | string; }',
+          '{ x?: number | string; y?: number | string }',
           '-',
         ],
         [
           'onSortChange',
           'onSortChange 的配置或回调。',
-          '((sort: { key: string; direction: "asc" | "desc"; } | null) => void)',
+          "(sort: { key: string; direction: 'asc' | 'desc' } | null) => void",
           '-',
         ],
         [
           'onFilterChange',
           'onFilterChange 的配置或回调。',
-          '((filters: Record<string, string>) => void)',
+          '(filters: Record<string, string>) => void',
           '-',
         ],
         [
           'rowSelection',
           '受控行选择、禁用规则及变化回调。',
-          '{ selectedRowKeys?: React.Key[]; onChange?: (keys: React.Key[], rows: T[]) => void; getCheckboxProps?: (record: T) => { disabled?: boolean; }; }',
+          '{ selectedRowKeys?: React.Key[]; onChange?: (keys: React.Key[], rows: T[]) => void; getCheckboxProps?: (record: T) => { disabled?: boolean }; }',
           '-',
         ],
         [
@@ -56,7 +56,7 @@ export const tableApiRows: Record<SiteLanguage, ApiSection[]> = {
         [
           'onRow',
           'onRow 的配置或回调。',
-          '((record: T, index: number) => React.HTMLAttributes<HTMLTableRowElement>)',
+          '(record: T, index: number) => React.HTMLAttributes<HTMLTableRowElement>',
           '-',
         ],
       ],
@@ -92,25 +92,25 @@ export const tableApiRows: Record<SiteLanguage, ApiSection[]> = {
         [
           'scroll',
           'Table minimum horizontal width and maximum vertical height.',
-          '{ x?: number | string; y?: number | string; }',
+          '{ x?: number | string; y?: number | string }',
           '-',
         ],
         [
           'onSortChange',
           'Configuration or callback for onSortChange.',
-          '((sort: { key: string; direction: "asc" | "desc"; } | null) => void)',
+          "(sort: { key: string; direction: 'asc' | 'desc' } | null) => void",
           '-',
         ],
         [
           'onFilterChange',
           'Configuration or callback for onFilterChange.',
-          '((filters: Record<string, string>) => void)',
+          '(filters: Record<string, string>) => void',
           '-',
         ],
         [
           'rowSelection',
           'Row selection, disabled rules and change callback.',
-          '{ selectedRowKeys?: React.Key[]; onChange?: (keys: React.Key[], rows: T[]) => void; getCheckboxProps?: (record: T) => { disabled?: boolean; }; }',
+          '{ selectedRowKeys?: React.Key[]; onChange?: (keys: React.Key[], rows: T[]) => void; getCheckboxProps?: (record: T) => { disabled?: boolean }; }',
           '-',
         ],
         [
@@ -122,7 +122,7 @@ export const tableApiRows: Record<SiteLanguage, ApiSection[]> = {
         [
           'onRow',
           'Configuration or callback for onRow.',
-          '((record: T, index: number) => React.HTMLAttributes<HTMLTableRowElement>)',
+          '(record: T, index: number) => React.HTMLAttributes<HTMLTableRowElement>',
           '-',
         ],
       ],

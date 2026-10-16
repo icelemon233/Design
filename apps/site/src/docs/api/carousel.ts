@@ -13,7 +13,7 @@ export const carouselApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['pauseOnHover', '鼠标悬停时暂停轮播。', 'boolean', 'true'],
         ['dots', 'dots 的配置或回调。', 'boolean', 'true'],
         ['arrows', 'arrows 的配置或回调。', 'boolean', 'true'],
-        ['afterChange', '轮播页变化时调用。', '((activeIndex: number) => void)', '-'],
+        ['afterChange', '轮播页变化时调用。', '(activeIndex: number) => void', '-'],
       ],
     },
   ],
@@ -32,7 +32,7 @@ export const carouselApiRows: Record<SiteLanguage, ApiSection[]> = {
         [
           'afterChange',
           'Called when the active slide changes.',
-          '((activeIndex: number) => void)',
+          '(activeIndex: number) => void',
           '-',
         ],
       ],

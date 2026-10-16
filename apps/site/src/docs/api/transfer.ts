@@ -8,7 +8,7 @@ export const transferApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['dataSource', '数据记录。', 'TransferItem[]', '-'],
         ['targetKeys', '受控的目标栏键值。', 'string[]', '-'],
         ['defaultTargetKeys', '目标栏的初始键值。', 'string[]', '[]'],
-        ['onChange', '值变更时调用。', '((targetKeys: string[]) => void)', '-'],
+        ['onChange', '值变更时调用。', '(targetKeys: string[]) => void', '-'],
         [
           'titles',
           '源栏和目标栏的标题。',
@@ -21,7 +21,7 @@ export const transferApiRows: Record<SiteLanguage, ApiSection[]> = {
         [
           'onSelectChange',
           'onSelectChange 的配置或回调。',
-          '((source: string[], target: string[]) => void)',
+          '(source: string[], target: string[]) => void',
           '-',
         ],
       ],
@@ -34,7 +34,7 @@ export const transferApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['dataSource', 'Data records.', 'TransferItem[]', '-'],
         ['targetKeys', 'Controlled keys in the target list.', 'string[]', '-'],
         ['defaultTargetKeys', 'Initial keys in the target list.', 'string[]', '[]'],
-        ['onChange', 'Called when the value changes.', '((targetKeys: string[]) => void)', '-'],
+        ['onChange', 'Called when the value changes.', '(targetKeys: string[]) => void', '-'],
         [
           'titles',
           'Source and target list titles.',
@@ -47,7 +47,7 @@ export const transferApiRows: Record<SiteLanguage, ApiSection[]> = {
         [
           'onSelectChange',
           'Configuration or callback for onSelectChange.',
-          '((source: string[], target: string[]) => void)',
+          '(source: string[], target: string[]) => void',
           '-',
         ],
       ],

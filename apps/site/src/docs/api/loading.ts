@@ -5,7 +5,7 @@ export const loadingApiRows: Record<SiteLanguage, ApiSection[]> = {
     {
       title: 'Loading',
       rows: [
-        ['size', '组件尺寸。', '"small" | "medium" | "large"', "'medium'"],
+        ['size', '组件尺寸。', "'small' | 'medium' | 'large'", "'medium'"],
         ['label', '关联控件的标签。', 'React.ReactNode', "'Loading'"],
         ['active', '启用加载或骨架动画。', 'boolean', 'true'],
       ],
@@ -15,7 +15,7 @@ export const loadingApiRows: Record<SiteLanguage, ApiSection[]> = {
     {
       title: 'Loading',
       rows: [
-        ['size', 'Component size.', '"small" | "medium" | "large"', "'medium'"],
+        ['size', 'Component size.', "'small' | 'medium' | 'large'", "'medium'"],
         ['label', 'Label for the associated control.', 'React.ReactNode', "'Loading'"],
         ['active', 'Enable loading or skeleton animation.', 'boolean', 'true'],
       ],

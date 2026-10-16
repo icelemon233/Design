@@ -95,6 +95,14 @@ for (const file of walk('packages/react/src').filter((file) => /\.[tj]sx?$/.test
     'Machine-specific path in distributable source: ' + file,
   );
 }
+for (const file of walk('apps/site/src/docs/api').filter((file) => file.endsWith('.ts'))) {
+  assert.ok(
+    !/node_modules|[A-Za-z]:[\\/]Users[\\/]|\/home\/runner\/|import\(["']\//.test(
+      fs.readFileSync(file, 'utf8'),
+    ),
+    'Generated API documentation must not contain machine-specific type paths: ' + file,
+  );
+}
 for (const file of ['packages/react/src/styles/index.css', 'apps/site/src/styles/index.css']) {
   const imports = [...fs.readFileSync(file, 'utf8').matchAll(/@import\s+["']([^"']+)["']/g)];
   assert.ok(imports.length > 1, 'Styles must retain ordered modules.');

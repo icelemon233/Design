@@ -7,8 +7,8 @@ export const avatarApiRows: Record<SiteLanguage, ApiSection[]> = {
       rows: [
         ['src', 'src 的配置或回调。', 'string', '-'],
         ['alt', 'alt 的配置或回调。', 'string', "''"],
-        ['size', '组件尺寸。', 'number | CinnaSize', "'medium'"],
-        ['shape', 'shape 的配置或回调。', '"circle" | "square"', "'circle'"],
+        ['size', '组件尺寸。', 'CinnaSize | number', "'medium'"],
+        ['shape', 'shape 的配置或回调。', "'circle' | 'square'", "'circle'"],
         ['icon', '自定义图标。', 'React.ReactNode', '-'],
       ],
     },
@@ -19,8 +19,8 @@ export const avatarApiRows: Record<SiteLanguage, ApiSection[]> = {
       rows: [
         ['src', 'Configuration or callback for src.', 'string', '-'],
         ['alt', 'Configuration or callback for alt.', 'string', "''"],
-        ['size', 'Component size.', 'number | CinnaSize', "'medium'"],
-        ['shape', 'Configuration or callback for shape.', '"circle" | "square"', "'circle'"],
+        ['size', 'Component size.', 'CinnaSize | number', "'medium'"],
+        ['shape', 'Configuration or callback for shape.', "'circle' | 'square'", "'circle'"],
         ['icon', 'Custom icon.', 'React.ReactNode', '-'],
       ],
     },

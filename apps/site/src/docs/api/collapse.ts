@@ -10,7 +10,7 @@ export const collapseApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['defaultActiveKey', 'defaultActiveKey 的配置或回调。', 'string | string[]', '-'],
         ['accordion', 'accordion 的配置或回调。', 'boolean', '-'],
         ['bordered', '显示边框。', 'boolean', 'true'],
-        ['onChange', '值变更时调用。', '((keys: string[]) => void)', '-'],
+        ['onChange', '值变更时调用。', '(keys: string[]) => void', '-'],
         ['destroyInactivePanel', '折叠时卸载内容；false 时保留状态。', 'boolean', 'true'],
       ],
     },
@@ -29,7 +29,7 @@ export const collapseApiRows: Record<SiteLanguage, ApiSection[]> = {
         ],
         ['accordion', 'Configuration or callback for accordion.', 'boolean', '-'],
         ['bordered', 'Show the border.', 'boolean', 'true'],
-        ['onChange', 'Called when the value changes.', '((keys: string[]) => void)', '-'],
+        ['onChange', 'Called when the value changes.', '(keys: string[]) => void', '-'],
         [
           'destroyInactivePanel',
           'Unmount collapsed content; false preserves its state.',

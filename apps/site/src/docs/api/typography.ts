@@ -36,7 +36,7 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         [
           'tone',
           'tone 的配置或回调。',
-          '"default" | "secondary" | "muted" | CinnaStatus',
+          "'default' | 'secondary' | 'muted' | CinnaStatus",
           "'default'",
         ],
         ['strong', 'strong 的配置或回调。', 'boolean', '-'],
@@ -87,7 +87,7 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         [
           'tone',
           'Configuration or callback for tone.',
-          '"default" | "secondary" | "muted" | CinnaStatus',
+          "'default' | 'secondary' | 'muted' | CinnaStatus",
           "'default'",
         ],
         ['strong', 'Configuration or callback for strong.', 'boolean', '-'],

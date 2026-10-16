@@ -12,13 +12,13 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         [
           'onItemClick',
           'onItemClick 的配置或回调。',
-          '((event: React.MouseEvent<HTMLAnchorElement>, item: BreadcrumbItem, index: number) => void)',
+          '( event: React.MouseEvent<HTMLAnchorElement>, item: BreadcrumbItem, index: number, ) => void',
           '-',
         ],
         [
           'onMenuSelect',
           'onMenuSelect 的配置或回调。',
-          '((key: string, item: BreadcrumbItem, index: number) => void)',
+          '(key: string, item: BreadcrumbItem, index: number) => void',
           '-',
         ],
       ],
@@ -33,13 +33,13 @@ const generated: Record<SiteLanguage, ApiSection[]> = {
         [
           'onItemClick',
           'Configuration or callback for onItemClick.',
-          '((event: React.MouseEvent<HTMLAnchorElement>, item: BreadcrumbItem, index: number) => void)',
+          '( event: React.MouseEvent<HTMLAnchorElement>, item: BreadcrumbItem, index: number, ) => void',
           '-',
         ],
         [
           'onMenuSelect',
           'Configuration or callback for onMenuSelect.',
-          '((key: string, item: BreadcrumbItem, index: number) => void)',
+          '(key: string, item: BreadcrumbItem, index: number) => void',
           '-',
         ],
       ],

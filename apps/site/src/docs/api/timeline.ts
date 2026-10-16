@@ -6,7 +6,7 @@ export const timelineApiRows: Record<SiteLanguage, ApiSection[]> = {
       title: 'Timeline',
       rows: [
         ['items', '展示项目。', 'TimelineItem[]', '-'],
-        ['mode', '显示或选择模式。', '"right" | "left" | "alternate"', "'left'"],
+        ['mode', '显示或选择模式。', "'left' | 'right' | 'alternate'", "'left'"],
         ['reverse', '逆序显示。', 'boolean', '-'],
         ['pending', '时间线的待完成内容。', 'React.ReactNode', '-'],
       ],
@@ -17,7 +17,7 @@ export const timelineApiRows: Record<SiteLanguage, ApiSection[]> = {
       title: 'Timeline',
       rows: [
         ['items', 'Items to display.', 'TimelineItem[]', '-'],
-        ['mode', 'Display or selection mode.', '"right" | "left" | "alternate"', "'left'"],
+        ['mode', 'Display or selection mode.', "'left' | 'right' | 'alternate'", "'left'"],
         ['reverse', 'Display items in reverse order.', 'boolean', '-'],
         ['pending', 'Pending timeline content.', 'React.ReactNode', '-'],
       ],

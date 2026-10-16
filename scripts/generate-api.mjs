@@ -158,7 +158,7 @@ const descriptions = {
     '0–100 的进度值；越界自动限制。',
     'Progress from 0 to 100; out-of-range values are clamped.',
   ],
-  format: ['自定义进度显示内容。', 'Custom progress text.'],
+  format: ['自定义格式化显示内容。', 'Customize the formatted display content.'],
   strokeColor: ['进度条或圆环颜色。', 'Progress bar or circle color.'],
   showInfo: ['显示进度文本。', 'Show progress text.'],
   count: ['星数或计数。', 'Star count or item count.'],
@@ -227,7 +227,7 @@ const descriptions = {
     '折叠时卸载内容；false 时保留状态。',
     'Unmount collapsed content; false preserves its state.',
   ],
-  gap: ['水印平铺间距。', 'Watermark tile spacing.'],
+  gap: ['项目或平铺之间的间距。', 'Spacing between items or tiles.'],
   rotate: ['水印旋转角度。', 'Watermark rotation in degrees.'],
   opacity: ['水印透明度。', 'Watermark opacity.'],
   fontSize: ['字号。', 'Font size.'],
@@ -237,7 +237,7 @@ const descriptions = {
   prefix: ['前置内容。', 'Prefix content.'],
   suffix: ['后置内容。', 'Suffix content.'],
   block: ['铺满父容器宽度。', 'Fill the parent width.'],
-  span: ['占据的描述列数。', 'Number of description columns spanned.'],
+  span: ['占据的列数。', 'Number of columns spanned.'],
   column: ['描述内容列数。', 'Number of description columns.'],
 };
 const imports = [];
@@ -287,12 +287,18 @@ for (const item of items) {
         name + ' 的配置或回调。',
         'Configuration or callback for ' + name + '.',
       ];
-      const type = checker
-        .typeToString(
-          checker.getTypeOfSymbolAtLocation(property, declaration),
-          declaration,
-          ts.TypeFormatFlags.NoTruncation,
-        )
+      // Prefer the authored contract: resolved aliases can embed machine paths.
+      const declaredType = ts.isPropertySignature(definition) ? definition.type : undefined;
+      const type = (
+        declaredType
+          ? declaredType.getText().replace(/\s+/g, ' ')
+          : checker.typeToString(
+              checker.getTypeOfSymbolAtLocation(property, declaration),
+              declaration,
+              ts.TypeFormatFlags.NoTruncation,
+            )
+      )
+        .replace(/import\(["'][^"']+["']\)\./g, '')
         .replace(/ \| undefined$/, '');
       const defaultValue = defaults.get(name) ?? '-';
       rows.zh.push([name, description[0], type, defaultValue]);
