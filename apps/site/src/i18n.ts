@@ -9,8 +9,10 @@ export interface SiteCopy {
     apiType: string;
     basic: string;
     brandPowered: string;
+    compatibility: string;
     componentDocs: string;
     componentOverview: string;
+    componentSummary: string;
     components: string;
     docInfoChangelog: string;
     docInfoDocs: string;
@@ -22,7 +24,6 @@ export interface SiteCopy {
     footerLicense: string;
     getStarted: string;
     install: string;
-    installComment: string;
     language: string;
     menu: string;
     noResults: string;
@@ -30,9 +31,6 @@ export interface SiteCopy {
     searchComponents: string;
     searchNav: string;
     scrollHint: string;
-    storyBody: string;
-    storyIntro: string;
-    storyQuote: string;
     themeCardTitle: string;
     usage: string;
     usageExample: string;
@@ -51,8 +49,11 @@ export const siteI18n: Record<SiteLanguage, SiteCopy> = {
       apiType: '类型',
       basic: '基础示例',
       brandPowered: 'Made by icelemon & Codex',
+      compatibility: '支持 React 18 及以上版本，提供 TypeScript 类型。',
       componentDocs: '组件文档',
       componentOverview: '组件示例',
+      componentSummary:
+        '包含按钮、表单、导航、表格等组件。文档中可预览效果，并查看示例代码和 API。',
       components: '组件',
       docInfoChangelog: '更新日志',
       docInfoDocs: '文档',
@@ -62,23 +63,18 @@ export const siteI18n: Record<SiteLanguage, SiteCopy> = {
       docInfoSubmitIssue: '提交问题',
       docInfoUsage: '使用',
       footerLicense: 'MIT License',
-      getStarted: '查看组件库文档',
+      getStarted: '查看组件',
       install: '安装',
-      installComment: '使用 pnpm 安装',
       language: '语言',
       menu: '菜单',
       noResults: '没有找到匹配的组件',
-      packageIntro: '属于云朵世界的 React UI 组件库',
+      packageIntro: '浅蓝与奶油白配色的 React 组件库',
       searchComponents: '搜索组件',
       searchNav: '搜索组件',
-      scrollHint: '向下滑动',
-      storyBody: '',
-      storyIntro:
-        'Cinna 是守护云朵甜点工坊的精灵。她把天空的浅蓝、奶油的柔软和肉桂的温暖，揉进每一个组件。',
-      storyQuote: '你好，我是 Cinna。一起做出柔软、清晰又好用的界面吧。',
+      scrollHint: '安装与使用',
       themeCardTitle: 'Cinna Design',
       usage: '使用示例',
-      usageExample: '使用',
+      usageExample: '使用示例',
       viewDocs: '查看组件文档',
     },
     groups: {
@@ -101,8 +97,11 @@ export const siteI18n: Record<SiteLanguage, SiteCopy> = {
       apiType: 'Type',
       basic: 'Basic',
       brandPowered: 'Made by icelemon & Codex',
+      compatibility: 'For React 18 and later. TypeScript types included.',
       componentDocs: 'Component documentation',
       componentOverview: 'Component examples',
+      componentSummary:
+        'Buttons, forms, navigation, and tables, with demos, code examples, and API documentation.',
       components: 'Components',
       docInfoChangelog: 'Changelog',
       docInfoDocs: 'Docs',
@@ -112,23 +111,18 @@ export const siteI18n: Record<SiteLanguage, SiteCopy> = {
       docInfoSubmitIssue: 'Report issue',
       docInfoUsage: 'Usage',
       footerLicense: 'MIT License',
-      getStarted: 'View component library docs',
+      getStarted: 'Browse components',
       install: 'Install',
-      installComment: 'Install with pnpm',
       language: 'Language',
       menu: 'Menu',
       noResults: 'No matching components',
-      packageIntro: 'A React UI library from the cloud world.',
+      packageIntro: 'React components in pastel blue and cream.',
       searchComponents: 'Search components',
       searchNav: 'Search components',
-      scrollHint: 'Scroll down',
-      storyBody: '',
-      storyIntro:
-        'Cinna looks after a little cloud patisserie. She brings the blue of the sky, the softness of cream, and the warmth of cinnamon into every component.',
-      storyQuote: 'Hello, I am Cinna. Let’s build something soft, clear, and lovely to use.',
+      scrollHint: 'Installation and usage',
       themeCardTitle: 'Cinna Design',
       usage: 'Usage',
-      usageExample: 'Basic usage',
+      usageExample: 'Usage example',
       viewDocs: 'View component docs',
     },
     groups: {

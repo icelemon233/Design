@@ -347,14 +347,9 @@
     padding-top: 0;
   }
   .hero__copy,
-  .hero__quote {
+  .hero__compatibility {
     margin-right: auto;
     margin-left: auto;
-  }
-  .hero__quote {
-    border-left: 0;
-    border-top: 5px solid var(--cinna-color-primary);
-    border-radius: 20px;
   }
   .docs-layout {
     display: block;
@@ -453,7 +448,7 @@
   }
   .hero {
     gap: 22px;
-    padding-bottom: 86px;
+    padding-bottom: 112px;
   }
   .hero h1 {
     font-size: clamp(40px, 14vw, 64px);
