@@ -173,7 +173,7 @@
   background: #2f251f;
   color: #fff2d8;
   box-shadow: var(--cinna-shadow-soft);
-  font-family: var(--cinna-font-family), 'SF Mono', Consolas, monospace;
+  font-family: var(--cinna-font-family);
   font-size: 13px;
   font-weight: 700;
   line-height: 1.7;
@@ -267,7 +267,7 @@
 
 .api-table code {
   color: var(--cinna-color-text);
-  font-family: var(--cinna-font-family), 'SF Mono', Consolas, monospace;
+  font-family: var(--cinna-font-family);
   font-size: 12px;
   font-weight: 900;
 }

@@ -4,3 +4,18 @@
 *::after {
   box-sizing: border-box;
 }
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font: inherit;
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-family: inherit;
+}

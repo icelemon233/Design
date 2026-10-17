@@ -230,7 +230,7 @@
   padding: 8px 12px;
   overflow-wrap: anywhere;
   color: #6c5548;
-  font-family: var(--cinna-font-family), 'SF Mono', Consolas, monospace;
+  font-family: var(--cinna-font-family);
   font-size: 14px;
   line-height: 1.45;
   white-space: normal;
