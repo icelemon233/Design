@@ -8,6 +8,8 @@ Cinna Design is a themed application component library with signature dessert co
 
 Cinna is an original cloud-dessert fairy with ivory hair, cloud-blue clothes, a cinnamon-roll hair bun and a cloud clasp. Use the full portrait for the homepage and the simplified avatar for the wordmark, favicon and loading identity. Original PNGs live in design/brand; prompts live in design/asset-prompts/cinna-mascot.md. Earlier cloud-cat illustrations remain reference assets.
 
+Documentation section icons use the same Cinna character: an open example book for samples, a tutorial notebook for usage, and a specification clipboard for API tables. Their prompts live in design/asset-prompts/cinna-documentation-icons.md.
+
 ## Core Metaphor
 
 Clouds over a dessert counter:
@@ -17,7 +19,7 @@ Clouds over a dessert counter:
 - Cocoa text adds readability and avoids cold gray.
 - Butter, strawberry, pistachio, and lavender accents create variety.
 - Rounded forms should feel like frosting, marshmallow, and soft dough.
-- Typography uses Quicksand for rounded Latin/UI shapes, with system Chinese fonts for documentation and brand moments.
+- Typography uses Quicksand for all Latin text, including code, API tables, native form controls and the footer. Chinese text uses the system fallback in the same token. Display and hand font roles alias the base family so they follow one font setting.
 
 ## Design Rules
 
@@ -32,4 +34,4 @@ Clouds over a dessert counter:
 
 ## First Signature Component
 
-`Loading` uses the cloud cat mascot, floating cloud motion, and tiny sugar sparkles. It should be small enough for application loading states but charming enough to be memorable.
+`Loading` uses Cinna's avatar, floating cloud motion, and tiny sugar sparkles. It should be small enough for application loading states but charming enough to be memorable.

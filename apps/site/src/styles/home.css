@@ -86,12 +86,6 @@ body {
   font-family: var(--cinna-font-family);
 }
 
-button,
-input,
-textarea {
-  font: inherit;
-}
-
 button {
   color: inherit;
 }
@@ -427,7 +421,7 @@ h3 {
   background: #2f251ff5;
   color: #fff5df;
   box-shadow: inset 0 1px #ffffff14;
-  font-family: var(--cinna-font-family), 'SF Mono', Consolas, monospace;
+  font-family: var(--cinna-font-family);
   font-size: 13px;
   font-weight: 700;
   line-height: 1.7;
@@ -457,5 +451,5 @@ h3 {
   border-top: 1.5px solid rgba(214, 191, 168, 0.34);
   color: var(--cinna-color-text-muted);
   font-family: var(--cinna-font-family);
-  font-weight: 900;
+  font-weight: 600;
 }
