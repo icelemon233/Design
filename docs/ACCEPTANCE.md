@@ -1,4 +1,4 @@
-# Cinna Design 重构与验收记录
+# Design 重构与验收记录
 
 本次工作保留 React 18、TypeScript、Vite 和 pnpm 工作区，采用 Cinna 独立 API。行为参考 Ant Design，视觉延续云蓝、奶油白、可可色、圆角和柔和按压反馈。
 

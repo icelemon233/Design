@@ -1,6 +1,6 @@
-<p align="center"><img src="./apps/site/src/assets/cinna-avatar.webp" alt="Cinna Design" width="150"></p>
+<p align="center"><img src="./apps/site/src/assets/cinna-avatar.webp" alt="Design" width="150"></p>
 
-<h1 align="center">Cinna Design</h1>
+<h1 align="center">Design</h1>
 
 <p align="center"><a href="./README.md">English</a> · 简体中文</p>
 
@@ -44,3 +44,5 @@ pnpm dev
 ## 致谢
 
 视觉灵感来自 [animal-island-ui](https://github.com/guokaigdg/animal-island-ui/tree/main)。
+
+开发者：Cinna。

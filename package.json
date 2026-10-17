@@ -2,7 +2,7 @@
   "name": "cinna-design-workspace",
   "private": true,
   "version": "0.2.0",
-  "description": "Cinna Design monorepo: a cloud-soft dessert themed React component library.",
+  "description": "React UI components, design tokens and documentation.",
   "packageManager": "pnpm@11.5.2",
   "type": "module",
   "scripts": {
@@ -45,5 +45,6 @@
   },
   "engines": {
     "node": ">=24"
-  }
+  },
+  "author": "Cinna"
 }

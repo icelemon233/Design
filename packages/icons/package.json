@@ -2,7 +2,7 @@
   "name": "@cinna-design/icons",
   "version": "0.2.0",
   "private": true,
-  "description": "Original cloud-dessert SVG icons for Cinna Design.",
+  "description": "SVG icons for Design.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -22,5 +22,6 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit"
-  }
+  },
+  "author": "Cinna"
 }

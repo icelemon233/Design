@@ -10,7 +10,7 @@ export const DocsTitleMeta = ({
   language: SiteLanguage;
 }) => {
   const copy = siteI18n[language].ui;
-  const githubUrl = 'https://github.com/icelemon233/cinna-design';
+  const githubUrl = 'https://github.com/icelemon233/Design';
 
   return (
     <div

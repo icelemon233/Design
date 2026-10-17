@@ -1,4 +1,4 @@
-# Developing Cinna Design
+# Developing Design
 
 Cinna is a React 18 component library with a Vite documentation app. The public package remains `@cinna-design/react`; Ant Design is the reference for interaction patterns, while the API and visual system belong to Cinna.
 

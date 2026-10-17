@@ -230,7 +230,7 @@ export default () => (
   <Flex inline gap="medium" align="center">
     <Avatar size={40}>CD</Avatar>
     <Flex vertical gap={4}>
-      <Text strong>Cinna Design</Text>
+      <Text strong>Design</Text>
       <Text tone="secondary">Ready for review</Text>
     </Flex>
     <Button size="small" variant="cream">Open</Button>
@@ -240,7 +240,7 @@ export default () => (
         <Cinna.Flex inline gap="medium" align="center">
           <Cinna.Avatar size={40}>CD</Cinna.Avatar>
           <Cinna.Flex vertical gap={4}>
-            <Cinna.Text strong>Cinna Design</Cinna.Text>
+            <Cinna.Text strong>Design</Cinna.Text>
             <Cinna.Text tone="secondary">Ready for review</Cinna.Text>
           </Cinna.Flex>
           <Cinna.Button size="small" variant="cream">
