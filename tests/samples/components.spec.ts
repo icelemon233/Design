@@ -59,7 +59,7 @@ async function sample(page: Page, kind: 'tabs' | 'transfer') {
           2000,
         );
         const tick = (time: number) => {
-          timestamps.push(time);
+          if (timestamps[timestamps.length - 1] !== time) timestamps.push(time);
           if (timestamps.length === 2) {
             clearTimeout(deadline);
             resolve({ timestamps, visibility: document.visibilityState });
@@ -617,6 +617,12 @@ test('Transfer controlled selection, empty search and keyboard focus follow real
   await setChecked(lab.getByRole('checkbox', { name: 'Disabled', exact: true }), true);
   for (const input of await root.locator('input').all()) await expect(input).toBeDisabled();
   for (const button of await root.getByRole('button').all()) await expect(button).toBeDisabled();
+  const disabledRow = source
+    .getByRole('checkbox', { name: 'Icons', exact: true })
+    .locator('..')
+    .locator('..');
+  await disabledRow.hover();
+  await expect(disabledRow).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
   await root.screenshot({ path: info.outputPath('transfer-disabled.png'), ...componentShot });
 });
 test('Samples load their drawn icons, support reduced motion and pass scoped accessibility checks', async ({

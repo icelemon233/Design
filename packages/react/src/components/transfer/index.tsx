@@ -210,7 +210,7 @@ export const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
                         className={cx(
                           'cinna-transfer__item',
                           selectedSet.has(item.key) && 'cinna-transfer__item--selected',
-                          item.disabled && 'cinna-transfer__item--disabled',
+                          (disabled || item.disabled) && 'cinna-transfer__item--disabled',
                         )}
                       >
                         <Checkbox
