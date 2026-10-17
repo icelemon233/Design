@@ -100,9 +100,10 @@ export const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
         <div className="cinna-transfer__layout">
           {lists.map((allItems, index) => {
             const query = queries[index].trim().toLocaleLowerCase();
-            const visible = allItems.filter((item) =>
-              item.title.toLocaleLowerCase().includes(query),
-            );
+            const visible =
+              showSearch && query
+                ? allItems.filter((item) => item.title.toLocaleLowerCase().includes(query))
+                : allItems;
             const available = visible.filter((item) => !item.disabled);
             const checked = available.filter((item) => selectedSet.has(item.key));
             const selectedCount = allItems.filter((item) => selectedSet.has(item.key)).length;

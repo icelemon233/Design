@@ -67,7 +67,11 @@ jobs:
           cache: true
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium firefox webkit
+      - run: pnpm typecheck:samples
+      - run: pnpm build:pages
       - run: pnpm test:samples
+        env:
+          SAMPLE_PRODUCTION: '1'
       - uses: actions/upload-artifact@v7
         if: always()
         with:

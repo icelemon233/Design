@@ -38,26 +38,27 @@
   display: none;
 }
 
-.component-example__code summary:after {
-  content: '+';
-  display: grid;
-  place-items: center;
+.component-example__toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 24px;
   width: 24px;
   height: 24px;
-  border-radius: 999px;
-  background: var(--cinna-color-primary);
-  color: var(--cinna-color-text);
-  box-shadow: 0 2px #78bdd4;
-  font-size: 16px;
-  line-height: 1;
+}
+.component-example__toggle-up {
+  display: none;
 }
 
 .component-example__code[open] summary {
   border-bottom: 1px dashed rgba(230, 214, 196, 0.82);
 }
 
-.component-example__code[open] summary:after {
-  content: '-';
+.component-example__code[open] .component-example__toggle-down {
+  display: none;
+}
+.component-example__code[open] .component-example__toggle-up {
+  display: block;
 }
 
 .component-example__code .code-block {

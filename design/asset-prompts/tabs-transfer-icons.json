@@ -26,6 +26,11 @@
       "name": "users",
       "prompt": "Use case: precise-object-edit / style-transfer. Make a new variant of the supplied Cinna UI arrow icon by changing its symbol only. Preserve the reference's gentle hand-drawn 2D outline, cloud-blue edge, ivory cream fill, thin cocoa contour, and tiny cream highlight. This is a functional UI glyph for 16–24px use: bold silhouette, minimal details, optically centered with generous stroke thickness. One symbol only, isolated on a truly transparent square canvas. No button plate, no circular badge, no background scene, no mascot, no lettering, no numbers, no watermark, no external glow or large drop shadow. The shape should occupy most of the square without touching its edges. Replace the arrow with one team glyph of two overlapping simple head-and-shoulder silhouettes, one slightly in front, no facial features, strong readable outline.",
       "reference": "packages/react/src/assets/icons/cinna-arrow-tail-right.png"
+    },
+    {
+      "name": "grip",
+      "prompt": "Use case: precise-object-edit / style-transfer. Change the reference Cinna arrow into a small drag handle glyph. Keep its soft hand-drawn 2D cocoa outline, cloud-blue fill and ivory tiny highlights. The new shape is six clearly separated chunky round dots in a two-column by three-row arrangement. All six dots identical in size. One centered glyph, transparent background, no button plate, no badge, no mascot, no text, no watermark, no external glow or drop shadow. It must remain recognizable as a drag handle at 12–20px. The dots occupy most of the square and keep enough transparent gaps to remain separate when scaled down.",
+      "reference": "packages/react/src/assets/icons/cinna-arrow-tail-right.png"
     }
   ]
 }

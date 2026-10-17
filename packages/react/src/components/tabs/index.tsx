@@ -55,9 +55,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
     const disabled = useDisabled(disabledProp);
     const rootRef = useRef<HTMLDivElement | null>(null);
     const previousItems = useRef(items);
-    const pendingFocus = useRef<{ removed: string; next?: string; origin: HTMLElement } | null>(
-      null,
-    );
+    const pendingFocus = useRef<{ removed: string; origin: HTMLElement } | null>(null);
     const [inner, setInner] = useState(defaultActiveKey);
     const enabled = items.filter((item) => !item.disabled);
     const candidate = activeKey !== undefined ? activeKey : inner;
@@ -67,7 +65,6 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
       [...items.slice(0, Math.max(0, previousIndex))].reverse().find((item) => !item.disabled) ??
       enabled[0];
     const selected = enabled.some((item) => item.key === candidate) ? candidate : fallback?.key;
-    const vertical = tabPosition === 'left' || tabPosition === 'right';
     const canAdd = addable;
     const canClose = (item: TabsItem) => item.closable ?? closable;
     const reorderable = draggable && !!onOrderChange && !disabled;
@@ -79,8 +76,13 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
       tabPosition,
       closable,
       addable,
+      rootRef,
     });
     const {
+      compact,
+      position,
+      vertical,
+      viewportWidth,
       navRef,
       viewportRef,
       listRef,
@@ -115,10 +117,13 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
           (document.activeElement === document.body && !pending.origin.isConnected)
         ) {
           (
-            buttons.current.get(pending.next ?? selected ?? '') ??
+            (selected === undefined ? undefined : buttons.current.get(selected)) ??
             addRef.current ??
             rootRef.current
-          )?.focus();
+          )?.focus({
+            preventScroll: true,
+          });
+          if (selected !== undefined) reveal(selected);
         }
         pendingFocus.current = null;
       }
@@ -134,10 +139,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
       event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
     ) => {
       if (disabled || item.disabled || !canClose(item) || !onClose) return;
-      const index = enabled.findIndex((entry) => entry.key === item.key);
-      const next =
-        item.key === selected ? (enabled[index + 1]?.key ?? enabled[index - 1]?.key) : selected;
-      pendingFocus.current = { removed: item.key, next, origin: event.currentTarget };
+      pendingFocus.current = { removed: item.key, origin: event.currentTarget };
       onClose?.(item.key, item, event);
     };
     const keyDown = (event: React.KeyboardEvent<HTMLButtonElement>, item: TabsItem) => {
@@ -206,8 +208,9 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
         className={cx(
           'cinna-tabs',
           'cinna-tabs--' + variant,
-          'cinna-tabs--' + tabPosition,
+          'cinna-tabs--' + position,
           'cinna-tabs--' + size,
+          compact && 'cinna-tabs--compact',
           draggable && 'cinna-tabs--draggable',
           className,
         )}
@@ -215,11 +218,17 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
         aria-disabled={disabled || undefined}
         tabIndex={rest.tabIndex ?? (items.length ? undefined : -1)}
       >
-        <div ref={navRef} className="cinna-tabs__nav">
+        <div
+          ref={navRef}
+          className={cx(
+            'cinna-tabs__nav',
+            (canAdd || scrollState.overflow) && 'cinna-tabs__nav--actions',
+          )}
+        >
           {scrollState.overflow && (
             <button
               type="button"
-              className="cinna-tabs__scroll"
+              className="cinna-tabs__scroll cinna-tabs__scroll--backward"
               aria-label="Scroll tabs backward"
               disabled={disabled || !scrollState.backward}
               onClick={() => scrollTabs(false)}
@@ -228,7 +237,14 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
             </button>
           )}
           <div ref={viewportRef} className="cinna-tabs__viewport" onScroll={updateScroll}>
-            <div className="cinna-tabs__track">
+            <div
+              className="cinna-tabs__track"
+              style={
+                viewportWidth
+                  ? ({ '--cinna-tabs-viewport-width': viewportWidth + 'px' } as React.CSSProperties)
+                  : undefined
+              }
+            >
               <div
                 ref={listRef}
                 className="cinna-tabs__list"
@@ -236,7 +252,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
                 aria-label={items.length ? (rest['aria-label'] ?? 'Tabs') : undefined}
                 aria-orientation={items.length ? (vertical ? 'vertical' : 'horizontal') : undefined}
               >
-                {variant === 'borderless' && selected && (
+                {variant === 'borderless' && selected !== undefined && (
                   <span className="cinna-tabs__active-pill" style={pill} aria-hidden="true" />
                 )}
                 {items.map((item, index) => (
@@ -266,6 +282,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
                       type="button"
                       role="tab"
                       className="cinna-tabs__tab"
+                      title={typeof item.label === 'string' ? item.label : undefined}
                       ref={(node) => {
                         if (node) buttons.current.set(item.key, node);
                         else buttons.current.delete(item.key);
@@ -329,7 +346,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
           {scrollState.overflow && (
             <button
               type="button"
-              className="cinna-tabs__scroll"
+              className="cinna-tabs__scroll cinna-tabs__scroll--forward"
               aria-label="Scroll tabs forward"
               disabled={disabled || !scrollState.forward}
               onClick={() => scrollTabs(true)}
@@ -350,7 +367,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
             </button>
           )}
         </div>
-        {!selected && emptyContent && (
+        {selected === undefined && emptyContent != null && emptyContent !== false && (
           <div className="cinna-tabs__empty" role="status">
             {emptyContent}
           </div>

@@ -38,9 +38,16 @@ export const ComponentExampleBlock = ({
         )}
       </div>
       <details className="component-example__code">
-        <summary>{copy.codeToggle}</summary>
+        <summary>
+          {copy.codeToggle}
+          <span className="component-example__toggle-icon" aria-hidden="true">
+            <Icon name="chevron-down" size={18} className="component-example__toggle-down" />
+            <Icon name="chevron-up" size={18} className="component-example__toggle-up" />
+          </span>
+        </summary>
         <CodeBlock code={example.code} />
       </details>
     </article>
   );
 };
+import { Icon } from '@cinna-design/react';

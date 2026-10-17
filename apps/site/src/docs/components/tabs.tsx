@@ -106,13 +106,13 @@ export default () => (
       id: 'direction-tabs',
       zh: {
         title: '横向和纵向',
-        description: 'tabPosition 支持 top、bottom、left、right，可按内容布局选择横向或纵向。',
+        description: '可放在上、下、左、右。容器宽度不超过 480px 时，纵向标签转为顶部横向滚动。',
         codeToggle: '查看横向和纵向代码',
       },
       en: {
         title: 'Horizontal and vertical',
         description:
-          'tabPosition supports top, bottom, left, and right for horizontal or vertical layouts.',
+          'Place the strip on any side. In containers 480px wide or narrower, vertical tabs move to the top and scroll horizontally.',
         codeToggle: 'View direction code',
       },
       code: `import { Space, Tabs } from '@cinna-design/react';

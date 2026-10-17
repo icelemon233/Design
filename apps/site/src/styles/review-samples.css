@@ -13,12 +13,16 @@
   background: var(--cinna-color-surface-blue);
 }
 .sample-controls > label:not(.cinna-check) {
+  min-width: 0;
+  max-width: 100%;
   display: grid;
   gap: 6px;
   font-size: 13px;
   font-weight: 700;
 }
 .sample-controls select {
+  min-width: 0;
+  max-width: 100%;
   min-height: 44px;
   padding: 8px 12px;
   border: 1.5px solid var(--cinna-color-border);
@@ -27,8 +31,14 @@
   background: var(--cinna-color-surface);
 }
 .sample-controls .cinna-check {
+  min-width: 0;
+  max-width: 100%;
   min-height: 44px;
   font-size: 13px;
+}
+.sample-controls .cinna-check__label {
+  min-width: 0;
+  white-space: normal;
 }
 .sample-help,
 .sample-output {

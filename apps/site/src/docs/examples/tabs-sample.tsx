@@ -27,16 +27,18 @@ export default function TabsSample({ language = 'en' }: { language?: 'zh' | 'en'
     settings: 'Settings',
   };
   const icons = { overview: 'grid', activity: 'activity', settings: 'settings' } as const;
+  const labelFor = (key: string) =>
+    names[key] ?? (key.startsWith('extra-') ? 'Tab ' + key.slice(6) : 'New ' + key.slice(4));
   const many = keys.some((key) => key.startsWith('extra-'));
   const items = keys.map((key) => ({
     key,
-    label: names[key] ?? (key.startsWith('extra-') ? 'Tab ' + key.slice(6) : 'New ' + key.slice(4)),
+    label: labelFor(key),
     icon: <Icon name={icons[key as keyof typeof icons] ?? 'grid'} size={18} />,
     children: (
       <div className="sample-panel-content">
         <p>
           {zh ? '当前标签：' : 'Current tab: '}
-          {names[key] ?? key}
+          {labelFor(key)}
         </p>
         <label>
           {zh ? '笔记' : 'Notes'}

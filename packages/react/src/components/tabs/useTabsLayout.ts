@@ -6,7 +6,7 @@ import type { TabsProps } from './types';
 type Options = Pick<
   TabsProps,
   'items' | 'variant' | 'size' | 'tabPosition' | 'closable' | 'addable'
-> & { selected?: string };
+> & { selected?: string; rootRef: React.MutableRefObject<HTMLDivElement | null> };
 
 export function useTabsLayout({
   items,
@@ -16,6 +16,7 @@ export function useTabsLayout({
   tabPosition,
   closable,
   addable,
+  rootRef,
 }: Options) {
   const navRef = useRef<HTMLDivElement | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
@@ -23,6 +24,8 @@ export function useTabsLayout({
   const addRef = useRef<HTMLButtonElement | null>(null);
   const buttons = useRef(new Map<string, HTMLButtonElement>());
   const wrappers = useRef(new Map<string, HTMLDivElement>());
+  const [compact, setCompact] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(0);
   const [pill, setPill] = useState<React.CSSProperties>({});
   const [closePositions, setClosePositions] = useState<Record<string, React.CSSProperties>>(() =>
     Object.create(null),
@@ -32,7 +35,9 @@ export function useTabsLayout({
     backward: false,
     forward: false,
   });
-  const vertical = tabPosition === 'left' || tabPosition === 'right';
+  const position =
+    compact && (tabPosition === 'left' || tabPosition === 'right') ? 'top' : tabPosition;
+  const vertical = position === 'left' || position === 'right';
   const updateScroll = () => {
     const list = listRef.current,
       viewport = viewportRef.current,
@@ -41,9 +46,10 @@ export function useTabsLayout({
     const total = vertical ? viewport.scrollHeight : list.scrollWidth;
     const visible = vertical ? viewport.clientHeight : viewport.clientWidth;
     const offset = vertical ? viewport.scrollTop : viewport.scrollLeft;
-    const available = vertical
-      ? visible
-      : nav.clientWidth - (addable ? (addRef.current?.offsetWidth ?? 0) + 8 : 0);
+    const available =
+      vertical || compact
+        ? visible
+        : nav.clientWidth - (addable ? (addRef.current?.offsetWidth ?? 0) + 8 : 0);
     const next = {
       overflow: total > available + 1,
       backward: offset > 1,
@@ -89,7 +95,10 @@ export function useTabsLayout({
     const list = listRef.current;
     if (!list) return;
     const update = () => {
-      const item = selected ? wrappers.current.get(selected) : null;
+      const width = rootRef.current?.clientWidth ?? 0;
+      if (width) setCompact(width <= 480);
+      setViewportWidth(viewportRef.current?.clientWidth ?? 0);
+      const item = selected === undefined ? null : wrappers.current.get(selected);
       setPill(
         variant === 'borderless' && item
           ? {
@@ -115,6 +124,7 @@ export function useTabsLayout({
     update();
     const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(update);
     observer?.observe(list);
+    if (rootRef.current) observer?.observe(rootRef.current);
     if (viewportRef.current) observer?.observe(viewportRef.current);
     for (const item of wrappers.current.values()) observer?.observe(item);
     window.addEventListener('resize', update);
@@ -122,12 +132,16 @@ export function useTabsLayout({
       observer?.disconnect();
       window.removeEventListener('resize', update);
     };
-  }, [items, selected, variant, size, tabPosition, closable, addable]);
+  }, [items, selected, variant, size, position, compact, closable, addable]);
 
   useEffect(() => {
-    if (selected) reveal(selected);
-  }, [selected, tabPosition, items]);
+    if (selected !== undefined) reveal(selected);
+  }, [selected, position, viewportWidth, items]);
   return {
+    compact,
+    position,
+    vertical,
+    viewportWidth,
     navRef,
     viewportRef,
     listRef,

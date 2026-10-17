@@ -145,7 +145,7 @@ export function useTabReorder(options: Options) {
     },
     onDragOver: (event) => {
       if (
-        !origin.current ||
+        origin.current === null ||
         !latest.current.enabled ||
         latest.current.items.find((item) => item.key === key)?.disabled
       )
@@ -155,7 +155,7 @@ export function useTabReorder(options: Options) {
     },
     onDrop: (event) => {
       event.preventDefault();
-      if (origin.current) reorder(origin.current, key);
+      if (origin.current !== null) reorder(origin.current, key);
       finish();
     },
     onDragEnd: finish,

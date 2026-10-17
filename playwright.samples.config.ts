@@ -1,10 +1,15 @@
 import { defineConfig } from '@playwright/test';
 
+const production = process.env.SAMPLE_PRODUCTION === '1';
+const baseURL =
+  process.env.SAMPLE_BASE_URL ??
+  (production ? 'http://127.0.0.1:5193/Design/' : 'http://127.0.0.1:5173/');
+
 export default defineConfig({
   testDir: './tests/samples',
   outputDir: './test-results/samples',
   fullyParallel: true,
-  workers: 2,
+  workers: process.platform === 'win32' ? 1 : 2,
   retries: 0,
   timeout: 60000,
   expect: { timeout: 7000 },
@@ -14,7 +19,7 @@ export default defineConfig({
     ['html', { outputFolder: 'playwright-report/samples', open: 'never' }],
   ],
   use: {
-    baseURL: process.env.SAMPLE_BASE_URL || 'http://127.0.0.1:5173',
+    baseURL,
     headless: true,
     actionTimeout: 10000,
     navigationTimeout: 30000,
@@ -69,8 +74,10 @@ export default defineConfig({
   webServer: process.env.SAMPLE_BASE_URL
     ? undefined
     : {
-        command: 'pnpm dev',
-        url: 'http://127.0.0.1:5173',
+        command: production
+          ? 'pnpm --filter @cinna-design/site preview --port 5193 --strictPort --base /Design/'
+          : 'pnpm dev',
+        url: baseURL,
         reuseExistingServer: !process.env.CI,
         timeout: 60000,
       },

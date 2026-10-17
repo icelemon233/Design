@@ -2,7 +2,7 @@ import type { ApiSection, SiteLanguage } from '../../../types';
 export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
   zh: [
     {
-      title: '标签页整体属性',
+      title: 'Tabs',
       rows: [
         ['items', '标签页数据列表；key 需唯一。', 'TabsItem[]', '-'],
         ['activeKey', '当前激活标签，传入后进入受控模式。', 'string', '-'],
@@ -10,19 +10,22 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['onChange', '切换标签时触发，返回标签 key。', '(key: string) => void', '-'],
         [
           'tabPosition',
-          '标签栏位置；top 和 bottom 为横向，left 和 right 为纵向。',
+          '标签栏位置。容器宽度不超过 480px 时，纵向标签转为顶部横向滚动。',
           "'top' | 'bottom' | 'left' | 'right'",
           "'top'",
         ],
         ['variant', '标签页视觉模式。', "'borderless' | 'bordered'", "'borderless'"],
         ['size', '标签尺寸。', "'small' | 'medium' | 'large'", "'medium'"],
+        ['disabled', '禁用切换、增删和排序，保留当前内容。', 'boolean', 'false'],
+        ['emptyContent', '没有可用标签时显示的内容。', 'ReactNode', 'null'],
+        [
+          'destroyInactiveTabPanel',
+          '切换时卸载隐藏面板；false 时保留内容状态。',
+          'boolean',
+          'true',
+        ],
         ['className', '根节点自定义 className。', 'string', '-'],
         ['style', '根节点自定义样式。', 'CSSProperties', '-'],
-      ],
-    },
-    {
-      title: '交互能力',
-      rows: [
         ['addable', '展示新增标签入口。', 'boolean', 'false'],
         ['addIcon', '自定义新增标签入口内容。', 'ReactNode', 'Icon plus'],
         ['onAdd', '点击新增入口时触发。', '(event) => void', '-'],
@@ -46,11 +49,6 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
           '(keys, items, info) => void',
           '-',
         ],
-      ],
-    },
-    {
-      title: '样式定制',
-      rows: [
         ['tabFontSize', '标签字体大小，数字按 px 处理。', 'number | string', '-'],
         ['tabFontWeight', '标签字重。', 'CSSProperties["fontWeight"]', '-'],
         ['tabColor', '普通标签文字颜色。', 'string', '-'],
@@ -75,7 +73,12 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['children', '标签对应的内容面板。', 'ReactNode', '-'],
         ['icon', '展示在标签标题前的图标。', 'ReactNode', '-'],
         ['disabled', '禁用当前标签切换。', 'boolean', 'false'],
-        ['closable', '覆盖整体的关闭开关；false 时不显示当前标签的关闭按钮。', 'boolean', 'false'],
+        [
+          'closable',
+          '覆盖整体的关闭开关；false 时不显示当前标签的关闭按钮。',
+          'boolean',
+          '继承 Tabs.closable',
+        ],
         ['closeIcon', '当前标签自定义关闭按钮内容。', 'ReactNode', '-'],
         ['className / style', '当前标签自定义 className 和样式。', 'string / CSSProperties', '-'],
       ],
@@ -108,19 +111,27 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
         ],
         [
           'tabPosition',
-          'Tab bar position. top and bottom are horizontal; left and right are vertical.',
+          'Tab bar position. Vertical tabs become a horizontally scrolling top strip when the container is 480px wide or narrower.',
           "'top' | 'bottom' | 'left' | 'right'",
           "'top'",
         ],
         ['variant', 'Visual variant for tabs.', "'borderless' | 'bordered'", "'borderless'"],
         ['size', 'Tab size.', "'small' | 'medium' | 'large'", "'medium'"],
+        [
+          'disabled',
+          'Disable switching, editing and reordering while preserving the current panel.',
+          'boolean',
+          'false',
+        ],
+        ['emptyContent', 'Content shown when no enabled tabs are available.', 'ReactNode', 'null'],
+        [
+          'destroyInactiveTabPanel',
+          'Unmount hidden panels; false preserves their state.',
+          'boolean',
+          'true',
+        ],
         ['className', 'Custom className for the root node.', 'string', '-'],
         ['style', 'Custom inline styles for the root node.', 'CSSProperties', '-'],
-      ],
-    },
-    {
-      title: 'Interaction',
-      rows: [
         ['addable', 'Shows the add-tab entry.', 'boolean', 'false'],
         ['addIcon', 'Custom add-tab entry content.', 'ReactNode', 'Icon plus'],
         ['onAdd', 'Fires when the add entry is clicked.', '(event) => void', '-'],
@@ -128,22 +139,22 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['closeIcon', 'Custom close button content.', 'ReactNode', 'Icon close-blue'],
         [
           'onClose',
-          'Fires when a close button is clicked with key, item, and event.',
+          'Fires on a close button click or Delete key, with the key, item and event.',
           '(key, item, event) => void',
           '-',
         ],
-        ['draggable', 'Allows dragging tabs to change order.', 'boolean', 'false'],
+        [
+          'draggable',
+          'Enable handle dragging and Alt + arrow key sorting. Supply onOrderChange to update items.',
+          'boolean',
+          'false',
+        ],
         [
           'onOrderChange',
-          'Fires after drag reorder with next keys, next items, and drag info.',
+          'Returns the next keys, items and move information after pointer or keyboard sorting.',
           '(keys, items, info) => void',
           '-',
         ],
-      ],
-    },
-    {
-      title: 'Style',
-      rows: [
         ['tabFontSize', 'Custom tab font size. Numbers are treated as px.', 'number | string', '-'],
         ['tabFontWeight', 'Custom tab font weight.', 'CSSProperties["fontWeight"]', '-'],
         ['tabColor', 'Normal tab text color.', 'string', '-'],
@@ -168,7 +179,7 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['children', 'Panel content for the tab.', 'ReactNode', '-'],
         ['icon', 'Icon before the label.', 'ReactNode', '-'],
         ['disabled', 'Disables tab switching.', 'boolean', 'false'],
-        ['closable', 'Whether the tab shows a close button.', 'boolean', 'false'],
+        ['closable', 'Override the parent close setting for this tab.', 'boolean', 'Tabs.closable'],
         ['closeIcon', 'Custom close button content for this tab.', 'ReactNode', '-'],
         [
           'className / style',

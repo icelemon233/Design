@@ -9,6 +9,19 @@ const data = [
 ];
 
 describe('transfer behavior', () => {
+  it('shows every item when search is hidden and restores the query when shown again', () => {
+    const { rerender } = render(<Transfer dataSource={data} showSearch />);
+    fireEvent.change(screen.getByRole('textbox', { name: 'Source: Search items' }), {
+      target: { value: 'cream' },
+    });
+    expect(screen.queryByRole('checkbox', { name: 'Alpha' })).not.toBeInTheDocument();
+    rerender(<Transfer dataSource={data} showSearch={false} />);
+    expect(screen.getByRole('checkbox', { name: 'Alpha' })).toBeInTheDocument();
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+    rerender(<Transfer dataSource={data} showSearch />);
+    expect(screen.getByRole('textbox', { name: 'Source: Search items' })).toHaveValue('cream');
+    expect(screen.queryByRole('checkbox', { name: 'Alpha' })).not.toBeInTheDocument();
+  });
   it('retains default labels when a partial locale contains undefined values', () => {
     render(
       <Transfer dataSource={[]} locale={{ sourceTitle: undefined, moveToTarget: undefined }} />,

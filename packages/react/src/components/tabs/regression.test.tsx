@@ -10,6 +10,51 @@ const items: TabsItem[] = [
 ];
 
 describe('tabs editing and lifecycle', () => {
+  it('treats an empty string key as an ordinary active and reorderable tab', () => {
+    const order = vi.fn();
+    const { container } = render(
+      <Tabs
+        items={[
+          { key: '', label: 'Alpha', children: 'Panel A' },
+          { key: 'b', label: 'Beta' },
+        ]}
+        draggable
+        onOrderChange={order}
+        emptyContent="No tabs"
+      />,
+    );
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Panel A');
+    expect(screen.queryByText('No tabs')).not.toBeInTheDocument();
+    expect(container.querySelector('.cinna-tabs__active-pill')).toBeInTheDocument();
+    fireEvent.dragStart(screen.getByRole('tab', { name: 'Alpha' }), {
+      dataTransfer: { effectAllowed: '', setData: vi.fn() },
+    });
+    fireEvent.dragOver(screen.getByRole('tab', { name: 'Beta' }), {
+      dataTransfer: { dropEffect: '' },
+    });
+    fireEvent.drop(screen.getByRole('tab', { name: 'Beta' }));
+    expect(order).toHaveBeenCalledWith(['b', ''], expect.any(Array), { fromKey: '', toKey: 'b' });
+  });
+  it('returns focus to the tab selected by the parent after closing', () => {
+    const Demo = () => {
+      const [tabs, setTabs] = useState(items);
+      const [active, setActive] = useState('b');
+      return (
+        <Tabs
+          items={tabs}
+          activeKey={active}
+          onClose={(key) => {
+            setTabs((current) => current.filter((item) => item.key !== key));
+            setActive('a');
+          }}
+        />
+      );
+    };
+    render(<Demo />);
+    fireEvent.click(screen.getByRole('button', { name: 'Close Beta' }));
+    expect(screen.getByRole('tab', { name: 'Alpha' })).toHaveFocus();
+    expect(screen.getByRole('tab', { name: 'Alpha' })).toHaveAttribute('aria-selected', 'true');
+  });
   it('supports reserved object-property names as ordinary item keys', () => {
     render(
       <Tabs
