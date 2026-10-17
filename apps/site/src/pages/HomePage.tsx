@@ -15,17 +15,16 @@ export const HomePage = ({
   navigate: (key: string) => void;
 }) => {
   const copy = siteI18n[language].ui;
-  const installCode = `// ${copy.installComment}
-pnpm add @cinna-design/react`;
+  const installCode = 'pnpm add @cinna-design/react';
   const usageCode = `import { Button } from '@cinna-design/react';
 import '@cinna-design/react/style.css';
 
-export default () => <Button>${language === 'zh' ? '云朵按钮' : 'Cloud button'}</Button>;`;
+export default () => <Button>${language === 'zh' ? '保存' : 'Save'}</Button>;`;
 
   return (
     <main className="site-shell" id="main-content" tabIndex={-1}>
       <section className="hero home-panel" aria-labelledby="hero-title">
-        <nav className="topbar" aria-label="Main navigation">
+        <nav className="topbar" aria-label={copy.language}>
           <div className="topbar__actions">
             <LanguageSwitch language={language} setLanguage={setLanguage} />
           </div>
@@ -36,11 +35,10 @@ export default () => <Button>${language === 'zh' ? '云朵按钮' : 'Cloud butto
         <div className="hero__content">
           <h1 id="hero-title">{copy.themeCardTitle}</h1>
           <p className="hero__subtitle">{copy.packageIntro}</p>
-          <p className="hero__copy">{copy.storyIntro}</p>
-          {copy.storyBody ? <p className="hero__copy">{copy.storyBody}</p> : null}
-          <blockquote className="hero__quote">{copy.storyQuote}</blockquote>
+          <p className="hero__copy">{copy.componentSummary}</p>
+          <p className="hero__compatibility">{copy.compatibility}</p>
           <div className="hero__actions">
-            <Cinna.Button size="large" icon="*" onClick={() => navigate('button')}>
+            <Cinna.Button size="large" onClick={() => navigate('button')}>
               {copy.getStarted}
             </Cinna.Button>
           </div>

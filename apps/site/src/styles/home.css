@@ -237,16 +237,12 @@ h3 {
   line-height: 1.55;
 }
 
-.hero__quote {
+.hero__compatibility {
   max-width: 720px;
-  margin: 22px 0 0;
-  padding: 16px 20px;
-  border-left: 5px solid var(--cinna-color-primary);
-  border-radius: 0 20px 20px 0;
-  background: #ffffff5c;
+  margin: 16px 0 0;
   color: var(--cinna-color-text-secondary);
-  font-size: clamp(17px, 1.9vw, 21px);
-  font-weight: 800;
+  font-size: 16px;
+  font-weight: 500;
   line-height: 1.6;
 }
 
