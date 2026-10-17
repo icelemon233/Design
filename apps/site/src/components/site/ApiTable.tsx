@@ -1,4 +1,4 @@
-import { componentApiRows, fallbackApiRows } from '../../docs/apiRows';
+import { componentApiRows, fallbackApiRows } from '../../docs/api';
 import { siteI18n } from '../../i18n';
 import type { ApiContent, ApiRow, ApiSection, SiteLanguage } from '../../types';
 import { DocFrame } from './DocFrame';
@@ -12,7 +12,9 @@ const normalizeApiSections = (content: ApiContent): ApiSection[] => {
 };
 
 export const ApiTable = ({ route, language }: { route: string; language: SiteLanguage }) => {
-  const sections = normalizeApiSections(componentApiRows[route]?.[language] ?? fallbackApiRows[language]);
+  const sections = normalizeApiSections(
+    componentApiRows[route]?.[language] ?? fallbackApiRows[language],
+  );
   const copy = siteI18n[language].ui;
 
   return (
@@ -21,7 +23,11 @@ export const ApiTable = ({ route, language }: { route: string; language: SiteLan
         {sections.map((section, sectionIndex) => (
           <section key={section.title || sectionIndex} className="api-section">
             {section.title ? <h3 className="api-section__title">{section.title}</h3> : null}
-            <div className="api-table" role="region" aria-label={section.title ? `${section.title} API table` : 'API table'}>
+            <div
+              className="api-table"
+              role="region"
+              aria-label={section.title ? `${section.title} API table` : 'API table'}
+            >
               <table>
                 <thead>
                   <tr>

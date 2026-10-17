@@ -1,0 +1,123 @@
+// Generated from component types. Run pnpm docs:api after changing props.
+import type { ApiSection, SiteLanguage } from '../../types';
+import { menuApiRows as curated } from './curated/menu';
+import { mergeApiSections } from './merge';
+const generated: Record<SiteLanguage, ApiSection[]> = {
+  zh: [
+    {
+      title: 'Menu',
+      rows: [
+        ['items', '展示项目。', 'MenuItem[]', '-'],
+        ['selectedKey', '受控的当前选中节点。', 'string', '-'],
+        ['defaultSelectedKey', 'defaultSelectedKey 的配置或回调。', 'string', '-'],
+        ['selectedKeys', '受控的选中项目键值。', 'string[]', '-'],
+        ['defaultSelectedKeys', 'defaultSelectedKeys 的配置或回调。', 'string[]', '-'],
+        ['openKeys', 'openKeys 的配置或回调。', 'string[]', '-'],
+        ['defaultOpenKeys', 'defaultOpenKeys 的配置或回调。', 'string[]', '-'],
+        ['mode', '显示或选择模式。', 'MenuMode', '-'],
+        ['theme', 'theme 的配置或回调。', 'MenuTheme', '-'],
+        ['inlineCollapsed', 'inlineCollapsed 的配置或回调。', 'boolean', '-'],
+        ['collapsedWidth', 'collapsedWidth 的配置或回调。', 'number | string', '-'],
+        ['selectable', '允许选择节点。', 'boolean', '-'],
+        ['multiple', '允许选择多个项目。', 'boolean', '-'],
+        [
+          'triggerSubMenuAction',
+          'triggerSubMenuAction 的配置或回调。',
+          'MenuTriggerSubMenuAction',
+          '-',
+        ],
+        ['expandIcon', 'expandIcon 的配置或回调。', 'MenuExpandIcon', '-'],
+        ['forceSubMenuRender', 'forceSubMenuRender 的配置或回调。', 'boolean', '-'],
+        ['subMenuOpenDelay', 'subMenuOpenDelay 的配置或回调。', 'number', '-'],
+        ['subMenuCloseDelay', 'subMenuCloseDelay 的配置或回调。', 'number', '-'],
+        [
+          'tooltip',
+          'tooltip 的配置或回调。',
+          "| false | { placement?: 'top' | 'bottom' | 'left' | 'right'; styles?: PopupStyles; }",
+          '-',
+        ],
+        ['popupRender', 'popupRender 的配置或回调。', 'MenuPopupRender', '-'],
+        ['classNames', 'classNames 的配置或回调。', 'MenuClassNames', '-'],
+        ['styles', 'styles 的配置或回调。', 'MenuStyles', '-'],
+        ['onClick', 'onClick 的配置或回调。', '(info: MenuClickInfo) => void', '-'],
+        ['onSelect', '选中项目时调用。', '(key: string, info: MenuSelectInfo) => void', '-'],
+        [
+          'onDeselect',
+          'onDeselect 的配置或回调。',
+          '(key: string, info: MenuSelectInfo) => void',
+          '-',
+        ],
+        ['onOpenChange', '打开状态变化时调用。', '(openKeys: string[]) => void', '-'],
+        ['inlineIndent', 'inlineIndent 的配置或回调。', 'number', '-'],
+      ],
+    },
+  ],
+  en: [
+    {
+      title: 'Menu',
+      rows: [
+        ['items', 'Items to display.', 'MenuItem[]', '-'],
+        ['selectedKey', 'Controlled selected node.', 'string', '-'],
+        ['defaultSelectedKey', 'Configuration or callback for defaultSelectedKey.', 'string', '-'],
+        ['selectedKeys', 'Controlled selected item keys.', 'string[]', '-'],
+        [
+          'defaultSelectedKeys',
+          'Configuration or callback for defaultSelectedKeys.',
+          'string[]',
+          '-',
+        ],
+        ['openKeys', 'Configuration or callback for openKeys.', 'string[]', '-'],
+        ['defaultOpenKeys', 'Configuration or callback for defaultOpenKeys.', 'string[]', '-'],
+        ['mode', 'Display or selection mode.', 'MenuMode', '-'],
+        ['theme', 'Configuration or callback for theme.', 'MenuTheme', '-'],
+        ['inlineCollapsed', 'Configuration or callback for inlineCollapsed.', 'boolean', '-'],
+        ['collapsedWidth', 'Configuration or callback for collapsedWidth.', 'number | string', '-'],
+        ['selectable', 'Allow node selection.', 'boolean', '-'],
+        ['multiple', 'Allow multiple selected items.', 'boolean', '-'],
+        [
+          'triggerSubMenuAction',
+          'Configuration or callback for triggerSubMenuAction.',
+          'MenuTriggerSubMenuAction',
+          '-',
+        ],
+        ['expandIcon', 'Configuration or callback for expandIcon.', 'MenuExpandIcon', '-'],
+        ['forceSubMenuRender', 'Configuration or callback for forceSubMenuRender.', 'boolean', '-'],
+        ['subMenuOpenDelay', 'Configuration or callback for subMenuOpenDelay.', 'number', '-'],
+        ['subMenuCloseDelay', 'Configuration or callback for subMenuCloseDelay.', 'number', '-'],
+        [
+          'tooltip',
+          'Configuration or callback for tooltip.',
+          "| false | { placement?: 'top' | 'bottom' | 'left' | 'right'; styles?: PopupStyles; }",
+          '-',
+        ],
+        ['popupRender', 'Configuration or callback for popupRender.', 'MenuPopupRender', '-'],
+        ['classNames', 'Configuration or callback for classNames.', 'MenuClassNames', '-'],
+        ['styles', 'Configuration or callback for styles.', 'MenuStyles', '-'],
+        ['onClick', 'Configuration or callback for onClick.', '(info: MenuClickInfo) => void', '-'],
+        [
+          'onSelect',
+          'Called when an item is selected.',
+          '(key: string, info: MenuSelectInfo) => void',
+          '-',
+        ],
+        [
+          'onDeselect',
+          'Configuration or callback for onDeselect.',
+          '(key: string, info: MenuSelectInfo) => void',
+          '-',
+        ],
+        [
+          'onOpenChange',
+          'Called when the open state changes.',
+          '(openKeys: string[]) => void',
+          '-',
+        ],
+        ['inlineIndent', 'Configuration or callback for inlineIndent.', 'number', '-'],
+      ],
+    },
+  ],
+};
+export const menuApiRows = {
+  zh: mergeApiSections(curated.zh, generated.zh),
+  en: mergeApiSections(curated.en, generated.en),
+};

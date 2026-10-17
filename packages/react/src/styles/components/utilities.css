@@ -1,0 +1,390 @@
+.cinna-transfer__search {
+  grid-column: 1 / -1;
+}
+
+.cinna-transfer__list strong {
+  color: var(--cinna-color-text);
+}
+
+.cinna-watermark::before {
+  content: attr(data-watermark) ' ' attr(data-watermark) ' ' attr(data-watermark) '\A'
+    attr(data-watermark) ' ' attr(data-watermark) ' ' attr(data-watermark) '\A' attr(data-watermark)
+    ' ' attr(data-watermark) ' ' attr(data-watermark);
+  color: rgba(61, 142, 170, var(--cinna-watermark-opacity, 0.08));
+  transform: rotate(var(--cinna-watermark-rotate, -18deg));
+}
+
+.cinna-float-button-group {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cinna-float-button-group--top,
+.cinna-float-button-group--bottom {
+  flex-direction: column;
+}
+
+.cinna-float-button-group--left,
+.cinna-float-button-group--right {
+  flex-direction: row;
+}
+
+.cinna-float-button-group .cinna-float-button {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  z-index: auto;
+}
+
+.cinna-float-button-group__list {
+  display: inline-flex;
+  gap: 10px;
+  transition:
+    opacity var(--cinna-motion-base) var(--cinna-ease-standard),
+    transform var(--cinna-motion-base) var(--cinna-ease-standard),
+    visibility var(--cinna-motion-base) var(--cinna-ease-standard);
+}
+
+.cinna-float-button-group--top .cinna-float-button-group__list,
+.cinna-float-button-group--bottom .cinna-float-button-group__list {
+  flex-direction: column;
+}
+
+.cinna-float-button-group--left .cinna-float-button-group__list,
+.cinna-float-button-group--right .cinna-float-button-group__list {
+  flex-direction: row;
+}
+
+.cinna-float-button-group--menu:not(.cinna-float-button-group--open)
+  .cinna-float-button-group__list {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cinna-float-button-group--top.cinna-float-button-group--menu:not(.cinna-float-button-group--open)
+  .cinna-float-button-group__list {
+  transform: translateY(8px);
+}
+
+.cinna-float-button-group--bottom.cinna-float-button-group--menu:not(
+    .cinna-float-button-group--open
+  )
+  .cinna-float-button-group__list {
+  transform: translateY(-8px);
+}
+
+.cinna-float-button-group--left.cinna-float-button-group--menu:not(.cinna-float-button-group--open)
+  .cinna-float-button-group__list {
+  transform: translateX(8px);
+}
+
+.cinna-float-button-group--right.cinna-float-button-group--menu:not(.cinna-float-button-group--open)
+  .cinna-float-button-group__list {
+  transform: translateX(-8px);
+}
+
+.cinna-float-button-group--open .cinna-float-button-group__list {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(0, 0);
+  pointer-events: auto;
+}
+
+.cinna-float-button--square {
+  --button-radius: var(--cinna-radius-lg);
+}
+
+.cinna-float-button.cinna-float-button--circle {
+  box-shadow: none;
+}
+
+.cinna-float-button.cinna-float-button--circle:active:not(:disabled) {
+  box-shadow: none;
+}
+
+.cinna-float-button.cinna-float-button--circle:focus-visible {
+  box-shadow: var(--cinna-shadow-ring);
+}
+
+.cinna-float-button--hidden {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.cinna-float-button__icon,
+.cinna-float-button__label,
+.cinna-float-button em {
+  position: relative;
+  z-index: 2;
+}
+
+.cinna-float-button em {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 18px;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: var(--cinna-color-strawberry);
+  color: white;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.cinna-float-button__tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  z-index: 3;
+  width: max-content;
+  max-width: 180px;
+  padding: 7px 10px;
+  border: 1.5px solid var(--cinna-color-border);
+  border-radius: var(--cinna-radius-md);
+  background: var(--cinna-color-surface);
+  box-shadow: var(--cinna-shadow-float);
+  color: var(--cinna-color-text-secondary);
+  font-size: var(--cinna-font-size-sm);
+  font-weight: 900;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(4px);
+  transition:
+    opacity var(--cinna-motion-base) var(--cinna-ease-standard),
+    transform var(--cinna-motion-base) var(--cinna-ease-standard);
+}
+
+.cinna-float-button:hover .cinna-float-button__tooltip,
+.cinna-float-button:focus-visible .cinna-float-button__tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.cinna-message button,
+.cinna-notification > button {
+  border: 0;
+  background: transparent;
+  color: var(--cinna-color-text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+}
+
+.cinna-notification__actions,
+.cinna-tour__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.cinna-collapse__header > button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--cinna-color-text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+  text-align: left;
+}
+
+.cinna-collapse__header > button em {
+  color: var(--cinna-color-text-muted);
+  font-style: normal;
+}
+
+.cinna-collapse__item--disabled {
+  opacity: 0.5;
+}
+
+.cinna-drawer__extra {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cinna-drawer--top,
+.cinna-drawer--bottom {
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: min(70vh, 360px);
+}
+
+.cinna-drawer--top {
+  top: 0;
+  bottom: auto;
+}
+
+.cinna-drawer--bottom {
+  top: auto;
+  bottom: 0;
+}
+
+.cinna-table__sorter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+}
+
+.cinna-table__row--selected {
+  background: rgba(168, 223, 241, 0.18);
+}
+
+.cinna-table__selection {
+  width: 42px;
+}
+
+.cinna-table__empty {
+  text-align: center;
+}
+
+.cinna-list__header,
+.cinna-list__footer {
+  padding: 12px 16px;
+  color: var(--cinna-color-text);
+  font-weight: 900;
+}
+
+.cinna-list--borderless {
+  border: 0;
+  box-shadow: none;
+}
+
+.cinna-timeline li {
+  grid-template-columns: auto 18px minmax(0, 1fr);
+}
+
+.cinna-timeline li > em {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.cinna-timeline li > span {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.cinna-timeline li > div {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.cinna-timeline--alternate li {
+  grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
+}
+
+.cinna-timeline--alternate li:nth-child(odd) > em {
+  text-align: right;
+}
+
+.cinna-timeline--alternate li:nth-child(even) {
+  grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
+}
+
+.cinna-timeline--alternate li:nth-child(even) > em {
+  grid-column: 3;
+}
+
+.cinna-timeline--alternate li:nth-child(even) > span {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.cinna-timeline--alternate li:nth-child(even) > div {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: right;
+}
+
+.cinna-timeline li > em {
+  color: var(--cinna-color-text-muted);
+  font-style: normal;
+  font-weight: 900;
+}
+
+@keyframes cinna-skeleton {
+  to {
+    background-position-x: -220%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinna-button,
+  .cinna-float-button,
+  .cinna-card,
+  .cinna-input,
+  .cinna-loading__mascot,
+  .cinna-loading__ring,
+  .cinna-loading__dot,
+  .cinna-button__spinner,
+  .cinna-check__mark,
+  .cinna-check__mark-path,
+  .cinna-check__mixed,
+  .cinna-menu__item,
+  .cinna-menu__item::before,
+  .cinna-menu__item::after,
+  .cinna-menu__active-pill,
+  .cinna-menu__active-pill::before,
+  .cinna-menu__active-pill::after,
+  .cinna-menu__submenu-title,
+  .cinna-menu__submenu-title::before,
+  .cinna-menu__submenu-title::after,
+  .cinna-menu__expand-icon,
+  .cinna-menu__submenu-popup,
+  .cinna-tabs__tab,
+  .cinna-tabs__tab::after,
+  .cinna-tabs__active-pill,
+  .cinna-tabs__active-pill::before,
+  .cinna-tabs__active-pill::after,
+  .cinna-tabs__icon,
+  .cinna-tabs__label,
+  .cinna-tabs__panel,
+  .cinna-step,
+  .cinna-step__marker,
+  .cinna-step__marker::after,
+  .cinna-step__title,
+  .cinna-step__connector-line,
+  .cinna-step__connector-line::after,
+  .cinna-step__minimal-dot,
+  .cinna-steps__minimal-summary {
+    animation: none;
+    transition: none;
+  }
+
+  .cinna-button__ripple,
+  .cinna-button__ripple-particle,
+  .cinna-step--clickable::after {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .cinna-button--medium {
+    min-height: 46px;
+  }
+
+  .cinna-input--medium {
+    min-height: 46px;
+  }
+
+  .cinna-card--padded {
+    padding: 18px;
+  }
+}

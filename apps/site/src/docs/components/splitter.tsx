@@ -1,5 +1,5 @@
-import React from 'react';
 import * as Cinna from '@cinna-design/react';
+import React from 'react';
 import type { ComponentDocConfig } from '../../types';
 
 const panelStyle: React.CSSProperties = {
@@ -19,7 +19,8 @@ export const splitterDoc: ComponentDocConfig = {
       },
       en: {
         title: 'Basic splitter',
-        description: 'Use Splitter.Panel for panels and drag the separator to resize the left and right areas.',
+        description:
+          'Use Splitter.Panel for panels and drag the separator to resize the left and right areas.',
         codeToggle: 'View basic splitter code',
       },
       code: `import { Splitter } from '@cinna-design/react';
@@ -96,12 +97,14 @@ export default () => (
       id: 'disabled-splitter',
       zh: {
         title: '禁用拖拽',
-        description: '设置 disabled 可禁用全部分割线；设置 Panel 的 resizable={false} 可禁用相邻分割线。',
+        description:
+          '设置 disabled 可禁用全部分割线；设置 Panel 的 resizable={false} 可禁用相邻分割线。',
         codeToggle: '查看禁用拖拽代码',
       },
       en: {
         title: 'Disabled drag',
-        description: 'Use disabled for every separator, or resizable={false} on a panel to disable the adjacent separator.',
+        description:
+          'Use disabled for every separator, or resizable={false} on a panel to disable the adjacent separator.',
         codeToggle: 'View disabled drag code',
       },
       code: `import { Splitter } from '@cinna-design/react';
@@ -142,7 +145,8 @@ export default () => (
       },
       en: {
         title: 'Complex composition',
-        description: 'Nest horizontal and vertical splitters to compose editors, previews, and side panels.',
+        description:
+          'Nest horizontal and vertical splitters to compose editors, previews, and side panels.',
         codeToggle: 'View complex composition code',
       },
       code: `import { Splitter } from '@cinna-design/react';
@@ -200,7 +204,8 @@ export default () => (
       },
       en: {
         title: 'Lazy rendering',
-        description: 'With lazy enabled, a preview separator is shown while size updates are committed after release.',
+        description:
+          'With lazy enabled, a preview separator is shown while size updates are committed after release.',
         codeToggle: 'View lazy resize code',
       },
       code: `import { Splitter } from '@cinna-design/react';
@@ -241,7 +246,8 @@ export default () => (
       },
       en: {
         title: 'Custom separator',
-        description: 'Use divider for color, line style, thickness, and hit area; the separator does not carry text.',
+        description:
+          'Use divider for color, line style, thickness, and hit area; the separator does not carry text.',
         codeToggle: 'View custom separator code',
       },
       code: `import { Splitter } from '@cinna-design/react';
@@ -282,7 +288,8 @@ export default () => (
       },
       en: {
         title: 'Double-click reset',
-        description: 'Double-click the separator to restore initial sizes, or disable it with resetOnDoubleClick.',
+        description:
+          'Double-click the separator to restore initial sizes, or disable it with resetOnDoubleClick.',
         codeToggle: 'View double-click reset code',
       },
       code: `import { Splitter } from '@cinna-design/react';

@@ -1,0 +1,236 @@
+.cinna-splitter--vertical {
+  flex-direction: column;
+  min-height: 260px;
+}
+
+.cinna-splitter__panel {
+  flex: 0 0 var(--cinna-splitter-panel-size, 0px);
+  min-width: 0;
+  min-height: 0;
+  padding: 16px;
+  overflow: auto;
+}
+
+.cinna-splitter--horizontal > .cinna-splitter__panel {
+  height: auto;
+}
+
+.cinna-splitter--vertical > .cinna-splitter__panel {
+  width: 100%;
+}
+
+.cinna-splitter__dragger {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 var(--cinna-splitter-dragger-size);
+  align-self: stretch;
+  min-width: var(--cinna-splitter-dragger-size);
+  min-height: var(--cinna-splitter-dragger-size);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--cinna-splitter-divider-color);
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.cinna-splitter--vertical > .cinna-splitter__dragger {
+  cursor: row-resize;
+}
+
+.cinna-splitter__dragger span {
+  position: absolute;
+  inset: 8px auto 8px 50%;
+  border-radius: 999px;
+  border-left: var(--cinna-splitter-line-thickness) solid var(--cinna-splitter-divider-color);
+  background: transparent;
+  transform: translateX(-50%);
+  transition:
+    border-color var(--cinna-motion-base) var(--cinna-ease-standard),
+    box-shadow var(--cinna-motion-base) var(--cinna-ease-standard);
+}
+
+.cinna-splitter--vertical > .cinna-splitter__dragger span {
+  inset: 50% 8px auto 8px;
+  border-top: var(--cinna-splitter-line-thickness) solid var(--cinna-splitter-divider-color);
+  border-left: 0;
+  transform: translateY(-50%);
+}
+
+.cinna-splitter__dragger:hover span,
+.cinna-splitter__dragger--active span {
+  border-color: var(--cinna-color-primary-active);
+  box-shadow: 0 0 0 5px rgba(168, 223, 241, 0.22);
+}
+
+.cinna-splitter__dragger--dashed span {
+  border-left-style: dashed;
+}
+
+.cinna-splitter--vertical > .cinna-splitter__dragger--dashed span {
+  border-top-style: dashed;
+}
+
+.cinna-splitter__dragger--disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
+.cinna-splitter__dragger--disabled:hover span {
+  border-color: var(--cinna-splitter-divider-color);
+  box-shadow: none;
+}
+
+.cinna-splitter__preview {
+  position: absolute;
+  z-index: 4;
+  top: 8px;
+  bottom: 8px;
+  left: var(--cinna-splitter-preview-position, 0);
+  width: 0;
+  border-left: max(2px, var(--cinna-splitter-line-thickness)) solid
+    var(--cinna-color-primary-active);
+  border-radius: 999px;
+  box-shadow: 0 0 0 5px rgba(168, 223, 241, 0.26);
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.cinna-splitter--vertical > .cinna-splitter__preview {
+  top: var(--cinna-splitter-preview-position, 0);
+  right: 8px;
+  bottom: auto;
+  left: 8px;
+  width: auto;
+  height: 0;
+  border-top: max(2px, var(--cinna-splitter-line-thickness)) solid var(--cinna-color-primary-active);
+  border-left: 0;
+  transform: translateY(-50%);
+}
+
+.cinna-button--danger {
+  --button-bg: var(--cinna-color-danger);
+  --button-bg-hover: #ef8492;
+  --button-bg-active: #c94f63;
+  --button-border: rgba(152, 54, 72, 0.18);
+  --button-shadow: 0 5px 0 #b84d5d;
+  --button-shadow-active: 0 2px 0 #b84d5d;
+  --button-color: #fffaf7;
+  --button-ripple-accent: rgba(223, 102, 119, 0.3);
+}
+
+.cinna-button--danger-tone:not(.cinna-button--secondary):not(.cinna-button--cream):not(
+    .cinna-button--ghost
+  ):not(.cinna-button--text):not(.cinna-button--dashed),
+.cinna-button--danger-tone.cinna-button--danger {
+  --button-bg: var(--cinna-color-danger);
+  --button-bg-hover: #ef8492;
+  --button-bg-active: #c94f63;
+  --button-border: rgba(152, 54, 72, 0.18);
+  --button-shadow: 0 5px 0 #b84d5d;
+  --button-shadow-active: 0 2px 0 #b84d5d;
+  --button-color: #fffaf7;
+  --button-ripple-accent: rgba(223, 102, 119, 0.3);
+}
+
+.cinna-button--danger-tone.cinna-button--secondary {
+  --button-bg: #ffd4da;
+  --button-bg-hover: #ffe0e4;
+  --button-bg-active: #f7b7c0;
+  --button-border: rgba(152, 54, 72, 0.16);
+  --button-shadow: 0 5px 0 #d87180;
+  --button-shadow-active: 0 2px 0 #d87180;
+  --button-ripple-accent: rgba(223, 102, 119, 0.26);
+}
+
+.cinna-button--danger-tone.cinna-button--cream {
+  --button-bg: #fffafa;
+  --button-bg-hover: #fff0f2;
+  --button-bg-active: #ffdfe5;
+  --button-border: rgba(223, 102, 119, 0.42);
+  --button-shadow: 0 4px 0 #e8a1aa;
+  --button-shadow-active: 0 2px 0 #e8a1aa;
+  --button-color: #8a3442;
+  --button-ripple-accent: rgba(223, 102, 119, 0.24);
+}
+
+.cinna-button--danger-tone.cinna-button--ghost {
+  --button-bg: rgba(255, 245, 247, 0.68);
+  --button-bg-hover: rgba(255, 235, 239, 0.94);
+  --button-bg-active: rgba(255, 219, 226, 0.98);
+  --button-border: rgba(223, 102, 119, 0.5);
+  --button-shadow: 0 0 0 transparent;
+  --button-shadow-active: 0 0 0 transparent;
+  --button-color: #8a3442;
+  --button-ripple-accent: rgba(223, 102, 119, 0.24);
+}
+
+.cinna-button--danger-tone.cinna-button--text {
+  --button-bg: transparent;
+  --button-bg-hover: rgba(223, 102, 119, 0.14);
+  --button-bg-active: rgba(223, 102, 119, 0.24);
+  --button-border: transparent;
+  --button-shadow: 0 0 0 transparent;
+  --button-shadow-active: 0 0 0 transparent;
+  --button-color: #b84d5d;
+  --button-ripple-accent: rgba(223, 102, 119, 0.22);
+}
+
+.cinna-button--dashed {
+  --button-bg: rgba(255, 252, 246, 0.7);
+  --button-bg-hover: var(--cinna-color-surface-blue);
+  --button-bg-active: #def3fa;
+  --button-border: var(--cinna-color-primary-active);
+  --button-shadow: 0 4px 0 rgba(120, 189, 212, 0.45);
+  --button-shadow-active: 0 2px 0 rgba(120, 189, 212, 0.45);
+  border-style: dashed;
+}
+
+.cinna-button--danger-tone.cinna-button--dashed {
+  --button-bg: rgba(255, 252, 246, 0.74);
+  --button-bg-hover: #fff0f2;
+  --button-bg-active: #ffdfe5;
+  --button-border: #df6677;
+  --button-shadow: 0 4px 0 rgba(223, 102, 119, 0.36);
+  --button-shadow-active: 0 2px 0 rgba(223, 102, 119, 0.36);
+  --button-color: #8a3442;
+  --button-ripple-accent: rgba(223, 102, 119, 0.24);
+}
+
+.cinna-button--default {
+  --button-radius: var(--cinna-radius-md);
+}
+
+.cinna-button--circle {
+  width: var(--cinna-size-control-md);
+  min-width: var(--cinna-size-control-md);
+  padding: 0;
+  --button-radius: 999px;
+  --button-shadow: 0 0 0 transparent;
+  --button-shadow-active: 0 0 0 transparent;
+  box-shadow: none;
+}
+
+.cinna-button.cinna-button--circle:active:not(:disabled),
+.cinna-button.cinna-button--circle:hover:active:not(:disabled) {
+  box-shadow: none;
+}
+
+.cinna-button.cinna-button--circle:focus-visible {
+  box-shadow: var(--cinna-shadow-ring);
+}
+
+.cinna-button--small.cinna-button--circle {
+  width: var(--cinna-size-control-sm);
+  min-width: var(--cinna-size-control-sm);
+}
+
+.cinna-button--large.cinna-button--circle {
+  width: var(--cinna-size-control-lg);
+  min-width: var(--cinna-size-control-lg);
+}
+
+.cinna-typography {
+  display: grid;
+  gap: 12px;
+}

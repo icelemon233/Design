@@ -1,0 +1,133 @@
+// Generated from component types. Run pnpm docs:api after changing props.
+import type { ApiSection, SiteLanguage } from '../../types';
+import { stepsApiRows as curated } from './curated/steps';
+import { mergeApiSections } from './merge';
+const generated: Record<SiteLanguage, ApiSection[]> = {
+  zh: [
+    {
+      title: 'Steps',
+      rows: [
+        ['items', '展示项目。', 'StepItem[]', '-'],
+        ['current', '受控阶段或页码。', 'number', '-'],
+        ['defaultCurrent', '初始阶段或页码。', 'number', '0'],
+        ['direction', 'direction 的配置或回调。', 'StepsDirection', "'horizontal'"],
+        ['size', '组件尺寸。', 'CinnaSize', "'medium'"],
+        ['status', '语义状态及反馈颜色。', 'StepStatus', "'process'"],
+        ['labelPlacement', 'labelPlacement 的配置或回调。', 'StepsLabelPlacement', "'right'"],
+        ['type', 'type 的配置或回调。', 'StepsType', "'default'"],
+        ['clickable', 'clickable 的配置或回调。', 'boolean', 'false'],
+        ['underline', 'underline 的配置或回调。', 'boolean', 'false'],
+        ['markerShape', 'markerShape 的配置或回调。', 'StepsMarkerShape', "'circle'"],
+        ['connector', 'connector 的配置或回调。', 'React.ReactNode', '-'],
+        ['connectorCount', 'connectorCount 的配置或回调。', 'number', '1'],
+        ['connectorColor', 'connectorColor 的配置或回调。', 'string', '-'],
+        ['markerFontSize', 'markerFontSize 的配置或回调。', 'number | string', '-'],
+        [
+          'markerFontWeight',
+          'markerFontWeight 的配置或回调。',
+          "React.CSSProperties['fontWeight']",
+          '-',
+        ],
+        ['markerColor', 'markerColor 的配置或回调。', 'string', '-'],
+        ['markerBackgroundColor', 'markerBackgroundColor 的配置或回调。', 'string', '-'],
+        ['markerBorderColor', 'markerBorderColor 的配置或回调。', 'string', '-'],
+        ['titleFontSize', 'titleFontSize 的配置或回调。', 'number | string', '-'],
+        [
+          'titleFontWeight',
+          'titleFontWeight 的配置或回调。',
+          "React.CSSProperties['fontWeight']",
+          '-',
+        ],
+        ['titleColor', 'titleColor 的配置或回调。', 'string', '-'],
+        ['subTitleFontSize', 'subTitleFontSize 的配置或回调。', 'number | string', '-'],
+        ['subTitleColor', 'subTitleColor 的配置或回调。', 'string', '-'],
+        ['descriptionFontSize', 'descriptionFontSize 的配置或回调。', 'number | string', '-'],
+        ['descriptionColor', 'descriptionColor 的配置或回调。', 'string', '-'],
+        [
+          'onChange',
+          '值变更时调用。',
+          '(current: number, item: StepItem, event: React.MouseEvent<HTMLElement>) => void',
+          '-',
+        ],
+      ],
+    },
+  ],
+  en: [
+    {
+      title: 'Steps',
+      rows: [
+        ['items', 'Items to display.', 'StepItem[]', '-'],
+        ['current', 'Controlled step or page.', 'number', '-'],
+        ['defaultCurrent', 'Initial step or page.', 'number', '0'],
+        ['direction', 'Configuration or callback for direction.', 'StepsDirection', "'horizontal'"],
+        ['size', 'Component size.', 'CinnaSize', "'medium'"],
+        ['status', 'Semantic status and feedback color.', 'StepStatus', "'process'"],
+        [
+          'labelPlacement',
+          'Configuration or callback for labelPlacement.',
+          'StepsLabelPlacement',
+          "'right'",
+        ],
+        ['type', 'Configuration or callback for type.', 'StepsType', "'default'"],
+        ['clickable', 'Configuration or callback for clickable.', 'boolean', 'false'],
+        ['underline', 'Configuration or callback for underline.', 'boolean', 'false'],
+        [
+          'markerShape',
+          'Configuration or callback for markerShape.',
+          'StepsMarkerShape',
+          "'circle'",
+        ],
+        ['connector', 'Configuration or callback for connector.', 'React.ReactNode', '-'],
+        ['connectorCount', 'Configuration or callback for connectorCount.', 'number', '1'],
+        ['connectorColor', 'Configuration or callback for connectorColor.', 'string', '-'],
+        ['markerFontSize', 'Configuration or callback for markerFontSize.', 'number | string', '-'],
+        [
+          'markerFontWeight',
+          'Configuration or callback for markerFontWeight.',
+          "React.CSSProperties['fontWeight']",
+          '-',
+        ],
+        ['markerColor', 'Configuration or callback for markerColor.', 'string', '-'],
+        [
+          'markerBackgroundColor',
+          'Configuration or callback for markerBackgroundColor.',
+          'string',
+          '-',
+        ],
+        ['markerBorderColor', 'Configuration or callback for markerBorderColor.', 'string', '-'],
+        ['titleFontSize', 'Configuration or callback for titleFontSize.', 'number | string', '-'],
+        [
+          'titleFontWeight',
+          'Configuration or callback for titleFontWeight.',
+          "React.CSSProperties['fontWeight']",
+          '-',
+        ],
+        ['titleColor', 'Configuration or callback for titleColor.', 'string', '-'],
+        [
+          'subTitleFontSize',
+          'Configuration or callback for subTitleFontSize.',
+          'number | string',
+          '-',
+        ],
+        ['subTitleColor', 'Configuration or callback for subTitleColor.', 'string', '-'],
+        [
+          'descriptionFontSize',
+          'Configuration or callback for descriptionFontSize.',
+          'number | string',
+          '-',
+        ],
+        ['descriptionColor', 'Configuration or callback for descriptionColor.', 'string', '-'],
+        [
+          'onChange',
+          'Called when the value changes.',
+          '(current: number, item: StepItem, event: React.MouseEvent<HTMLElement>) => void',
+          '-',
+        ],
+      ],
+    },
+  ],
+};
+export const stepsApiRows = {
+  zh: mergeApiSections(curated.zh, generated.zh),
+  en: mergeApiSections(curated.en, generated.en),
+};

@@ -1,0 +1,146 @@
+// Generated from component types. Run pnpm docs:api after changing props.
+import type { ApiSection, SiteLanguage } from '../../types';
+import { checkboxApiRows as curated } from './curated/checkbox';
+import { mergeApiSections } from './merge';
+const generated: Record<SiteLanguage, ApiSection[]> = {
+  zh: [
+    {
+      title: 'Checkbox',
+      rows: [
+        ['label', '关联控件的标签。', 'React.ReactNode', '-'],
+        ['indeterminate', 'indeterminate 的配置或回调。', 'boolean', '-'],
+        ['size', '组件尺寸。', 'CinnaSize', "'medium'"],
+        ['animation', 'animation 的配置或回调。', 'CheckboxAnimation', '-'],
+        ['labelColor', 'labelColor 的配置或回调。', 'string', '-'],
+        ['checkedColor', 'checkedColor 的配置或回调。', 'string', '-'],
+        ['boxColor', 'boxColor 的配置或回调。', 'string', '-'],
+        ['borderColor', 'borderColor 的配置或回调。', 'string', '-'],
+        ['fontSize', '字号。', 'number | string', '-'],
+        ['fontWeight', 'fontWeight 的配置或回调。', "React.CSSProperties['fontWeight']", '-'],
+        ['ripple', 'ripple 的配置或回调。', 'boolean', 'true'],
+        [
+          'rippleParticleColors',
+          'rippleParticleColors 的配置或回调。',
+          'string | string[]',
+          "['#73c4e0', '#a8dff1', '#ffd8c2', '#fff0a6', '#df6677']",
+        ],
+        ['rippleParticleOpacity', 'rippleParticleOpacity 的配置或回调。', 'number', '0.72'],
+      ],
+    },
+    {
+      title: 'CheckboxGroup',
+      rows: [
+        ['options', '可选项数据及禁用配置。', 'CheckboxGroupOption[]', '-'],
+        ['value', '受控值；变更后由父组件更新。', 'string[]', '-'],
+        ['defaultValue', '非受控模式的初始值。', 'string[]', '[]'],
+        ['name', '字段名或原生输入 name。', 'string', '-'],
+        ['disabled', '禁用用户输入和操作。', 'boolean', '-'],
+        ['direction', 'direction 的配置或回调。', "'horizontal' | 'vertical'", "'horizontal'"],
+        ['size', '组件尺寸。', 'CinnaSize', "'medium'"],
+        ['animation', 'animation 的配置或回调。', 'CheckboxAnimation', '-'],
+        ['onChange', '值变更时调用。', '(checkedValues: string[]) => void', '-'],
+        ['labelColor', 'labelColor 的配置或回调。', 'string', '-'],
+        ['checkedColor', 'checkedColor 的配置或回调。', 'string', '-'],
+        ['boxColor', 'boxColor 的配置或回调。', 'string', '-'],
+        ['borderColor', 'borderColor 的配置或回调。', 'string', '-'],
+        ['fontSize', '字号。', 'number | string', '-'],
+        ['fontWeight', 'fontWeight 的配置或回调。', "React.CSSProperties['fontWeight']", '-'],
+        ['ripple', 'ripple 的配置或回调。', 'boolean', 'true'],
+        [
+          'rippleParticleColors',
+          'rippleParticleColors 的配置或回调。',
+          'string | string[]',
+          "['#73c4e0', '#a8dff1', '#ffd8c2', '#fff0a6', '#df6677']",
+        ],
+        ['rippleParticleOpacity', 'rippleParticleOpacity 的配置或回调。', 'number', '0.72'],
+      ],
+    },
+  ],
+  en: [
+    {
+      title: 'Checkbox',
+      rows: [
+        ['label', 'Label for the associated control.', 'React.ReactNode', '-'],
+        ['indeterminate', 'Configuration or callback for indeterminate.', 'boolean', '-'],
+        ['size', 'Component size.', 'CinnaSize', "'medium'"],
+        ['animation', 'Configuration or callback for animation.', 'CheckboxAnimation', '-'],
+        ['labelColor', 'Configuration or callback for labelColor.', 'string', '-'],
+        ['checkedColor', 'Configuration or callback for checkedColor.', 'string', '-'],
+        ['boxColor', 'Configuration or callback for boxColor.', 'string', '-'],
+        ['borderColor', 'Configuration or callback for borderColor.', 'string', '-'],
+        ['fontSize', 'Font size.', 'number | string', '-'],
+        [
+          'fontWeight',
+          'Configuration or callback for fontWeight.',
+          "React.CSSProperties['fontWeight']",
+          '-',
+        ],
+        ['ripple', 'Configuration or callback for ripple.', 'boolean', 'true'],
+        [
+          'rippleParticleColors',
+          'Configuration or callback for rippleParticleColors.',
+          'string | string[]',
+          "['#73c4e0', '#a8dff1', '#ffd8c2', '#fff0a6', '#df6677']",
+        ],
+        [
+          'rippleParticleOpacity',
+          'Configuration or callback for rippleParticleOpacity.',
+          'number',
+          '0.72',
+        ],
+      ],
+    },
+    {
+      title: 'CheckboxGroup',
+      rows: [
+        [
+          'options',
+          'Available options and per-option disabled state.',
+          'CheckboxGroupOption[]',
+          '-',
+        ],
+        ['value', 'Controlled value; update it from the parent.', 'string[]', '-'],
+        ['defaultValue', 'Initial value in uncontrolled mode.', 'string[]', '[]'],
+        ['name', 'Field name or native input name.', 'string', '-'],
+        ['disabled', 'Disable user input and interaction.', 'boolean', '-'],
+        [
+          'direction',
+          'Configuration or callback for direction.',
+          "'horizontal' | 'vertical'",
+          "'horizontal'",
+        ],
+        ['size', 'Component size.', 'CinnaSize', "'medium'"],
+        ['animation', 'Configuration or callback for animation.', 'CheckboxAnimation', '-'],
+        ['onChange', 'Called when the value changes.', '(checkedValues: string[]) => void', '-'],
+        ['labelColor', 'Configuration or callback for labelColor.', 'string', '-'],
+        ['checkedColor', 'Configuration or callback for checkedColor.', 'string', '-'],
+        ['boxColor', 'Configuration or callback for boxColor.', 'string', '-'],
+        ['borderColor', 'Configuration or callback for borderColor.', 'string', '-'],
+        ['fontSize', 'Font size.', 'number | string', '-'],
+        [
+          'fontWeight',
+          'Configuration or callback for fontWeight.',
+          "React.CSSProperties['fontWeight']",
+          '-',
+        ],
+        ['ripple', 'Configuration or callback for ripple.', 'boolean', 'true'],
+        [
+          'rippleParticleColors',
+          'Configuration or callback for rippleParticleColors.',
+          'string | string[]',
+          "['#73c4e0', '#a8dff1', '#ffd8c2', '#fff0a6', '#df6677']",
+        ],
+        [
+          'rippleParticleOpacity',
+          'Configuration or callback for rippleParticleOpacity.',
+          'number',
+          '0.72',
+        ],
+      ],
+    },
+  ],
+};
+export const checkboxApiRows = {
+  zh: mergeApiSections(curated.zh, generated.zh),
+  en: mergeApiSections(curated.en, generated.en),
+};

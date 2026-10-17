@@ -4,6 +4,10 @@
 
 Cinna Design is a themed application component library with signature dessert components. It should feel warm, soft, touchable, and a little handmade, while still being practical enough for real forms, tables, navigation, and feedback surfaces.
 
+## Current mascot
+
+Cinna is an original cloud-dessert fairy with ivory hair, cloud-blue clothes, a cinnamon-roll hair bun and a cloud clasp. Use the full portrait for the homepage and the simplified avatar for the wordmark, favicon and loading identity. Original PNGs live in design/brand; prompts live in design/asset-prompts/cinna-mascot.md. Earlier cloud-cat illustrations remain reference assets.
+
 ## Core Metaphor
 
 Clouds over a dessert counter:

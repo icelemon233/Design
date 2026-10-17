@@ -1,10 +1,10 @@
-<p align="center"><img src="./apps/site/src/assets/cinna-cloud-cat.webp" alt="Cinna Design" width="150"></p>
+<p align="center"><img src="./apps/site/src/assets/cinna-avatar.webp" alt="Cinna Design" width="150"></p>
 
 <h1 align="center">Cinna Design</h1>
 
 <p align="center"><a href="./README.md">English</a> · 简体中文</p>
 
-React 组件库，采用浅色配色、圆角和云朵小猫形象。
+React 组件库，采用浅色配色、圆角和云朵甜点精灵形象。
 
 [组件演示](https://icelemon233.github.io/cinna-design/) · [MIT 许可证](./LICENSE)
 
@@ -29,7 +29,7 @@ export function Example() {
 
 ## 本地查看
 
-准备 Node.js 和仓库声明的 pnpm 版本后运行：
+准备 Node.js 24+ 和仓库声明的 pnpm 版本后运行：
 
 ```sh
 pnpm install --frozen-lockfile
@@ -38,6 +38,8 @@ pnpm dev
 ```
 
 打开服务输出的本地地址。也可以直接访问在线演示，无需本地配置。
+
+[架构与验收说明](./docs/DEVELOPMENT.md)
 
 ## 致谢
 

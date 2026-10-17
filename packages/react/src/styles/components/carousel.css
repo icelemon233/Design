@@ -1,0 +1,83 @@
+.cinna-carousel__viewport {
+  overflow: hidden;
+  border-radius: var(--cinna-radius-lg);
+}
+
+.cinna-carousel__track {
+  display: flex;
+  transition: transform var(--cinna-motion-slow) var(--cinna-ease-standard);
+}
+
+.cinna-carousel__item {
+  flex: 0 0 100%;
+  min-height: 128px;
+}
+
+.cinna-carousel__arrows,
+.cinna-carousel__dots {
+  display: inline-flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.cinna-carousel__arrows {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}
+
+.cinna-carousel__arrows button {
+  width: 32px;
+  height: 32px;
+}
+
+.cinna-carousel__dots button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  background: var(--cinna-color-border-strong);
+}
+
+.cinna-carousel__dots .cinna-carousel__dot--active {
+  width: 24px;
+  background: var(--cinna-color-primary-active);
+}
+
+.cinna-image--previewable img {
+  cursor: zoom-in;
+}
+
+.cinna-image__preview {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  border: 0;
+  background: rgba(70, 51, 42, 0.42);
+  cursor: zoom-out;
+}
+
+.cinna-image__preview img {
+  max-height: 86vh;
+  box-shadow: var(--cinna-shadow-float);
+}
+
+.cinna-tree__node {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.cinna-tree__node--selected {
+  background: var(--cinna-color-primary);
+  color: var(--cinna-color-text);
+}
+
+.cinna-transfer {
+  grid-template-columns: 1fr 1fr;
+}

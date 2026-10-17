@@ -10,9 +10,33 @@ const inputDir = path.join(rootDir, 'tmp', 'icon-cat-sheets');
 const outputDir = path.join(rootDir, 'packages', 'react', 'src', 'assets', 'icons', 'cloud-cat');
 
 const names = [
-  '01-hello', '02-next', '03-checklist', '04-search', '05-message', '06-loading', '07-success', '08-warning', '09-empty',
-  '10-button', '11-input', '12-table', '13-chart', '14-upload', '15-calendar', '16-settings', '17-user', '18-theme',
-  '19-code', '20-package', '21-release', '22-git', '23-test', '24-bug-fix', '25-security', '26-responsive', '27-docs',
+  '01-hello',
+  '02-next',
+  '03-checklist',
+  '04-search',
+  '05-message',
+  '06-loading',
+  '07-success',
+  '08-warning',
+  '09-empty',
+  '10-button',
+  '11-input',
+  '12-table',
+  '13-chart',
+  '14-upload',
+  '15-calendar',
+  '16-settings',
+  '17-user',
+  '18-theme',
+  '19-code',
+  '20-package',
+  '21-release',
+  '22-git',
+  '23-test',
+  '24-bug-fix',
+  '25-security',
+  '26-responsive',
+  '27-docs',
 ];
 
 const minComponentArea = 1000;
@@ -38,8 +62,8 @@ function nearestCell(component, width, height) {
   for (let row = 0; row < 3; row += 1) {
     for (let col = 0; col < 3; col += 1) {
       const index = row * 3 + col;
-      const cx = (col + 0.5) * width / 3;
-      const cy = (row + 0.5) * height / 3;
+      const cx = ((col + 0.5) * width) / 3;
+      const cy = ((row + 0.5) * height) / 3;
       const distance = (component.cx - cx) ** 2 + (component.cy - cy) ** 2;
       if (distance < bestDistance) {
         best = index;
@@ -54,17 +78,23 @@ function nearestCell(component, width, height) {
 function parseComponents(sheet) {
   const output = magick([
     sheet,
-    '-alpha', 'extract',
-    '-threshold', '1%',
-    '-define', 'connected-components:verbose=true',
-    '-connected-components', '8',
+    '-alpha',
+    'extract',
+    '-threshold',
+    '1%',
+    '-define',
+    'connected-components:verbose=true',
+    '-connected-components',
+    '8',
     'null:',
   ]);
 
   return output
     .split('\n')
     .map((line) => {
-      const match = line.match(/^\s*\d+:\s+(\d+)x(\d+)\+(\d+)\+(\d+)\s+([0-9.]+),([0-9.]+)\s+([0-9.eE+-]+)\s+(.+)$/);
+      const match = line.match(
+        /^\s*\d+:\s+(\d+)x(\d+)\+(\d+)\+(\d+)\s+([0-9.]+),([0-9.]+)\s+([0-9.eE+-]+)\s+(.+)$/,
+      );
       if (!match) return null;
       const [, w, h, x, y, cx, cy, area, color] = match;
       return {
@@ -138,12 +168,10 @@ for (let sheetIndex = 1; sheetIndex <= 3; sheetIndex += 1) {
     mkdirSync(outputDir, { recursive: true });
     const output = path.join(outputDir, `icon-cat-${names[(sheetIndex - 1) * 9 + cell]}.png`);
 
-    magick([
-      sheet,
-      '-crop', `${crop.w}x${crop.h}+${crop.x}+${crop.y}`,
-      '+repage',
-      output,
-    ], { stdio: 'inherit', encoding: 'buffer' });
+    magick([sheet, '-crop', `${crop.w}x${crop.h}+${crop.x}+${crop.y}`, '+repage', output], {
+      stdio: 'inherit',
+      encoding: 'buffer',
+    });
 
     console.log(`Wrote ${output}`);
   }

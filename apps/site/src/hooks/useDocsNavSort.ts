@@ -4,7 +4,9 @@ import type { DocsNavSortMode } from '../types';
 
 const getDocsNavSortMode = (): DocsNavSortMode => {
   const storedMode = window.localStorage.getItem(docsNavSortStorageKey);
-  return storedMode === 'az' || storedMode === 'za' || storedMode === 'default' ? storedMode : 'default';
+  return storedMode === 'az' || storedMode === 'za' || storedMode === 'default'
+    ? storedMode
+    : 'default';
 };
 
 export const useDocsNavSort = () => {

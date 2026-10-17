@@ -1,0 +1,101 @@
+.cinna-select__control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: var(--cinna-size-control-md);
+  padding: 0 14px;
+  border: 2px solid var(--cinna-color-border);
+  border-radius: var(--cinna-radius-md);
+  background: var(--cinna-color-surface);
+  box-shadow: 0 4px 0 #ead8c0;
+  color: var(--cinna-color-text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  text-align: left;
+}
+
+.cinna-select--small .cinna-select__control {
+  min-height: var(--cinna-size-control-sm);
+}
+
+.cinna-select--large .cinna-select__control {
+  min-height: var(--cinna-size-control-lg);
+}
+
+.cinna-select__control em {
+  display: inline-flex;
+  margin-right: 6px;
+  padding: 2px 8px;
+  border-radius: var(--cinna-radius-pill);
+  background: var(--cinna-color-surface-blue);
+  color: var(--cinna-color-primary-deep);
+  font-style: normal;
+}
+
+.cinna-select__placeholder {
+  color: var(--cinna-color-text-muted);
+}
+
+.cinna-select__arrow {
+  color: var(--cinna-color-primary-deep);
+}
+
+.cinna-select__clear {
+  position: absolute;
+  top: 8px;
+  right: 34px;
+  border: 0;
+  background: transparent;
+  color: var(--cinna-color-text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+}
+
+.cinna-select__popup {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  left: 0;
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  padding: 8px;
+  border: 1.5px solid var(--cinna-color-border);
+  border-radius: var(--cinna-radius-md);
+  background: var(--cinna-color-surface);
+  box-shadow: var(--cinna-shadow-float);
+}
+
+.cinna-select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--cinna-color-text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  text-align: left;
+}
+
+.cinna-select__option:hover,
+.cinna-select__option--active {
+  background: var(--cinna-color-surface-blue);
+  color: var(--cinna-color-text);
+}
+
+.cinna-auto-complete {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: min(100%, 280px);
+  overflow: visible;
+}

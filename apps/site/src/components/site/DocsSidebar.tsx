@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Button } from '@cinna-design/react';
+import { useState } from 'react';
 import {
   docsNavCategories,
   docsNavItems,
@@ -11,7 +11,15 @@ import type { DocsNavItem, DocsNavSortMode, SiteLanguage } from '../../types';
 import { Mascot } from './BrandAssets';
 import { DocsNavSort } from './DocsNavSort';
 
-const navRippleParticleColors = ['#73c4e0', '#f6c96d', '#ef8f8f', '#9bcb8e', '#b9a7ea', '#f3a7d0', '#78bdd4'];
+const navRippleParticleColors = [
+  '#73c4e0',
+  '#f6c96d',
+  '#ef8f8f',
+  '#9bcb8e',
+  '#b9a7ea',
+  '#f3a7d0',
+  '#78bdd4',
+];
 
 export const DocsSidebar = ({
   activeKey,
@@ -29,22 +37,30 @@ export const DocsSidebar = ({
   const [search, setSearch] = useState('');
   const copy = siteI18n[language].ui;
   const searchValue = search.trim().toLowerCase();
-  const matchedItems = docsNavItems.filter((item) => matchesDocsNavSearch(item, searchValue, language));
-  const groupedItems = sortMode === 'default'
-    ? docsNavCategories
-      .map((category) => ({
-        category,
-        items: sortDocsNavItems(matchedItems.filter((item) => item.category === category.id), 'az'),
-      }))
-      .filter((group) => group.items.length > 0)
-    : [];
+  const matchedItems = docsNavItems.filter((item) =>
+    matchesDocsNavSearch(item, searchValue, language),
+  );
+  const groupedItems =
+    sortMode === 'default'
+      ? docsNavCategories
+          .map((category) => ({
+            category,
+            items: sortDocsNavItems(
+              matchedItems.filter((item) => item.category === category.id),
+              'az',
+            ),
+          }))
+          .filter((group) => group.items.length > 0)
+      : [];
   const sortedItems = sortMode === 'default' ? [] : sortDocsNavItems(matchedItems, sortMode);
   const renderItem = (item: DocsNavItem) => (
     <Button
       key={item.key}
       variant="ghost"
       shape="default"
-      className={item.key === activeKey ? 'docs-nav__item docs-nav__item--active' : 'docs-nav__item'}
+      className={
+        item.key === activeKey ? 'docs-nav__item docs-nav__item--active' : 'docs-nav__item'
+      }
       aria-current={item.key === activeKey ? 'page' : undefined}
       rippleEffects={['particles']}
       rippleParticleColors={navRippleParticleColors}
@@ -68,7 +84,12 @@ export const DocsSidebar = ({
         </button>
         <label className="docs-nav-search">
           <span aria-hidden="true">⌕</span>
-          <input value={search} placeholder={copy.searchNav} onChange={(event) => setSearch(event.currentTarget.value)} />
+          <input
+            value={search}
+            aria-label={copy.searchNav}
+            placeholder={copy.searchNav}
+            onChange={(event) => setSearch(event.currentTarget.value)}
+          />
         </label>
       </div>
       <nav className="docs-nav" aria-label="Component navigation">

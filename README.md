@@ -1,10 +1,10 @@
-<p align="center"><img src="./apps/site/src/assets/cinna-cloud-cat.webp" alt="Cinna Design" width="150"></p>
+<p align="center"><img src="./apps/site/src/assets/cinna-avatar.webp" alt="Cinna Design" width="150"></p>
 
 <h1 align="center">Cinna Design</h1>
 
 <p align="center">English · <a href="./README_zh_CN.md">简体中文</a></p>
 
-React components with pastel colors, rounded shapes, and a cloud cat mascot.
+React components with pastel colors, rounded shapes, and a cloud-dessert fairy mascot.
 
 [Component demos](https://icelemon233.github.io/cinna-design/) · [MIT license](./LICENSE)
 
@@ -29,7 +29,7 @@ export function Example() {
 
 ## Browse locally
 
-Use Node.js and the pnpm version declared in the repository:
+Use Node.js 24+ and the pnpm version declared in the repository:
 
 ```sh
 pnpm install --frozen-lockfile
@@ -38,6 +38,8 @@ pnpm dev
 ```
 
 Open the local address printed by the server. The public demo is also available without a local setup.
+
+[Architecture and validation](./docs/DEVELOPMENT.md)
 
 ## Credits
 

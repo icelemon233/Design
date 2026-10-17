@@ -74,7 +74,12 @@ function startOfNextLocalDay(date: Date): number {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).getTime();
 }
 
-function isValidSchedule(schedule: KeepAliveSchedule | null, day: string, dayStart: number, dayEnd: number): schedule is KeepAliveSchedule {
+function isValidSchedule(
+  schedule: KeepAliveSchedule | null,
+  day: string,
+  dayStart: number,
+  dayEnd: number,
+): schedule is KeepAliveSchedule {
   return (
     Boolean(schedule) &&
     schedule?.day === day &&
@@ -89,7 +94,10 @@ function createSchedule(targetDay: Date, now: Date): KeepAliveSchedule {
   const day = formatLocalDay(targetDay);
   const dayStart = startOfLocalDay(targetDay);
   const dayEnd = startOfNextLocalDay(targetDay);
-  const earliest = formatLocalDay(now) === day ? Math.min(Math.max(nowMs + MIN_RANDOM_DELAY_MS, dayStart), dayEnd - 1) : dayStart;
+  const earliest =
+    formatLocalDay(now) === day
+      ? Math.min(Math.max(nowMs + MIN_RANDOM_DELAY_MS, dayStart), dayEnd - 1)
+      : dayStart;
   const windowMs = Math.max(dayEnd - earliest, 1);
 
   return {
@@ -189,7 +197,10 @@ async function pingDatabase(): Promise<void> {
   }
 
   if (configuredTable) {
-    const { error } = await supabase.from(configuredTable).select('*', { head: true, count: 'exact' }).limit(1);
+    const { error } = await supabase
+      .from(configuredTable)
+      .select('*', { head: true, count: 'exact' })
+      .limit(1);
     if (error) throw error;
   }
 }

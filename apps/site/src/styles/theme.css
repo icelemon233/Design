@@ -1,0 +1,41 @@
+:root {
+  --docs-page-bg:
+    linear-gradient(90deg, rgba(255, 252, 246, 0.94), rgba(255, 252, 246, 0) 36%),
+    radial-gradient(circle at 78% 0%, rgba(168, 223, 241, 0.24), transparent 30%),
+    var(--cinna-color-bg);
+  --docs-sidebar-bg: linear-gradient(180deg, rgba(255, 252, 246, 0.97), rgba(255, 248, 238, 0.97));
+}
+
+html:has(.docs-layout),
+body:has(.docs-layout),
+#root:has(.docs-layout) {
+  background: var(--docs-page-bg);
+}
+
+.docs-layout {
+  background: var(--docs-page-bg);
+}
+
+.docs-sidebar {
+  border-right: 0;
+  background: var(--docs-sidebar-bg);
+  box-shadow: 16px 0 32px -28px rgba(120, 90, 58, 0.28);
+}
+
+.docs-sidebar:after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  right: 0;
+  bottom: 18px;
+  width: 1px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(230, 214, 196, 0),
+    rgba(230, 214, 196, 0.68) 16%,
+    rgba(230, 214, 196, 0.68) 84%,
+    rgba(230, 214, 196, 0)
+  );
+  pointer-events: none;
+}

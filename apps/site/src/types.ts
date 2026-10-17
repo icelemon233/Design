@@ -1,9 +1,16 @@
+import type {
+  ButtonRippleEffect,
+  ButtonShape,
+  ButtonSize,
+  ButtonThemeName,
+  ButtonVariant,
+} from '@cinna-design/react';
 import type React from 'react';
-import type { ButtonRippleEffect, ButtonShape, ButtonSize, ButtonThemeName, ButtonVariant } from '@cinna-design/react';
 
 export type SiteLanguage = 'zh' | 'en';
 export type DocsNavSortMode = 'default' | 'az' | 'za';
-export type DocsNavCategoryId = 'general' | 'layout' | 'navigation' | 'data-entry' | 'data-display' | 'feedback' | 'overlay';
+export type DocsNavCategoryId =
+  'general' | 'layout' | 'navigation' | 'data-entry' | 'data-display' | 'feedback' | 'overlay';
 
 export type ExampleCopy = {
   title: string;

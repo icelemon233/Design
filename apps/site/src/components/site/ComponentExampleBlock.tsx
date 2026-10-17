@@ -12,16 +12,30 @@ export const ComponentExampleBlock = ({
   isButton?: boolean;
 }) => {
   const copy = language === 'zh' ? example.zh : example.en;
-  const surfaceClassName = isButton ? '' : (example as ComponentDocExample).surfaceClassName ?? '';
+  const surfaceClassName = isButton
+    ? ''
+    : ((example as ComponentDocExample).surfaceClassName ?? '');
 
   return (
-    <article className="component-example">
+    <article className="component-example" data-example={example.id}>
       <div className="component-example__head">
         <h4 className="component-example__title">{copy.title}</h4>
         <p className="component-example__description">{copy.description}</p>
       </div>
-      <div className={['demo-surface', isButton ? 'button-example-surface' : 'component-example-surface', surfaceClassName].filter(Boolean).join(' ')}>
-        {isButton ? <ButtonExamplePreview id={example.id} /> : (example as ComponentDocExample).render()}
+      <div
+        className={[
+          'demo-surface',
+          isButton ? 'button-example-surface' : 'component-example-surface',
+          surfaceClassName,
+        ]
+          .filter(Boolean)
+          .join(' ')}
+      >
+        {isButton ? (
+          <ButtonExamplePreview id={example.id} />
+        ) : (
+          (example as ComponentDocExample).render()
+        )}
       </div>
       <details className="component-example__code">
         <summary>{copy.codeToggle}</summary>
