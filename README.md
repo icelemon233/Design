@@ -4,11 +4,11 @@
 
 <p align="center">English · <a href="./README_zh_CN.md">简体中文</a></p>
 
-React components with pastel colors, rounded shapes, and a cloud-dessert fairy mascot.
+React UI components for forms, navigation and data display.
 
 [Component demos](https://icelemon233.github.io/cinna-design/) · [MIT license](./LICENSE)
 
-The library includes buttons, cards, inputs, loading animations, and components for forms, navigation, and data display. It supports React 18 and newer; some controls are experimental.
+Includes buttons, cards, inputs and loading animations. Supports React 18 and newer; some controls are experimental.
 
 ## Example
 
