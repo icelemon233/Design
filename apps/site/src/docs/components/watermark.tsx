@@ -18,14 +18,14 @@ export const watermarkDoc: ComponentDocConfig = {
       code: `import { Card, Paragraph, Watermark } from '@cinna-design/react';
 
 export default () => (
-  <Watermark content="Cinna Design">
+  <Watermark content="Design">
     <Card title="Private recipe">
       <Paragraph>Only visible inside the selected workspace.</Paragraph>
     </Card>
   </Watermark>
 );`,
       render: () => (
-        <Cinna.Watermark content="Cinna Design">
+        <Cinna.Watermark content="Design">
           <Cinna.Card title="Private recipe">
             <Cinna.Paragraph>Only visible inside the selected workspace.</Cinna.Paragraph>
           </Cinna.Card>

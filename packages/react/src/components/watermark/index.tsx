@@ -6,7 +6,7 @@ export type { WatermarkProps } from './types';
 export const Watermark = React.forwardRef<HTMLDivElement, WatermarkProps>(
   (
     {
-      content = 'Cinna Design',
+      content = 'Design',
       rotate = -18,
       gap = 120,
       opacity = 0.08,

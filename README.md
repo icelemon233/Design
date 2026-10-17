@@ -1,14 +1,14 @@
-<p align="center"><img src="./apps/site/src/assets/cinna-avatar.webp" alt="Cinna Design" width="150"></p>
+<p align="center"><img src="./apps/site/src/assets/cinna-avatar.webp" alt="Design" width="150"></p>
 
-<h1 align="center">Cinna Design</h1>
+<h1 align="center">Design</h1>
 
 <p align="center">English · <a href="./README_zh_CN.md">简体中文</a></p>
 
-React components with pastel colors, rounded shapes, and a cloud-dessert fairy mascot.
+React UI components for forms, navigation and data display.
 
 [Component demos](https://icelemon233.github.io/cinna-design/) · [MIT license](./LICENSE)
 
-The library includes buttons, cards, inputs, loading animations, and components for forms, navigation, and data display. It supports React 18 and newer; some controls are experimental.
+Includes buttons, cards, inputs and loading animations. Supports React 18 and newer; some controls are experimental.
 
 ## Example
 
@@ -44,3 +44,5 @@ Open the local address printed by the server. The public demo is also available 
 ## Credits
 
 Visual inspiration: [animal-island-ui](https://github.com/guokaigdg/animal-island-ui/tree/main).
+
+Developer: Cinna.

@@ -1,14 +1,14 @@
-<p align="center"><img src="./apps/site/src/assets/cinna-avatar.webp" alt="Cinna Design" width="150"></p>
+<p align="center"><img src="./apps/site/src/assets/cinna-avatar.webp" alt="Design" width="150"></p>
 
-<h1 align="center">Cinna Design</h1>
+<h1 align="center">Design</h1>
 
 <p align="center"><a href="./README.md">English</a> · 简体中文</p>
 
-React 组件库，采用浅色配色、圆角和云朵甜点精灵形象。
+用于表单、导航和数据展示的 React UI 组件库。
 
 [组件演示](https://icelemon233.github.io/cinna-design/) · [MIT 许可证](./LICENSE)
 
-包含按钮、卡片、输入框、加载动效，以及表单、导航和数据展示组件。支持 React 18 及更新版本，部分控件仍为实验版本。
+包含按钮、卡片、输入框和加载动效。支持 React 18 及更新版本，部分控件仍为实验版本。
 
 ## 示例
 
@@ -44,3 +44,5 @@ pnpm dev
 ## 致谢
 
 视觉灵感来自 [animal-island-ui](https://github.com/guokaigdg/animal-island-ui/tree/main)。
+
+开发者：Cinna。

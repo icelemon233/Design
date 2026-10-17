@@ -18,8 +18,7 @@ run(process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm', ['build:pages'], {
 });
 const source = path.resolve('apps/site/dist');
 const html = await readFile(path.join(source, 'index.html'), 'utf8');
-if (!html.includes('/cinna-design/assets/'))
-  throw new Error('The GitHub Pages asset base is incorrect.');
+if (!html.includes('/Design/assets/')) throw new Error('The GitHub Pages asset base is incorrect.');
 await writeFile(path.join(source, '.nojekyll'), '');
 await writeFile(path.join(source, '404.html'), html);
 const temporary = await mkdtemp(path.join(os.tmpdir(), 'cinna-pages-'));
@@ -46,7 +45,7 @@ try {
   git(['add', '-A'], { cwd: checkout });
   const changed = spawnSync('git', ['diff', '--cached', '--quiet'], { cwd: checkout }).status !== 0;
   if (changed) {
-    git(['commit', '-m', 'Publish Cinna Design site'], { cwd: checkout });
+    git(['commit', '-m', 'Publish Design site'], { cwd: checkout });
     git(['push', 'origin', branch], { cwd: checkout });
   } else console.log('No Pages changes to publish.');
 } finally {

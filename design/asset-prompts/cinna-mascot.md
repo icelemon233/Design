@@ -5,7 +5,7 @@ Generated with the built-in image_gen tool. Both originals retain transparency; 
 ## Portrait
 
 Use case: stylized-concept
-Asset type: original anime brand mascot full-body key visual for Cinna Design, a milk-cloud-blue, cream and cinnamon React component library.
+Asset type: original anime brand mascot full-body key visual for Design, a milk-cloud-blue, cream and cinnamon React component library.
 Primary request: Create one original memorable anime mascot girl, an adult cloud-and-dessert fairy named Cinna, with the strong recognizable character identity and polished illustration quality associated with beloved internet software mascots. She is a unique original character, not an existing franchise character.
 Subject: Friendly confident young adult woman, long fluffy ivory-white hair with pale cloud-blue undersides; a distinctive cinnamon-roll spiral hair bun and one small cloud-shaped blue hair clasp. Bright expressive blue eyes, gentle smile. Modest ivory blouse with puff sleeves, a cloud-blue tailored pinafore dress with a scalloped cloud hem and small cinnamon-brown ribbon, opaque white tights, rounded dark cocoa ankle boots. A soft small cloud cape and a tiny cinnamon-roll brooch make a clear simple silhouette. One hand waves in welcome, the other holds a small recipe notebook with a simple cloud emblem. No cat ears, dragon horns, crowns or unrelated fantasy elements.
 Style/medium: High-quality 2D anime illustration, elegant precise line art, attractive expressive face, restrained cel shading and soft painterly accents, detailed but clear enough for a website identity. Adult proportions around 6.5 heads tall, tasteful charming and approachable, no sexualization.

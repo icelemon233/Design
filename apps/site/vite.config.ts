@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig(({ mode }) => ({
-  base: mode === 'github-pages' ? '/cinna-design/' : '/',
+  base: mode === 'github-pages' ? '/Design/' : '/',
   plugins: [react()],
   resolve: {
     alias: [

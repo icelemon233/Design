@@ -1,8 +1,8 @@
-# Cinna Design Visual Bible
+# Design Visual Bible
 
 ## Positioning
 
-Cinna Design is a themed application component library with signature dessert components. It should feel warm, soft, touchable, and a little handmade, while still being practical enough for real forms, tables, navigation, and feedback surfaces.
+Design is a themed application component library with signature dessert components. It should feel warm, soft, touchable, and a little handmade, while still being practical enough for real forms, tables, navigation, and feedback surfaces.
 
 ## Current mascot
 

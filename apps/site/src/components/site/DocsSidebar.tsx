@@ -80,7 +80,7 @@ export const DocsSidebar = ({
       <div className="docs-sidebar__top">
         <button className="docs-brand" type="button" onClick={() => navigate('home')}>
           <Mascot className="docs-brand__mascot" size={34} />
-          <span>Cinna Design</span>
+          <span>Design</span>
         </button>
         <label className="docs-nav-search">
           <span aria-hidden="true">⌕</span>

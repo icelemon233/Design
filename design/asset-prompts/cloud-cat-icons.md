@@ -19,7 +19,7 @@
 - 角色必须始终是同一只 Cinna 云朵小猫：奶油白云朵绒毛身体，浅蓝手绘外轮廓，尖三角猫耳与淡粉内耳，深蓝圆眼和白色高光，小粉鼻，短胡须，圆润小爪，淡粉腮红，整体柔软、手作、甜点感。
 - 不要重新设计角色，不要改变脸型、眼睛、耳朵、毛团比例、颜色系统；不要变成普通猫、狐狸、熊、狗、人类、机器人或其他角色。
 - 风格是柔和水彩 + 彩铅/蜡笔颗粒，轻透明叠色，像儿童贴纸但保持 UI 组件库的干净度。
-- 配色遵循 Cinna Design：Milk Cloud Blue `#A8DFF1`、Cream Sky `#FFF8EE`、Cocoa `#46332A`，点缀 Butter `#F6C96D`、Strawberry `#EA8A98`、Pistachio `#9BCB8E`、Lavender `#B9A7EA`。
+- 配色遵循 Design：Milk Cloud Blue `#A8DFF1`、Cream Sky `#FFF8EE`、Cocoa `#46332A`，点缀 Butter `#F6C96D`、Strawberry `#EA8A98`、Pistachio `#9BCB8E`、Lavender `#B9A7EA`。
 - 道具可以有简单 UI 符号，但不要出现可读文字，避免模型生成乱码。
 - 所有 icon 的视觉重量一致，主体占每格约 75%，每个贴纸外侧只保留自身白色贴纸边，不额外保留透明边距。
 
@@ -28,7 +28,7 @@
 复制给 GPT-Image2 的提示词：
 
 ```text
-基于参考图 `design/assets/cloud-cat-icons-preview.png` 和 `apps/site/src/assets/cinna-cloud-cat.webp`，生成一张 Cinna Design 云朵小猫 UI icon sheet。
+基于参考图 `design/assets/cloud-cat-icons-preview.png` 和 `apps/site/src/assets/cinna-cloud-cat.webp`，生成一张 Design 云朵小猫 UI icon sheet。
 
 任务：生成 9 个新的云朵小猫贴纸 icon，统一放在一张正方形透明 PNG 上，3x3 九宫格布局。每个 icon 都是独立可裁切的透明背景贴纸，居中放在自己的等分方格里，图标之间留足透明间距，不要重叠。
 
@@ -73,7 +73,7 @@
 复制给 GPT-Image2 的提示词：
 
 ```text
-基于参考图 `design/assets/cloud-cat-icons-preview.png` 和 `apps/site/src/assets/cinna-cloud-cat.webp`，生成第二张 Cinna Design 云朵小猫 UI icon sheet。
+基于参考图 `design/assets/cloud-cat-icons-preview.png` 和 `apps/site/src/assets/cinna-cloud-cat.webp`，生成第二张 Design 云朵小猫 UI icon sheet。
 
 任务：生成 9 个新的云朵小猫贴纸 icon，统一放在一张正方形透明 PNG 上，3x3 九宫格布局。每个 icon 都是独立可裁切的透明背景贴纸，居中放在自己的等分方格里，图标之间留足透明间距，不要重叠。
 
@@ -118,7 +118,7 @@
 复制给 GPT-Image2 的提示词：
 
 ```text
-基于参考图 `design/assets/cloud-cat-icons-preview.png` 和 `apps/site/src/assets/cinna-cloud-cat.webp`，生成第三张 Cinna Design 云朵小猫 UI icon sheet。
+基于参考图 `design/assets/cloud-cat-icons-preview.png` 和 `apps/site/src/assets/cinna-cloud-cat.webp`，生成第三张 Design 云朵小猫 UI icon sheet。
 
 任务：生成 9 个新的云朵小猫贴纸 icon，统一放在一张正方形透明 PNG 上，3x3 九宫格布局。每个 icon 都是独立可裁切的透明背景贴纸，居中放在自己的等分方格里，图标之间留足透明间距，不要重叠。
 

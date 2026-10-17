@@ -146,7 +146,7 @@ for (const [key, name] of components) {
 
 test('homepage, mascot and navigation work', async ({ page }, testInfo) => {
   await page.goto('/');
-  await expect(page.locator('h1')).toHaveText('Cinna Design');
+  await expect(page.locator('h1')).toHaveText('Design');
   await expect(page.locator('.hero__mascot-image')).toBeVisible();
   await expect(page.locator('.hero__mascot-image')).toHaveJSProperty('complete', true);
   const directory = path.join('test-results/visual', testInfo.project.name);
