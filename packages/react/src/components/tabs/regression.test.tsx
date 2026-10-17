@@ -10,6 +10,27 @@ const items: TabsItem[] = [
 ];
 
 describe('tabs editing and lifecycle', () => {
+  it('keeps focus in the widget when only disabled tabs remain after closing', () => {
+    const Demo = () => {
+      const [tabs, setTabs] = useState<TabsItem[]>([
+        items[0],
+        { ...items[1], disabled: true, closable: false },
+      ]);
+      return (
+        <Tabs
+          items={tabs}
+          emptyContent="No available tabs"
+          onClose={(key) => setTabs((current) => current.filter((item) => item.key !== key))}
+        />
+      );
+    };
+    const { container } = render(<Demo />);
+    const active = screen.getByRole('tab', { name: 'Alpha' });
+    active.focus();
+    fireEvent.keyDown(active, { key: 'Delete' });
+    expect(container.querySelector('.cinna-tabs')).toHaveFocus();
+    expect(screen.getByRole('status')).toHaveTextContent('No available tabs');
+  });
   it('treats an empty string key as an ordinary active and reorderable tab', () => {
     const order = vi.fn();
     const { container } = render(

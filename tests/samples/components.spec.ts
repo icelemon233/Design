@@ -375,6 +375,11 @@ test('Tabs keep editing and dragging usable together in narrow containers', asyn
   });
   if (info.project.name.endsWith('phone-touch')) {
     await page.setViewportSize({ width: 320, height: 844 });
+    await page.reload();
+    await sample(page, 'tabs');
+    await setChecked(lab.getByRole('checkbox', { name: 'Editable', exact: true }), true);
+    await setChecked(lab.getByRole('checkbox', { name: 'Reorderable', exact: true }), true);
+    await activate(root.getByRole('button', { name: 'Add tab', exact: true }));
     await expect
       .poll(() => root.locator('.cinna-tabs__viewport').evaluate((node) => node.clientWidth))
       .toBeGreaterThanOrEqual(180);
@@ -382,6 +387,8 @@ test('Tabs keep editing and dragging usable together in narrow containers', asyn
       body: JSON.stringify(
         await page.evaluate(() => ({
           viewport: innerWidth,
+          layoutViewport: document.documentElement.clientWidth,
+          screen: screen.width,
           page: document.documentElement.scrollWidth,
           overflowing: [...document.querySelectorAll('body *')]
             .map((node) => {

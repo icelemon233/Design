@@ -216,7 +216,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
         )}
         style={styles}
         aria-disabled={disabled || undefined}
-        tabIndex={rest.tabIndex ?? (items.length ? undefined : -1)}
+        tabIndex={rest.tabIndex ?? (selected === undefined ? -1 : undefined)}
       >
         <div
           ref={navRef}

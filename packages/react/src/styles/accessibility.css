@@ -1,5 +1,5 @@
 /* Native and composite controls share one visible keyboard focus treatment. */
-.cinna-check input:focus-visible + .cinna-check__box {
+.cinna-check input:focus + .cinna-check__box {
   outline: 3px solid var(--cinna-color-primary-deep);
   outline-offset: 3px;
 }
