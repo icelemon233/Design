@@ -21,6 +21,7 @@
     "check:architecture": "node scripts/check-architecture.mjs",
     "test:unit": "pnpm --filter @cinna-design/react test:run",
     "test:e2e": "playwright test",
+    "test:samples": "playwright test -c playwright.samples.config.ts",
     "test:packages": "node scripts/smoke-packages.mjs",
     "check": "pnpm check:architecture && pnpm typecheck && pnpm test && pnpm build && pnpm test:packages"
   },

@@ -1,10 +1,14 @@
-import React, { useEffect, useId, useRef, useState } from 'react';
+import React, { useId, useRef, useState } from 'react';
 import { useIsomorphicLayoutEffect as useLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect';
+import { useDisabled } from '../../internal/DisabledContext';
 import { cx } from '../../utils/cx';
 import { Icon } from '../icon';
-import { normalizePopupCssValue } from '../shared';
+import { useTabsLayout } from './useTabsLayout';
+import { useTabReorder } from './useTabReorder';
 import type { TabsItem, TabsProps } from './types';
-export type { TabsItem, TabsPosition, TabsProps, TabsType, TabsVariant } from './types';
+export type { TabsItem, TabsPosition, TabsProps, TabsVariant } from './types';
+
+const cssLength = (value: number | string) => (typeof value === 'number' ? value + 'px' : value);
 
 export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
   (
@@ -14,14 +18,13 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
       defaultActiveKey,
       onChange,
       tabPosition = 'top',
-      type = 'line',
-      variant,
+      variant = 'borderless',
       size = 'medium',
-      scrollable = true,
       addable = false,
-      addIcon = '+',
-      closeIcon = <Icon name="close-blue" size={10} />,
+      addIcon = <Icon name="plus" size={18} />,
+      closeIcon = <Icon name="close-blue" size={12} />,
       closable = false,
+      disabled: disabledProp,
       draggable = false,
       onAdd,
       onClose,
@@ -35,296 +38,332 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
       tabBorderColor,
       activeTabBorderColor,
       tabRadius,
-      indicatorColor,
       listBackgroundColor,
-      listBorderColor,
       panelColor,
       panelFontSize,
       panelBackgroundColor,
       panelBorderColor,
       destroyInactiveTabPanel = true,
+      emptyContent = null,
       className,
       style,
       ...rest
     },
-    ref,
+    forwardedRef,
   ) => {
-    const tabId = useId();
-    const firstKey = items.find((item) => !item.disabled)?.key;
-    const [inner, setInner] = useState(defaultActiveKey ?? firstKey);
-    const [dragKey, setDragKey] = useState<string | null>(null);
-    const [dragOverKey, setDragOverKey] = useState<string | null>(null);
-    const [panelMotionIndex, setPanelMotionIndex] = useState(0);
-    const listRef = useRef<HTMLDivElement | null>(null);
-    const tabRefs = useRef<Record<string, HTMLDivElement | null>>({});
-    const [activePillStyle, setActivePillStyle] = useState<React.CSSProperties>({});
-    const selectedCandidate = activeKey ?? inner ?? firstKey;
-    const selected = items.some((item) => item.key === selectedCandidate && !item.disabled)
-      ? selectedCandidate
-      : firstKey;
-    const activeItem = items.find((item) => item.key === selected);
-    const resolvedVariant = variant ?? (type === 'card' ? 'bordered' : 'borderless');
+    const id = useId();
+    const disabled = useDisabled(disabledProp);
+    const rootRef = useRef<HTMLDivElement | null>(null);
+    const previousItems = useRef(items);
+    const pendingFocus = useRef<{ removed: string; next?: string; origin: HTMLElement } | null>(
+      null,
+    );
+    const [inner, setInner] = useState(defaultActiveKey);
+    const enabled = items.filter((item) => !item.disabled);
+    const candidate = activeKey !== undefined ? activeKey : inner;
+    const previousIndex = previousItems.current.findIndex((item) => item.key === candidate);
+    const fallback =
+      items.slice(Math.max(0, previousIndex)).find((item) => !item.disabled) ??
+      [...items.slice(0, Math.max(0, previousIndex))].reverse().find((item) => !item.disabled) ??
+      enabled[0];
+    const selected = enabled.some((item) => item.key === candidate) ? candidate : fallback?.key;
     const vertical = tabPosition === 'left' || tabPosition === 'right';
-    const controlled = activeKey !== undefined;
-    const panelMotionClass =
-      resolvedVariant === 'borderless'
-        ? `cinna-tabs__panel--motion-${panelMotionIndex % 2}`
-        : undefined;
-    const tabsStyle = {
-      ...(tabFontSize !== undefined
-        ? { '--cinna-tabs-tab-font-size': normalizePopupCssValue(tabFontSize) }
-        : null),
-      ...(tabFontWeight !== undefined ? { '--cinna-tabs-tab-font-weight': tabFontWeight } : null),
-      ...(tabColor ? { '--cinna-tabs-tab-color': tabColor } : null),
-      ...(activeTabColor ? { '--cinna-tabs-active-color': activeTabColor } : null),
-      ...(tabBackgroundColor ? { '--cinna-tabs-tab-bg': tabBackgroundColor } : null),
-      ...(activeTabBackgroundColor ? { '--cinna-tabs-active-bg': activeTabBackgroundColor } : null),
-      ...(tabBorderColor ? { '--cinna-tabs-tab-border': tabBorderColor } : null),
-      ...(activeTabBorderColor ? { '--cinna-tabs-active-border': activeTabBorderColor } : null),
-      ...(tabRadius !== undefined
-        ? { '--cinna-tabs-tab-radius': normalizePopupCssValue(tabRadius) }
-        : null),
-      ...(indicatorColor ? { '--cinna-tabs-indicator-color': indicatorColor } : null),
-      ...(listBackgroundColor ? { '--cinna-tabs-list-bg': listBackgroundColor } : null),
-      ...(listBorderColor ? { '--cinna-tabs-list-border': listBorderColor } : null),
-      ...(panelColor ? { '--cinna-tabs-panel-color': panelColor } : null),
-      ...(panelFontSize !== undefined
-        ? { '--cinna-tabs-panel-font-size': normalizePopupCssValue(panelFontSize) }
-        : null),
-      ...(panelBackgroundColor ? { '--cinna-tabs-panel-bg': panelBackgroundColor } : null),
-      ...(panelBorderColor ? { '--cinna-tabs-panel-border': panelBorderColor } : null),
-      ...style,
-    } as React.CSSProperties;
-
-    useEffect(() => {
-      if (
-        !controlled &&
-        selectedCandidate &&
-        !items.some((item) => item.key === selectedCandidate)
-      ) {
-        setInner(firstKey);
-      }
-    }, [controlled, firstKey, items, selectedCandidate]);
+    const canAdd = addable;
+    const canClose = (item: TabsItem) => item.closable ?? closable;
+    const reorderable = draggable && !!onOrderChange && !disabled;
+    const layout = useTabsLayout({
+      items,
+      selected,
+      variant,
+      size,
+      tabPosition,
+      closable,
+      addable,
+    });
+    const {
+      navRef,
+      viewportRef,
+      listRef,
+      addRef,
+      buttons,
+      wrappers,
+      pill,
+      closePositions,
+      scrollState,
+      updateScroll,
+      scrollTabs,
+      reveal,
+    } = layout;
+    const reorder = useTabReorder({
+      items,
+      enabled: reorderable,
+      vertical,
+      onOrderChange,
+      wrappers,
+      buttons,
+      viewportRef,
+      reveal,
+    });
 
     useLayoutEffect(() => {
-      if (!selected) {
-        setActivePillStyle({});
-        return undefined;
+      previousItems.current = items;
+      if (activeKey === undefined && inner !== selected) setInner(selected);
+      const pending = pendingFocus.current;
+      if (pending && !items.some((item) => item.key === pending.removed)) {
+        if (
+          document.activeElement === pending.origin ||
+          (document.activeElement === document.body && !pending.origin.isConnected)
+        ) {
+          (
+            buttons.current.get(pending.next ?? selected ?? '') ??
+            addRef.current ??
+            rootRef.current
+          )?.focus();
+        }
+        pendingFocus.current = null;
       }
+    }, [items, activeKey, inner, selected]);
 
-      const list = listRef.current;
-      const activeTab = tabRefs.current[selected];
-      if (!list || !activeTab) {
-        setActivePillStyle({});
-        return undefined;
-      }
-
-      let frame = 0;
-      const updatePill = () => {
-        window.cancelAnimationFrame(frame);
-        frame = window.requestAnimationFrame(() => {
-          const nextX = activeTab.offsetLeft;
-          const nextY = activeTab.offsetTop;
-
-          setActivePillStyle({
-            '--cinna-tabs-active-opacity': '1',
-            '--cinna-tabs-active-x': `${nextX}px`,
-            '--cinna-tabs-active-y': `${nextY}px`,
-            '--cinna-tabs-active-width': `${activeTab.offsetWidth}px`,
-            '--cinna-tabs-active-height': `${activeTab.offsetHeight}px`,
-          } as React.CSSProperties);
-        });
-      };
-
-      updatePill();
-      window.addEventListener('resize', updatePill);
-
-      const Observer = window.ResizeObserver;
-      const observer = Observer ? new Observer(updatePill) : null;
-      observer?.observe(list);
-      observer?.observe(activeTab);
-
-      return () => {
-        window.cancelAnimationFrame(frame);
-        window.removeEventListener('resize', updatePill);
-        observer?.disconnect();
-      };
-    }, [items, selected, size, tabPosition]);
-
-    const selectTab = (item: TabsItem) => {
-      if (item.disabled) return;
-      if (item.key === selected) return;
-      if (item.key !== selected) setPanelMotionIndex((index) => index + 1);
-      if (!controlled) setInner(item.key);
+    const select = (item: TabsItem) => {
+      if (disabled || item.disabled || item.key === selected) return;
+      if (activeKey === undefined) setInner(item.key);
       onChange?.(item.key);
     };
-
-    const moveTab = (fromKey: string, toKey: string) => {
-      if (fromKey === toKey) return;
-      const fromIndex = items.findIndex((item) => item.key === fromKey);
-      const toIndex = items.findIndex((item) => item.key === toKey);
-      if (fromIndex < 0 || toIndex < 0) return;
-      const nextItems = [...items];
-      const [moving] = nextItems.splice(fromIndex, 1);
-      nextItems.splice(toIndex, 0, moving);
-      onOrderChange?.(
-        nextItems.map((item) => item.key),
-        nextItems,
-        { fromKey, toKey },
-      );
+    const close = (
+      item: TabsItem,
+      event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
+    ) => {
+      if (disabled || item.disabled || !canClose(item) || !onClose) return;
+      const index = enabled.findIndex((entry) => entry.key === item.key);
+      const next =
+        item.key === selected ? (enabled[index + 1]?.key ?? enabled[index - 1]?.key) : selected;
+      pendingFocus.current = { removed: item.key, next, origin: event.currentTarget };
+      onClose?.(item.key, item, event);
     };
-
+    const keyDown = (event: React.KeyboardEvent<HTMLButtonElement>, item: TabsItem) => {
+      if (disabled || item.disabled) return;
+      const nextKey = vertical ? 'ArrowDown' : 'ArrowRight';
+      const previousKey = vertical ? 'ArrowUp' : 'ArrowLeft';
+      const index = enabled.findIndex((entry) => entry.key === item.key);
+      if (event.altKey && reorderable && (event.key === nextKey || event.key === previousKey)) {
+        event.preventDefault();
+        const next = enabled[index + (event.key === nextKey ? 1 : -1)];
+        if (next) reorder.reorder(item.key, next.key);
+        return;
+      }
+      if (event.key === 'Delete' && canClose(item) && onClose) {
+        event.preventDefault();
+        close(item, event);
+        return;
+      }
+      const nextIndex =
+        event.key === 'Home'
+          ? 0
+          : event.key === 'End'
+            ? enabled.length - 1
+            : event.key === nextKey
+              ? (index + 1) % enabled.length
+              : event.key === previousKey
+                ? (index - 1 + enabled.length) % enabled.length
+                : -1;
+      if (nextIndex >= 0 && enabled[nextIndex]) {
+        event.preventDefault();
+        select(enabled[nextIndex]);
+        buttons.current.get(enabled[nextIndex].key)?.focus({ preventScroll: true });
+        reveal(enabled[nextIndex].key);
+      }
+    };
+    const styles: React.CSSProperties = { ...style };
+    const variables: Record<string, string | number | undefined> = {
+      '--cinna-tabs-tab-font-size': tabFontSize === undefined ? undefined : cssLength(tabFontSize),
+      '--cinna-tabs-tab-font-weight': tabFontWeight,
+      '--cinna-tabs-tab-color': tabColor,
+      '--cinna-tabs-active-color': activeTabColor,
+      '--cinna-tabs-tab-bg': tabBackgroundColor,
+      '--cinna-tabs-active-bg': activeTabBackgroundColor,
+      '--cinna-tabs-tab-border': tabBorderColor,
+      '--cinna-tabs-active-border': activeTabBorderColor,
+      '--cinna-tabs-tab-radius': tabRadius === undefined ? undefined : cssLength(tabRadius),
+      '--cinna-tabs-list-bg': listBackgroundColor,
+      '--cinna-tabs-panel-color': panelColor,
+      '--cinna-tabs-panel-font-size':
+        panelFontSize === undefined ? undefined : cssLength(panelFontSize),
+      '--cinna-tabs-panel-bg': panelBackgroundColor,
+      '--cinna-tabs-panel-border': panelBorderColor,
+    };
+    for (const [name, value] of Object.entries(variables)) {
+      if (value !== undefined) (styles as Record<string, string | number>)[name] = value;
+    }
+    Object.assign(styles, style);
     return (
       <div
-        ref={ref}
+        {...rest}
+        ref={(node) => {
+          rootRef.current = node;
+          if (typeof forwardedRef === 'function') forwardedRef(node);
+          else if (forwardedRef) forwardedRef.current = node;
+        }}
         className={cx(
           'cinna-tabs',
-          `cinna-tabs--${tabPosition}`,
-          `cinna-tabs--${type}`,
-          `cinna-tabs--${resolvedVariant}`,
-          `cinna-tabs--${size}`,
-          vertical && 'cinna-tabs--vertical',
-          scrollable && 'cinna-tabs--scrollable',
-          (addable || onAdd) && 'cinna-tabs--addable',
+          'cinna-tabs--' + variant,
+          'cinna-tabs--' + tabPosition,
+          'cinna-tabs--' + size,
           draggable && 'cinna-tabs--draggable',
           className,
         )}
-        style={tabsStyle}
-        {...rest}
+        style={styles}
+        aria-disabled={disabled || undefined}
+        tabIndex={rest.tabIndex ?? (items.length ? undefined : -1)}
       >
-        <div ref={listRef} className="cinna-tabs__list">
-          <div
-            className="cinna-tabs__semantic-list"
-            role="tablist"
-            aria-label={rest['aria-label'] ?? 'Tabs'}
-            aria-orientation={vertical ? 'vertical' : 'horizontal'}
-            aria-owns={items.map((item) => tabId + '-tab-' + item.key).join(' ')}
-          />
-          <span className="cinna-tabs__active-pill" aria-hidden="true" style={activePillStyle} />
-          {items.map((item) => (
-            <div
-              key={item.key}
-              ref={(node) => {
-                tabRefs.current[item.key] = node;
-              }}
-              draggable={draggable && !item.disabled}
-              className={cx(
-                'cinna-tabs__tab',
-                selected === item.key && 'cinna-tabs__tab--active',
-                item.disabled && 'cinna-tabs__tab--disabled',
-                dragKey === item.key && 'cinna-tabs__tab--dragging',
-                dragOverKey === item.key && dragKey !== item.key && 'cinna-tabs__tab--drag-over',
-                item.className,
-              )}
-              style={item.style}
-              onClick={() => {
-                selectTab(item);
-              }}
-              onKeyDown={(event) => {
-                if ((event.target as HTMLElement).getAttribute('role') !== 'tab') return;
-                const enabled = items.filter((tab) => !tab.disabled);
-                const index = enabled.findIndex((tab) => tab.key === item.key);
-                const nextKey = vertical ? 'ArrowDown' : 'ArrowRight';
-                const prevKey = vertical ? 'ArrowUp' : 'ArrowLeft';
-                let nextIndex =
-                  event.key === 'Home'
-                    ? 0
-                    : event.key === 'End'
-                      ? enabled.length - 1
-                      : event.key === nextKey
-                        ? (index + 1) % enabled.length
-                        : event.key === prevKey
-                          ? (index - 1 + enabled.length) % enabled.length
-                          : -1;
-                if (nextIndex >= 0 && enabled[nextIndex]) {
-                  event.preventDefault();
-                  selectTab(enabled[nextIndex]);
-                  tabRefs.current[enabled[nextIndex].key]
-                    ?.querySelector<HTMLButtonElement>('[role="tab"]')
-                    ?.focus();
-                  tabRefs.current[enabled[nextIndex].key]?.scrollIntoView?.({
-                    block: 'nearest',
-                    inline: 'nearest',
-                  });
-                }
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  selectTab(item);
-                }
-              }}
-              onDragStart={(event) => {
-                if (!draggable || item.disabled) return;
-                setDragKey(item.key);
-                event.dataTransfer.effectAllowed = 'move';
-                event.dataTransfer.setData('text/plain', item.key);
-              }}
-              onDragOver={(event) => {
-                if (!draggable || !dragKey || dragKey === item.key) return;
-                event.preventDefault();
-                event.dataTransfer.dropEffect = 'move';
-                setDragOverKey(item.key);
-              }}
-              onDrop={(event) => {
-                if (!draggable || !dragKey) return;
-                event.preventDefault();
-                moveTab(dragKey, item.key);
-                setDragKey(null);
-                setDragOverKey(null);
-              }}
-              onDragEnd={() => {
-                setDragKey(null);
-                setDragOverKey(null);
-              }}
+        <div ref={navRef} className="cinna-tabs__nav">
+          {scrollState.overflow && (
+            <button
+              type="button"
+              className="cinna-tabs__scroll"
+              aria-label="Scroll tabs backward"
+              disabled={disabled || !scrollState.backward}
+              onClick={() => scrollTabs(false)}
             >
-              <button
-                type="button"
-                className="cinna-tabs__target"
-                role="tab"
-                id={tabId + '-tab-' + item.key}
-                aria-controls={tabId + '-panel-' + item.key}
-                aria-selected={selected === item.key}
-                disabled={item.disabled}
-                aria-disabled={item.disabled || undefined}
-                tabIndex={item.disabled ? -1 : selected === item.key ? 0 : -1}
+              <Icon name={vertical ? 'chevron-up' : 'chevron-left'} size={14} />
+            </button>
+          )}
+          <div ref={viewportRef} className="cinna-tabs__viewport" onScroll={updateScroll}>
+            <div className="cinna-tabs__track">
+              <div
+                ref={listRef}
+                className="cinna-tabs__list"
+                role={items.length ? 'tablist' : undefined}
+                aria-label={items.length ? (rest['aria-label'] ?? 'Tabs') : undefined}
+                aria-orientation={items.length ? (vertical ? 'vertical' : 'horizontal') : undefined}
               >
-                {item.icon && (
-                  <span className="cinna-tabs__icon" aria-hidden="true">
-                    {item.icon}
-                  </span>
+                {variant === 'borderless' && selected && (
+                  <span className="cinna-tabs__active-pill" style={pill} aria-hidden="true" />
                 )}
-                <span className="cinna-tabs__label">{item.label}</span>
-              </button>
-              {(closable || item.closable) && (
-                <button
-                  type="button"
-                  className="cinna-tabs__close"
-                  aria-label={typeof item.label === 'string' ? `Close ${item.label}` : 'Close tab'}
-                  disabled={item.disabled}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    onClose?.(item.key, item, event);
-                  }}
-                >
-                  {item.closeIcon ?? closeIcon}
-                </button>
-              )}
+                {items.map((item, index) => (
+                  <div
+                    key={item.key}
+                    role="presentation"
+                    data-tab-key={item.key}
+                    ref={(node) => {
+                      if (node) wrappers.current.set(item.key, node);
+                      else wrappers.current.delete(item.key);
+                    }}
+                    {...reorder.itemHandlers(item.key)}
+                    className={cx(
+                      'cinna-tabs__item',
+                      canClose(item) && 'cinna-tabs__item--closable',
+                      item.key === selected && 'cinna-tabs__item--active',
+                      (disabled || item.disabled) && 'cinna-tabs__item--disabled',
+                      reorder.dragKey === item.key && 'cinna-tabs__item--dragging',
+                      reorder.dragOver === item.key &&
+                        reorder.dragKey !== item.key &&
+                        'cinna-tabs__item--drop',
+                      item.className,
+                    )}
+                    style={item.style}
+                  >
+                    <button
+                      type="button"
+                      role="tab"
+                      className="cinna-tabs__tab"
+                      ref={(node) => {
+                        if (node) buttons.current.set(item.key, node);
+                        else buttons.current.delete(item.key);
+                      }}
+                      id={id + '-tab-' + index}
+                      aria-controls={id + '-panel-' + index}
+                      aria-selected={item.key === selected}
+                      disabled={disabled || item.disabled}
+                      tabIndex={!disabled && !item.disabled && item.key === selected ? 0 : -1}
+                      aria-keyshortcuts={
+                        reorderable
+                          ? vertical
+                            ? 'Alt+ArrowUp Alt+ArrowDown'
+                            : 'Alt+ArrowLeft Alt+ArrowRight'
+                          : undefined
+                      }
+                      onKeyDown={(event) => keyDown(event, item)}
+                      onClick={() => {
+                        if (!reorder.consumeClick()) select(item);
+                      }}
+                    >
+                      {reorderable && (
+                        <span
+                          className="cinna-tabs__grip"
+                          aria-hidden="true"
+                          {...reorder.gripHandlers(item.key)}
+                        >
+                          <Icon name="grip" size={12} />
+                        </span>
+                      )}
+                      {item.icon && (
+                        <span className="cinna-tabs__icon" aria-hidden="true">
+                          {item.icon}
+                        </span>
+                      )}
+                      <span className="cinna-tabs__label">{item.label}</span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="cinna-tabs__edits">
+                {items.filter(canClose).map((item) => (
+                  <button
+                    key={item.key}
+                    type="button"
+                    className="cinna-tabs__close"
+                    style={closePositions[item.key]}
+                    aria-label={
+                      typeof item.label === 'string' ? 'Close ' + item.label : 'Close tab'
+                    }
+                    tabIndex={item.key === selected ? 0 : -1}
+                    disabled={disabled || item.disabled || !onClose}
+                    onClick={(event) => close(item, event)}
+                  >
+                    {item.closeIcon ?? closeIcon}
+                  </button>
+                ))}
+              </div>
             </div>
-          ))}
-          {(addable || onAdd) && (
-            <button type="button" className="cinna-tabs__add" aria-label="Add tab" onClick={onAdd}>
+          </div>
+          {scrollState.overflow && (
+            <button
+              type="button"
+              className="cinna-tabs__scroll"
+              aria-label="Scroll tabs forward"
+              disabled={disabled || !scrollState.forward}
+              onClick={() => scrollTabs(true)}
+            >
+              <Icon name={vertical ? 'chevron-down' : 'chevron-right'} size={14} />
+            </button>
+          )}
+          {canAdd && (
+            <button
+              ref={addRef}
+              type="button"
+              className="cinna-tabs__add"
+              aria-label="Add tab"
+              disabled={disabled || !onAdd}
+              onClick={onAdd}
+            >
               {addIcon}
             </button>
           )}
         </div>
-        {items.map((item) => (
+        {!selected && emptyContent && (
+          <div className="cinna-tabs__empty" role="status">
+            {emptyContent}
+          </div>
+        )}
+        {items.map((item, index) => (
           <div
             key={item.key}
-            id={`${tabId}-panel-${item.key}`}
-            aria-labelledby={`${tabId}-tab-${item.key}`}
-            hidden={item.key !== selected}
-            className={cx('cinna-tabs__panel', item.key === selected && panelMotionClass)}
+            id={id + '-panel-' + index}
             role="tabpanel"
+            aria-labelledby={id + '-tab-' + index}
             tabIndex={0}
+            hidden={item.key !== selected}
+            className="cinna-tabs__panel"
           >
             {(!destroyInactiveTabPanel || item.key === selected) && item.children}
           </div>
@@ -333,5 +372,4 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
     );
   },
 );
-
 Tabs.displayName = 'Tabs';

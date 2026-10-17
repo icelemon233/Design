@@ -1,11 +1,10 @@
 import type { ApiSection, SiteLanguage } from '../../../types';
-
 export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
   zh: [
     {
       title: '标签页整体属性',
       rows: [
-        ['items', '标签页数据列表。', 'TabsItem[]', '[]'],
+        ['items', '标签页数据列表；key 需唯一。', 'TabsItem[]', '-'],
         ['activeKey', '当前激活标签，传入后进入受控模式。', 'string', '-'],
         ['defaultActiveKey', '非受控模式下的默认激活标签。', 'string', '第一项可用标签'],
         ['onChange', '切换标签时触发，返回标签 key。', '(key: string) => void', '-'],
@@ -15,18 +14,7 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
           "'top' | 'bottom' | 'left' | 'right'",
           "'top'",
         ],
-        [
-          'type',
-          '兼容旧用法；line 对应无边框模式，card 对应有边框模式。',
-          "'line' | 'card'",
-          "'line'",
-        ],
-        [
-          'variant',
-          '标签页视觉模式。',
-          "'borderless' | 'bordered'",
-          "type='card' 时为 'bordered'，否则为 'borderless'",
-        ],
+        ['variant', '标签页视觉模式。', "'borderless' | 'bordered'", "'borderless'"],
         ['size', '标签尺寸。', "'small' | 'medium' | 'large'", "'medium'"],
         ['className', '根节点自定义 className。', 'string', '-'],
         ['style', '根节点自定义样式。', 'CSSProperties', '-'],
@@ -35,19 +23,23 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
     {
       title: '交互能力',
       rows: [
-        ['scrollable', '标签过多时允许标签栏滚动。', 'boolean', 'true'],
         ['addable', '展示新增标签入口。', 'boolean', 'false'],
-        ['addIcon', '自定义新增标签入口内容。', 'ReactNode', "'+'"],
+        ['addIcon', '自定义新增标签入口内容。', 'ReactNode', 'Icon plus'],
         ['onAdd', '点击新增入口时触发。', '(event) => void', '-'],
         ['closable', '所有标签默认展示关闭按钮。', 'boolean', 'false'],
-        ['closeIcon', '自定义关闭按钮内容。', 'ReactNode', "'×'"],
+        ['closeIcon', '自定义关闭按钮内容。', 'ReactNode', 'Icon close-blue'],
         [
           'onClose',
-          '点击关闭按钮时触发，返回 key、标签项和事件。',
+          '点击关闭按钮或按 Delete 时触发，返回 key、标签项和事件。',
           '(key, item, event) => void',
           '-',
         ],
-        ['draggable', '允许拖动标签改变顺序。', 'boolean', 'false'],
+        [
+          'draggable',
+          '允许通过手柄、鼠标或 Alt + 方向键排序；需提供 onOrderChange 更新 items。',
+          'boolean',
+          'false',
+        ],
         [
           'onOrderChange',
           '拖动排序完成时触发，返回新的 key 顺序、标签项顺序和拖动信息。',
@@ -68,9 +60,7 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['tabBorderColor', '普通标签边框颜色。', 'string', '-'],
         ['activeTabBorderColor', '激活标签边框颜色。', 'string', '-'],
         ['tabRadius', '标签圆角，数字按 px 处理。', 'number | string', '-'],
-        ['indicatorColor', '无边框模式下激活指示线颜色。', 'string', '-'],
         ['listBackgroundColor', '标签栏背景色。', 'string', '-'],
-        ['listBorderColor', '标签栏边框或分隔线颜色。', 'string', '-'],
         ['panelColor', '内容面板文字颜色。', 'string', '-'],
         ['panelFontSize', '内容面板字体大小，数字按 px 处理。', 'number | string', '-'],
         ['panelBackgroundColor', '内容面板背景色。', 'string', '-'],
@@ -85,7 +75,7 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['children', '标签对应的内容面板。', 'ReactNode', '-'],
         ['icon', '展示在标签标题前的图标。', 'ReactNode', '-'],
         ['disabled', '禁用当前标签切换。', 'boolean', 'false'],
-        ['closable', '当前标签是否展示关闭按钮。', 'boolean', 'false'],
+        ['closable', '覆盖整体的关闭开关；false 时不显示当前标签的关闭按钮。', 'boolean', 'false'],
         ['closeIcon', '当前标签自定义关闭按钮内容。', 'ReactNode', '-'],
         ['className / style', '当前标签自定义 className 和样式。', 'string / CSSProperties', '-'],
       ],
@@ -95,7 +85,6 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
       rows: [
         ['TabsPosition', '标签栏位置。', "'top' | 'bottom' | 'left' | 'right'", '-'],
         ['TabsVariant', '标签页视觉模式。', "'borderless' | 'bordered'", '-'],
-        ['TabsType', '兼容旧 type 用法。', "'line' | 'card'", '-'],
       ],
     },
   ],
@@ -103,7 +92,7 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
     {
       title: 'Tabs',
       rows: [
-        ['items', 'Tab data list.', 'TabsItem[]', '[]'],
+        ['items', 'Tab items with unique keys.', 'TabsItem[]', '-'],
         ['activeKey', 'Current active tab. Enables controlled mode when provided.', 'string', '-'],
         [
           'defaultActiveKey',
@@ -123,18 +112,7 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
           "'top' | 'bottom' | 'left' | 'right'",
           "'top'",
         ],
-        [
-          'type',
-          'Legacy visual type. line maps to borderless, and card maps to bordered.',
-          "'line' | 'card'",
-          "'line'",
-        ],
-        [
-          'variant',
-          'Visual variant for tabs.',
-          "'borderless' | 'bordered'",
-          "type='card' uses 'bordered'; otherwise 'borderless'",
-        ],
+        ['variant', 'Visual variant for tabs.', "'borderless' | 'bordered'", "'borderless'"],
         ['size', 'Tab size.', "'small' | 'medium' | 'large'", "'medium'"],
         ['className', 'Custom className for the root node.', 'string', '-'],
         ['style', 'Custom inline styles for the root node.', 'CSSProperties', '-'],
@@ -143,12 +121,11 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
     {
       title: 'Interaction',
       rows: [
-        ['scrollable', 'Allows the tab bar to scroll when there are many tabs.', 'boolean', 'true'],
         ['addable', 'Shows the add-tab entry.', 'boolean', 'false'],
-        ['addIcon', 'Custom add-tab entry content.', 'ReactNode', "'+'"],
+        ['addIcon', 'Custom add-tab entry content.', 'ReactNode', 'Icon plus'],
         ['onAdd', 'Fires when the add entry is clicked.', '(event) => void', '-'],
         ['closable', 'Shows close buttons on all tabs by default.', 'boolean', 'false'],
-        ['closeIcon', 'Custom close button content.', 'ReactNode', "'×'"],
+        ['closeIcon', 'Custom close button content.', 'ReactNode', 'Icon close-blue'],
         [
           'onClose',
           'Fires when a close button is clicked with key, item, and event.',
@@ -176,9 +153,7 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['tabBorderColor', 'Normal tab border color.', 'string', '-'],
         ['activeTabBorderColor', 'Active tab border color.', 'string', '-'],
         ['tabRadius', 'Tab radius. Numbers are treated as px.', 'number | string', '-'],
-        ['indicatorColor', 'Active indicator color in borderless mode.', 'string', '-'],
         ['listBackgroundColor', 'Tab bar background color.', 'string', '-'],
-        ['listBorderColor', 'Tab bar border or divider color.', 'string', '-'],
         ['panelColor', 'Panel text color.', 'string', '-'],
         ['panelFontSize', 'Panel font size. Numbers are treated as px.', 'number | string', '-'],
         ['panelBackgroundColor', 'Panel background color.', 'string', '-'],
@@ -208,7 +183,6 @@ export const tabsApiRows: Record<SiteLanguage, ApiSection[]> = {
       rows: [
         ['TabsPosition', 'Tab bar position.', "'top' | 'bottom' | 'left' | 'right'", '-'],
         ['TabsVariant', 'Tab visual variant.', "'borderless' | 'bordered'", '-'],
-        ['TabsType', 'Legacy type values.', "'line' | 'card'", '-'],
       ],
     },
   ],

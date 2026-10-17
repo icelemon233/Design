@@ -1,5 +1,10 @@
 import * as Cinna from '@cinna-design/react';
-import React from 'react';
+import EditableTabsExample from '../examples/tabs-editable';
+import editableSource from '../examples/tabs-editable?raw';
+import DraggableTabsExample from '../examples/tabs-draggable';
+import draggableSource from '../examples/tabs-draggable?raw';
+import TabsSample from '../examples/tabs-sample';
+import tabsSampleSource from '../examples/tabs-sample?raw';
 import type { ComponentDocConfig } from '../../types';
 
 const manyTabs = Array.from({ length: 14 }, (_, index) => ({
@@ -8,55 +13,25 @@ const manyTabs = Array.from({ length: 14 }, (_, index) => ({
   children: `Panel ${index + 1}`,
 }));
 
-const EditableTabsExample = () => {
-  const [items, setItems] = React.useState<Cinna.TabsItem[]>([
-    { key: 'tab-1', label: 'Tab 1', children: 'Tab 1 content', closable: true },
-    { key: 'tab-2', label: 'Tab 2', children: 'Tab 2 content', closable: true },
-    { key: 'tab-3', label: 'Tab 3', children: 'Tab 3 content' },
-  ]);
-
-  return (
-    <Cinna.Tabs
-      variant="bordered"
-      items={items}
-      addable
-      onAdd={() => {
-        const next = items.length + 1;
-        setItems([
-          ...items,
-          {
-            key: `tab-${next}`,
-            label: `Tab ${next}`,
-            children: `Tab ${next} content`,
-            closable: true,
-          },
-        ]);
-      }}
-      onClose={(key) => setItems(items.filter((item) => item.key !== key))}
-    />
-  );
-};
-
-const DraggableTabsExample = () => {
-  const [items, setItems] = React.useState<Cinna.TabsItem[]>([
-    { key: 'overview', icon: 'O', label: 'Overview', children: 'Overview content' },
-    { key: 'activity', icon: 'A', label: 'Activity', children: 'Activity content' },
-    { key: 'settings', icon: 'S', label: 'Settings', children: 'Settings content' },
-    { key: 'team', icon: 'T', label: 'Team', children: 'Team content' },
-  ]);
-
-  return (
-    <Cinna.Tabs
-      draggable
-      variant="bordered"
-      items={items}
-      onOrderChange={(_, nextItems) => setItems(nextItems)}
-    />
-  );
-};
-
 export const tabsDoc: ComponentDocConfig = {
   examples: [
+    {
+      id: 'tabs-sample',
+      zh: {
+        title: '交互样板',
+        description: '切换样式、四个方向与尺寸，检查增删、拖动、禁用及内容状态。',
+        codeToggle: '查看样板源码',
+      },
+      en: {
+        title: 'Interactive sample',
+        description:
+          'Try both variants, all positions, sizes, editing, reordering, disabled state and panel preservation.',
+        codeToggle: 'View sample source',
+      },
+      code: tabsSampleSource,
+      render: (language) => <TabsSample language={language} />,
+    },
+
     {
       id: 'basic-tabs',
       zh: {
@@ -188,12 +163,12 @@ export default () => (
         description: 'Each tab can render an icon, and size supports small, medium, and large.',
         codeToggle: 'View icons and sizes code',
       },
-      code: `import { Space, Tabs } from '@cinna-design/react';
+      code: `import { Icon, Space, Tabs } from '@cinna-design/react';
 
 const items = [
-  { key: 'overview', icon: 'O', label: 'Overview', children: 'Overview content' },
-  { key: 'activity', icon: 'A', label: 'Activity', children: 'Activity content' },
-  { key: 'settings', icon: 'S', label: 'Settings', children: 'Settings content' },
+  { key: 'overview', icon: <Icon name="grid" size={18} />, label: 'Overview', children: 'Overview content' },
+  { key: 'activity', icon: <Icon name="activity" size={18} />, label: 'Activity', children: 'Activity content' },
+  { key: 'settings', icon: <Icon name="settings" size={18} />, label: 'Settings', children: 'Settings content' },
 ];
 
 export default () => (
@@ -205,9 +180,24 @@ export default () => (
 );`,
       render: () => {
         const items = [
-          { key: 'overview', icon: 'O', label: 'Overview', children: 'Overview content' },
-          { key: 'activity', icon: 'A', label: 'Activity', children: 'Activity content' },
-          { key: 'settings', icon: 'S', label: 'Settings', children: 'Settings content' },
+          {
+            key: 'overview',
+            icon: <Cinna.Icon name="grid" size={18} />,
+            label: 'Overview',
+            children: 'Overview content',
+          },
+          {
+            key: 'activity',
+            icon: <Cinna.Icon name="activity" size={18} />,
+            label: 'Activity',
+            children: 'Activity content',
+          },
+          {
+            key: 'settings',
+            icon: <Cinna.Icon name="settings" size={18} />,
+            label: 'Settings',
+            children: 'Settings content',
+          },
         ];
 
         return (
@@ -255,29 +245,7 @@ export default () => <Tabs items={items} />;`,
           'addable renders an add entry, and closable can be enabled globally or per item.',
         codeToggle: 'View add and close code',
       },
-      code: `import { Tabs } from '@cinna-design/react';
-import { useState } from 'react';
-
-export default () => {
-  const [items, setItems] = useState([
-    { key: 'tab-1', label: 'Tab 1', children: 'Tab 1 content', closable: true },
-    { key: 'tab-2', label: 'Tab 2', children: 'Tab 2 content', closable: true },
-    { key: 'tab-3', label: 'Tab 3', children: 'Tab 3 content' },
-  ]);
-
-  return (
-    <Tabs
-      variant="bordered"
-      items={items}
-      addable
-      onAdd={() => {
-        const next = items.length + 1;
-        setItems([...items, { key: \`tab-\${next}\`, label: \`Tab \${next}\`, children: \`Tab \${next} content\`, closable: true }]);
-      }}
-      onClose={(key) => setItems(items.filter((item) => item.key !== key))}
-    />
-  );
-};`,
+      code: editableSource,
       render: () => <EditableTabsExample />,
     },
     {
@@ -292,39 +260,19 @@ export default () => {
         description: 'draggable lets users reorder tabs; onOrderChange returns the next order.',
         codeToggle: 'View drag reorder code',
       },
-      code: `import { Tabs } from '@cinna-design/react';
-import { useState } from 'react';
-
-export default () => {
-  const [items, setItems] = useState([
-    { key: 'overview', icon: 'O', label: 'Overview', children: 'Overview content' },
-    { key: 'activity', icon: 'A', label: 'Activity', children: 'Activity content' },
-    { key: 'settings', icon: 'S', label: 'Settings', children: 'Settings content' },
-    { key: 'team', icon: 'T', label: 'Team', children: 'Team content' },
-  ]);
-
-  return (
-    <Tabs
-      draggable
-      variant="bordered"
-      items={items}
-      onOrderChange={(_, nextItems) => setItems(nextItems)}
-    />
-  );
-};`,
+      code: draggableSource,
       render: () => <DraggableTabsExample />,
     },
     {
       id: 'custom-tabs',
       zh: {
         title: '自定义字体和颜色',
-        description: '可以分别调整标签、激活态、指示线和内容面板的字体、颜色、背景和边框。',
+        description: '可以分别调整标签、激活态、内容面板的字体、颜色、背景和边框。',
         codeToggle: '查看自定义样式代码',
       },
       en: {
         title: 'Custom font and color',
-        description:
-          'Customize tab, active state, indicator, and panel font, color, background, and border.',
+        description: 'Customize tab, active state, panel font, color, background, and border.',
         codeToggle: 'View custom style code',
       },
       code: `import { Tabs } from '@cinna-design/react';
@@ -335,12 +283,13 @@ export default () => (
     tabFontSize={15}
     tabFontWeight={900}
     tabColor="#6b584b"
-    activeTabColor="#3d8eaa"
+    activeTabColor="#28738d"
     tabBackgroundColor="#fff8ee"
     activeTabBackgroundColor="#ffffff"
     tabBorderColor="#ead8c0"
-    activeTabBorderColor="#8bd4eb"
+    activeTabBorderColor="#8a6048"
     tabRadius={12}
+    panelFontSize={16}
     panelColor="#513323"
     panelBackgroundColor="#fffcf6"
     panelBorderColor="#ead8c0"
@@ -357,12 +306,13 @@ export default () => (
           tabFontSize={15}
           tabFontWeight={900}
           tabColor="#6b584b"
-          activeTabColor="#3d8eaa"
+          activeTabColor="#28738d"
           tabBackgroundColor="#fff8ee"
           activeTabBackgroundColor="#ffffff"
           tabBorderColor="#ead8c0"
-          activeTabBorderColor="#8bd4eb"
+          activeTabBorderColor="#8a6048"
           tabRadius={12}
+          panelFontSize={16}
           panelColor="#513323"
           panelBackgroundColor="#fffcf6"
           panelBorderColor="#ead8c0"

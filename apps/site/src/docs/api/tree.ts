@@ -16,7 +16,7 @@ export const treeApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['onSelect', '选中项目时调用。', '(key: string) => void', '-'],
         ['multiple', '允许选择多个项目。', 'boolean', '-'],
         ['selectedKeys', '受控的选中项目键值。', 'string[]', '-'],
-        ['defaultSelectedKeys', 'defaultSelectedKeys 的配置或回调。', 'string[]', '[]'],
+        ['defaultSelectedKeys', '非受控模式的初始勾选项。', 'string[]', '[]'],
         [
           'onSelectedKeysChange',
           'onSelectedKeysChange 的配置或回调。',
@@ -51,12 +51,7 @@ export const treeApiRows: Record<SiteLanguage, ApiSection[]> = {
         ['onSelect', 'Called when an item is selected.', '(key: string) => void', '-'],
         ['multiple', 'Allow multiple selected items.', 'boolean', '-'],
         ['selectedKeys', 'Controlled selected item keys.', 'string[]', '-'],
-        [
-          'defaultSelectedKeys',
-          'Configuration or callback for defaultSelectedKeys.',
-          'string[]',
-          '[]',
-        ],
+        ['defaultSelectedKeys', 'Initial checked keys in uncontrolled mode.', 'string[]', '[]'],
         [
           'onSelectedKeysChange',
           'Configuration or callback for onSelectedKeysChange.',

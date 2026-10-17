@@ -1,0 +1,62 @@
+.sample-lab {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+.sample-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px 20px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--cinna-color-surface-blue);
+}
+.sample-controls > label:not(.cinna-check) {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.sample-controls select {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1.5px solid var(--cinna-color-border);
+  border-radius: 12px;
+  color: var(--cinna-color-text);
+  background: var(--cinna-color-surface);
+}
+.sample-controls .cinna-check {
+  min-height: 44px;
+  font-size: 13px;
+}
+.sample-help,
+.sample-output {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--cinna-color-text-secondary);
+}
+.sample-panel-content {
+  display: grid;
+  gap: 14px;
+}
+.sample-panel-content p {
+  margin: 0;
+}
+.sample-panel-content label {
+  display: grid;
+  gap: 8px;
+}
+.sample-note {
+  width: 100%;
+  max-width: 420px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--cinna-color-border);
+  border-radius: 12px;
+  background: var(--cinna-color-surface);
+  color: var(--cinna-color-text);
+  font: inherit;
+}

@@ -4,7 +4,6 @@
   outline: 3px solid var(--cinna-color-primary-deep);
   outline-offset: 3px;
 }
-.cinna-tabs__panel[hidden],
 .cinna-collapse__body[hidden] {
   display: none !important;
 }

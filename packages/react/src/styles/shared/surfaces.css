@@ -1,0 +1,13 @@
+/* Shared surface recipe. Feature-specific layout belongs to each component. */
+.cinna-collapse,
+.cinna-table,
+.cinna-list,
+.cinna-descriptions,
+.cinna-calendar,
+.cinna-tree,
+.cinna-splitter__panel {
+  border: 1.5px solid var(--cinna-color-border);
+  border-radius: var(--cinna-radius-lg);
+  background: rgba(255, 252, 246, 0.8);
+  box-shadow: var(--cinna-shadow-soft);
+}

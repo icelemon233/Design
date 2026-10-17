@@ -34,7 +34,7 @@ export const ComponentExampleBlock = ({
         {isButton ? (
           <ButtonExamplePreview id={example.id} />
         ) : (
-          (example as ComponentDocExample).render()
+          (example as ComponentDocExample).render(language)
         )}
       </div>
       <details className="component-example__code">

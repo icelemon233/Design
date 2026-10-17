@@ -1,21 +1,4 @@
 /* New behavior uses the established cloud, cream and cocoa design tokens. */
-.cinna-tabs__semantic-list {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.cinna-tabs__target {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: inherit;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  cursor: inherit;
-}
 .cinna-rate__star {
   display: inline-grid;
   place-items: center;
@@ -260,33 +243,6 @@
 }
 .cinna-time-panel :disabled {
   opacity: 0.4;
-}
-.cinna-transfer {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-.cinna-transfer__list {
-  min-width: 0;
-}
-.cinna-transfer__list > strong {
-  display: flex;
-  justify-content: space-between;
-}
-.cinna-transfer__item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-.cinna-transfer__item .cinna-check {
-  min-width: 0;
-}
-.cinna-transfer__move {
-  width: 100%;
-  min-height: 36px;
-  background: var(--cinna-color-primary);
-  color: var(--cinna-color-text);
-  font: inherit;
 }
 .cinna-upload--drag {
   padding: 24px;
@@ -544,9 +500,6 @@
   background: transparent;
 }
 @media (max-width: 560px) {
-  .cinna-transfer {
-    grid-template-columns: minmax(0, 1fr);
-  }
   .cinna-notification-stack {
     right: 16px;
     left: 16px;

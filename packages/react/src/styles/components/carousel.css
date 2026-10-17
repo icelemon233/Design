@@ -77,7 +77,3 @@
   background: var(--cinna-color-primary);
   color: var(--cinna-color-text);
 }
-
-.cinna-transfer {
-  grid-template-columns: 1fr 1fr;
-}

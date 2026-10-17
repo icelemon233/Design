@@ -2,10 +2,7 @@ import React from 'react';
 import type { CinnaSize } from '../shared';
 
 export type TabsPosition = 'top' | 'bottom' | 'left' | 'right';
-
 export type TabsVariant = 'borderless' | 'bordered';
-
-export type TabsType = 'line' | 'card';
 
 export interface TabsItem {
   key: string;
@@ -25,17 +22,21 @@ export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'o
   defaultActiveKey?: string;
   onChange?: (key: string) => void;
   tabPosition?: TabsPosition;
-  type?: TabsType;
   variant?: TabsVariant;
   size?: CinnaSize;
-  scrollable?: boolean;
+  disabled?: boolean;
+  emptyContent?: React.ReactNode;
   addable?: boolean;
   addIcon?: React.ReactNode;
   closeIcon?: React.ReactNode;
   closable?: boolean;
   draggable?: boolean;
   onAdd?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  onClose?: (key: string, item: TabsItem, event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClose?: (
+    key: string,
+    item: TabsItem,
+    event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
+  ) => void;
   onOrderChange?: (
     keys: string[],
     items: TabsItem[],
@@ -50,9 +51,7 @@ export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'o
   tabBorderColor?: string;
   activeTabBorderColor?: string;
   tabRadius?: number | string;
-  indicatorColor?: string;
   listBackgroundColor?: string;
-  listBorderColor?: string;
   panelColor?: string;
   panelFontSize?: number | string;
   panelBackgroundColor?: string;
