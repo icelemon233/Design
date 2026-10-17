@@ -29,13 +29,13 @@
 
 `pnpm check` 覆盖架构、类型、单元、各包构建、导出与 SSR；`pnpm format:check` 检查格式。`pnpm typecheck:samples` 严格检查样板浏览器测试与配置。
 
-安装三种浏览器后，运行 `pnpm test:samples`。矩阵包含三引擎各四种环境：1440×1000/DPR1、768×1024/触控/DPR2、390×844/触控/DPR3，以及 1440×1000/DPR2/减少动画；手机组合状态另查 320px。Windows 使用一个 worker，CI 使用两个；不自动重试。
+安装三种浏览器后，运行 `pnpm test:samples`。矩阵包含三引擎各四种环境：1440×1000/DPR1、768×1024/触控/DPR2、390×844/触控/DPR3，以及 1440×1000/DPR2/减少动画；手机组合状态另查 320px。Windows 使用一个 worker。CI 按浏览器分开运行，WebKit 的四种环境各用一个独立任务；每个任务使用一个 worker，不自动重试。WebKit 在 Xvfb 虚拟桌面中运行，记录真实帧是否推进，保留原生点击和稳定性检查。
 
-生产子路径验证先执行 `pnpm build:pages`，再设置 `SAMPLE_PRODUCTION=1` 运行测试。已有本地预览服务时，可通过 `SAMPLE_BASE_URL` 指定地址。报告在 `playwright-report/samples/`，原始图片、浏览器能力记录和失败轨迹在 `test-results/`。
+生产子路径验证先执行 `pnpm build:pages`，再设置 `SAMPLE_PRODUCTION=1` 运行测试。已有本地预览服务时，可通过 `SAMPLE_BASE_URL` 指定地址。通过 `SAMPLE_ENGINE` 和 `SAMPLE_PROFILE` 可单独复现某个浏览器或环境。报告在 `playwright-report/samples/`，原始图片、浏览器能力、帧记录和失败轨迹在 `test-results/`。覆盖 24 种组合的几何用例有 120 秒总预算，单次操作仍限时 10 秒。
 
 原生触摸点击通过浏览器收到的 trusted touch/pointer 事件确认，保留 maxTouchPoints 的实际值。Chromium 触控排序使用 CDP 原生触摸移动；Firefox、WebKit 的排序使用真实鼠标指针验证捕获和边缘滚动，其触控模式另验原生点击。未执行实体手机或真实 Safari 验证。
 
-组件局部截图在拍摄时隐藏站点固定导航，避免导航覆盖组件；组件本身保持实际渲染。图片不自动作为视觉通过或用户认可的证据。
+组件局部截图在拍摄时隐藏站点固定导航，避免导航覆盖组件；组件本身保持实际渲染。图片不自动作为视觉通过或用户认可的证据。长名称需滚动到视口中，并检查文字落在所属行内；键盘检查同时核对可见焦点圈，不能只检查 DOM 焦点。
 
 ## 之前记录的边界
 

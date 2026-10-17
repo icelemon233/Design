@@ -193,7 +193,12 @@ export const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
                       />
                     )}
                   </div>
-                  <div className="cinna-transfer__items">
+                  <div
+                    className={cx(
+                      'cinna-transfer__items',
+                      !visible.length && 'cinna-transfer__items--empty',
+                    )}
+                  >
                     {!visible.length && (
                       <p className="cinna-transfer__empty">
                         {allItems.length ? locale.noResults : locale.empty}

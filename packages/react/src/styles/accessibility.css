@@ -1,4 +1,8 @@
 /* Native and composite controls share one visible keyboard focus treatment. */
+.cinna-check input:focus-visible + .cinna-check__box {
+  outline: 3px solid var(--cinna-color-primary-deep);
+  outline-offset: 3px;
+}
 :where([class^='cinna-'], [class*=' cinna-']) :focus-visible,
 :where([class^='cinna-'], [class*=' cinna-']):focus-visible {
   outline: 3px solid var(--cinna-color-primary-deep);

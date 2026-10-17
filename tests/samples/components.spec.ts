@@ -68,12 +68,10 @@ async function sample(page: Page, kind: 'tabs' | 'transfer') {
         requestAnimationFrame(tick);
       }),
   );
-  await test
-    .info()
-    .attach(kind + '-rendering-frames', {
-      body: JSON.stringify(frames),
-      contentType: 'application/json',
-    });
+  await test.info().attach(kind + '-rendering-frames', {
+    body: JSON.stringify(frames),
+    contentType: 'application/json',
+  });
   expect(frames.timestamps, 'native rendering frames advance before interaction').toHaveLength(2);
   expect(frames.timestamps[1]).toBeGreaterThan(frames.timestamps[0]);
   return { lab, root: lab.locator('.cinna-' + kind).first() };
@@ -156,6 +154,7 @@ test('Samples use working Chinese labels and report their actual emulation setti
 test('Tabs has clean surfaces and connected seams in both variants, four positions and three sizes', async ({
   page,
 }, info) => {
+  test.setTimeout(120000);
   const { lab, root } = await sample(page, 'tabs');
   for (const variant of ['borderless', 'bordered']) {
     await lab.getByRole('combobox', { name: 'Variant', exact: true }).selectOption(variant);
@@ -379,9 +378,31 @@ test('Tabs keep editing and dragging usable together in narrow containers', asyn
     await expect
       .poll(() => root.locator('.cinna-tabs__viewport').evaluate((node) => node.clientWidth))
       .toBeGreaterThanOrEqual(180);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(
-      true,
-    );
+    await info.attach('phone-320-layout', {
+      body: JSON.stringify(
+        await page.evaluate(() => ({
+          viewport: innerWidth,
+          page: document.documentElement.scrollWidth,
+          overflowing: [...document.querySelectorAll('body *')]
+            .map((node) => {
+              const bounds = node.getBoundingClientRect();
+              return {
+                tag: node.tagName,
+                className: node.getAttribute('class'),
+                left: bounds.left,
+                right: bounds.right,
+                width: bounds.width,
+              };
+            })
+            .filter((item) => item.right > innerWidth + 1 && item.width > 0)
+            .slice(0, 20),
+        })),
+      ),
+      contentType: 'application/json',
+    });
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1))
+      .toBe(true);
     for (const button of [
       root.getByRole('button', { name: 'Add tab', exact: true }),
       root.getByRole('button', { name: 'Close New 1', exact: true }),
@@ -532,6 +553,12 @@ test('Transfer responds to container width, has correct direction icons and usab
   expect(await longLabel.evaluate((node) => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
   await longLabel.scrollIntoViewIfNeeded();
   await expect(longLabel).toBeInViewport();
+  const labelBounds = await longLabel.boundingBox();
+  const rowBounds = await longLabel.locator('..').locator('..').boundingBox();
+  expect(labelBounds!.y).toBeGreaterThanOrEqual(rowBounds!.y);
+  expect(labelBounds!.y + labelBounds!.height).toBeLessThanOrEqual(
+    rowBounds!.y + rowBounds!.height + 1,
+  );
   await root.screenshot({
     path: info.outputPath('transfer-stacked-long.png'),
     ...componentShot,
@@ -571,6 +598,13 @@ test('Transfer controlled selection, empty search and keyboard focus follow real
   await page.keyboard.press('Enter');
   await expect(target.getByRole('checkbox', { name: 'Tokens', exact: true })).not.toBeChecked();
   await expect(target.getByRole('checkbox', { name: 'Select all', exact: true })).toBeFocused();
+  const focusedBox = target
+    .getByRole('checkbox', { name: 'Select all', exact: true })
+    .locator('..')
+    .locator('.cinna-check__box');
+  await expect(focusedBox).toHaveCSS('outline-style', 'solid');
+  await expect(focusedBox).toHaveCSS('outline-width', '3px');
+  await expect(focusedBox).toHaveCSS('opacity', '1');
   await expect(lab.locator('output')).toContainText('toTarget: tokens');
   await root.screenshot({ path: info.outputPath('transfer-moved-focus.png'), ...componentShot });
   await setChecked(lab.getByRole('checkbox', { name: 'Disabled', exact: true }), true);

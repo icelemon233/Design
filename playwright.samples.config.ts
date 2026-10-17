@@ -2,6 +2,14 @@ import { defineConfig } from '@playwright/test';
 
 const production = process.env.SAMPLE_PRODUCTION === '1';
 const engine = process.env.SAMPLE_ENGINE;
+const profile = process.env.SAMPLE_PROFILE;
+if (
+  profile &&
+  !['all', 'desktop', 'tablet-touch', 'phone-touch', 'reduced-motion'].includes(profile)
+)
+  throw new Error(
+    'SAMPLE_PROFILE must be all, desktop, tablet-touch, phone-touch or reduced-motion.',
+  );
 if (engine && !['chromium', 'firefox', 'webkit'].includes(engine))
   throw new Error('SAMPLE_ENGINE must be chromium, firefox or webkit.');
 const baseURL =
@@ -62,21 +70,23 @@ export default defineConfig({
           hasTouch: false,
           reducedMotion: 'reduce',
         },
-      ].map((mode) => ({
-        name: browser + '-' + mode.name,
-        use: {
-          browserName: browser as 'chromium' | 'firefox' | 'webkit',
-          headless: !(process.env.CI && browser === 'webkit'),
-          ...(browser === 'chromium' && process.env.PLAYWRIGHT_CHANNEL
-            ? { channel: process.env.PLAYWRIGHT_CHANNEL }
-            : {}),
-          viewport: mode.viewport,
-          deviceScaleFactor: mode.deviceScaleFactor,
-          hasTouch: mode.hasTouch,
-          isMobile: browser !== 'firefox' && mode.name === 'phone-touch',
-          reducedMotion: mode.reducedMotion as 'reduce' | 'no-preference',
-        },
-      })),
+      ]
+        .filter((mode) => !profile || profile === 'all' || mode.name === profile)
+        .map((mode) => ({
+          name: browser + '-' + mode.name,
+          use: {
+            browserName: browser as 'chromium' | 'firefox' | 'webkit',
+            headless: !(process.env.CI && browser === 'webkit'),
+            ...(browser === 'chromium' && process.env.PLAYWRIGHT_CHANNEL
+              ? { channel: process.env.PLAYWRIGHT_CHANNEL }
+              : {}),
+            viewport: mode.viewport,
+            deviceScaleFactor: mode.deviceScaleFactor,
+            hasTouch: mode.hasTouch,
+            isMobile: browser !== 'firefox' && mode.name === 'phone-touch',
+            reducedMotion: mode.reducedMotion as 'reduce' | 'no-preference',
+          },
+        })),
     ),
   webServer: process.env.SAMPLE_BASE_URL
     ? undefined

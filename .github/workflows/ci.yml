@@ -59,7 +59,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        engine: [chromium, firefox, webkit]
+        include:
+          - engine: chromium
+            profile: all
+          - engine: firefox
+            profile: all
+          - engine: webkit
+            profile: desktop
+          - engine: webkit
+            profile: tablet-touch
+          - engine: webkit
+            profile: phone-touch
+          - engine: webkit
+            profile: reduced-motion
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -78,10 +90,11 @@ jobs:
         env:
           SAMPLE_PRODUCTION: '1'
           SAMPLE_ENGINE: ${{ matrix.engine }}
+          SAMPLE_PROFILE: ${{ matrix.profile }}
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: samples-browser-report-${{ matrix.engine }}
+          name: samples-browser-report-${{ matrix.engine }}-${{ matrix.profile }}
           path: |
             playwright-report/samples/
             test-results/samples/

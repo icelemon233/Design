@@ -61,6 +61,8 @@
 }
 .cinna-transfer__items {
   display: grid;
+  flex: 1 1 auto;
+  grid-auto-rows: max-content;
   align-content: start;
   gap: 4px;
   min-height: 196px;
@@ -68,6 +70,9 @@
   padding: 0 8px 12px;
   overflow: auto;
   scrollbar-width: thin;
+}
+.cinna-transfer__items--empty {
+  align-content: center;
 }
 .cinna-transfer__item {
   display: flex;
