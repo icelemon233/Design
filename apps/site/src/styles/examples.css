@@ -346,6 +346,9 @@
     justify-self: center;
     padding-top: 0;
   }
+  .hero__actions {
+    justify-content: center;
+  }
   .hero__copy,
   .hero__compatibility {
     margin-right: auto;

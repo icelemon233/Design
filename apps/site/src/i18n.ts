@@ -49,7 +49,7 @@ export const siteI18n: Record<SiteLanguage, SiteCopy> = {
       apiType: '类型',
       basic: '基础示例',
       brandPowered: 'Made by icelemon & Codex',
-      compatibility: '支持 React 18 及以上版本，提供 TypeScript 类型。',
+      compatibility: '支持 React 18+，提供 TypeScript 类型。',
       componentDocs: '组件文档',
       componentOverview: '组件示例',
       componentSummary:
