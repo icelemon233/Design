@@ -55,6 +55,11 @@ jobs:
             test-results/
           retention-days: 14
   samples:
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [chromium, firefox, webkit]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -66,16 +71,17 @@ jobs:
         with:
           cache: true
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium firefox webkit
+      - run: pnpm exec playwright install --with-deps ${{ matrix.engine }}
       - run: pnpm typecheck:samples
       - run: pnpm build:pages
-      - run: pnpm test:samples
+      - run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1200x24" pnpm test:samples
         env:
           SAMPLE_PRODUCTION: '1'
+          SAMPLE_ENGINE: ${{ matrix.engine }}
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: samples-browser-report
+          name: samples-browser-report-${{ matrix.engine }}
           path: |
             playwright-report/samples/
             test-results/samples/

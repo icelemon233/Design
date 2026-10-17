@@ -148,6 +148,11 @@
 .cinna-tabs__tab:active:not(:disabled) {
   transform: translateY(1px);
 }
+.cinna-tabs__close,
+.cinna-tabs__add,
+.cinna-tabs__scroll {
+  -webkit-tap-highlight-color: transparent;
+}
 .cinna-tabs__item:not(.cinna-tabs__item--disabled):hover {
   color: var(--cinna-tabs-active-color);
 }

@@ -3,9 +3,11 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { chromium } from '@playwright/test';
 
-const source = path.resolve('test-results/samples');
+const source = path.resolve(process.env.SAMPLE_RESULTS_DIR ?? 'test-results/samples');
 const review = path.resolve('test-results/sample-review');
-const output = path.join(review, 'contact-sheets');
+const output = path.resolve(
+  process.env.SAMPLE_REVIEW_OUTPUT ?? path.join(review, 'contact-sheets'),
+);
 await fs.mkdir(output, { recursive: true });
 const projects = process.argv.slice(2);
 if (!projects.length) {

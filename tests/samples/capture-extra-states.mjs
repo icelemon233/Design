@@ -34,7 +34,7 @@ const modes = [
   },
 ];
 for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
-  const browser = await engine.launch();
+  const browser = await engine.launch({ headless: !(process.env.CI && name === 'webkit') });
   try {
     for (const mode of modes) {
       const context = await browser.newContext({
@@ -48,6 +48,7 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
       await page.goto(baseURL.replace(/\/?$/, '/') + '#/tabs');
       const lab = page.locator('[data-sample="tabs"]');
       await lab.waitFor({ timeout: 30000 });
+      await page.bringToFront();
       await page.evaluate(() => document.fonts.ready);
       const root = lab.locator('.cinna-tabs');
       const toggle = async (label) => {

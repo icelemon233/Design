@@ -48,7 +48,34 @@ async function sample(page: Page, kind: 'tabs' | 'transfer') {
   await page.goto('#/' + kind);
   const lab = page.locator('[data-sample="' + kind + '"]');
   await lab.waitFor({ timeout: 30000 });
+  await page.bringToFront();
   await page.evaluate(() => document.fonts.ready);
+  const frames = await page.evaluate(
+    () =>
+      new Promise<{ timestamps: number[]; visibility: string }>((resolve) => {
+        const timestamps: number[] = [];
+        const deadline = setTimeout(
+          () => resolve({ timestamps, visibility: document.visibilityState }),
+          2000,
+        );
+        const tick = (time: number) => {
+          timestamps.push(time);
+          if (timestamps.length === 2) {
+            clearTimeout(deadline);
+            resolve({ timestamps, visibility: document.visibilityState });
+          } else requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }),
+  );
+  await test
+    .info()
+    .attach(kind + '-rendering-frames', {
+      body: JSON.stringify(frames),
+      contentType: 'application/json',
+    });
+  expect(frames.timestamps, 'native rendering frames advance before interaction').toHaveLength(2);
+  expect(frames.timestamps[1]).toBeGreaterThan(frames.timestamps[0]);
   return { lab, root: lab.locator('.cinna-' + kind).first() };
 }
 async function seam(root: Locator, position: string) {
@@ -289,6 +316,7 @@ test('Tabs reordering has a keyboard alternative', async ({ page }) => {
 
 test('Tabs keep editing and dragging usable together in narrow containers', async ({
   page,
+  browserName,
 }, info) => {
   const { lab, root } = await sample(page, 'tabs');
   await setChecked(lab.getByRole('checkbox', { name: 'Editable', exact: true }), true);
@@ -337,6 +365,11 @@ test('Tabs keep editing and dragging usable together in narrow containers', asyn
     'aria-selected',
     'true',
   );
+  if (browserName === 'chromium')
+    await expect(root.getByRole('button', { name: 'Add tab', exact: true })).toHaveCSS(
+      '-webkit-tap-highlight-color',
+      'rgba(0, 0, 0, 0)',
+    );
   await root.screenshot({
     path: info.outputPath('tabs-editable-reorderable.png'),
     ...componentShot,
@@ -497,6 +530,8 @@ test('Transfer responds to container width, has correct direction icons and usab
   expect(await root.evaluate((node) => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
   const longLabel = root.locator('.cinna-check__label').filter({ hasText: 'A long item name' });
   expect(await longLabel.evaluate((node) => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
+  await longLabel.scrollIntoViewIfNeeded();
+  await expect(longLabel).toBeInViewport();
   await root.screenshot({
     path: info.outputPath('transfer-stacked-long.png'),
     ...componentShot,
