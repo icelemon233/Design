@@ -1,4 +1,10 @@
 import React from 'react';
+import plus from '../../assets/icons/cinna-plus.png';
+import grid from '../../assets/icons/cinna-grid.png';
+import activity from '../../assets/icons/cinna-activity.png';
+import settings from '../../assets/icons/cinna-settings.png';
+import users from '../../assets/icons/cinna-users.png';
+import grip from '../../assets/icons/cinna-grip.png';
 import { default as arrowTailDownLeft } from '../../assets/icons/cinna-arrow-tail-down-left.png';
 import { default as arrowTailDownRight } from '../../assets/icons/cinna-arrow-tail-down-right.png';
 import { default as arrowTailDown } from '../../assets/icons/cinna-arrow-tail-down.png';
@@ -18,6 +24,12 @@ import type { IconProps } from './types';
 export type { IconName, IconProps } from './types';
 
 export const iconSources = {
+  plus,
+  grid,
+  activity,
+  settings,
+  users,
+  grip,
   'arrow-tail-up': arrowTailUp,
   'arrow-tail-up-right': arrowTailUpRight,
   'arrow-tail-right': arrowTailRight,

@@ -6,7 +6,9 @@
 @import './components/controls.css';
 @import './components/menu.css';
 @import './components/pagination.css';
+@import './shared/surfaces.css';
 @import './components/tabs.css';
+@import './components/transfer.css';
 @import './components/steps.css';
 @import './components/popup.css';
 @import './components/display.css';

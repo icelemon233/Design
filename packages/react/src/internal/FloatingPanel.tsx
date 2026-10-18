@@ -17,7 +17,10 @@ export function FloatingPanel({
 }: FloatingPanelProps) {
   const panel = useRef<HTMLElement | null>(null);
   const updateRef = useRef<(() => void) | null>(null);
-  const [position, setPosition] = useState<React.CSSProperties>({ visibility: 'hidden' });
+  const [position, setPosition] = useState<React.CSSProperties>({
+    visibility: 'hidden',
+    transitionProperty: 'none',
+  });
   useIsomorphicLayoutEffect(() => {
     let frame = 0;
     const update = () => {
@@ -40,6 +43,7 @@ export function FloatingPanel({
       const next: React.CSSProperties = {
         position: 'fixed',
         visibility: 'visible',
+        transitionProperty: 'none',
         left: Math.max(margin, Math.min(preferredLeft, innerWidth - width - margin)),
         right: 'auto',
         top: Math.max(margin, topSide ? trigger.top - gap - height : trigger.bottom + gap),
@@ -77,7 +81,9 @@ export function FloatingPanel({
   useEffect(() => updateRef.current?.(), []);
   useEffect(() => {
     if (position.visibility === 'visible') {
-      panel.current?.querySelector<HTMLElement>('[data-cinna-autofocus]')?.focus();
+      panel.current
+        ?.querySelector<HTMLElement>('[data-cinna-autofocus]')
+        ?.focus({ preventScroll: true });
     }
   }, [position.visibility]);
   const child = children as React.ReactElement<React.HTMLAttributes<HTMLElement>>;

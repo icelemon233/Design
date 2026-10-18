@@ -23,7 +23,7 @@ export type ComponentDocExample = {
   zh: ExampleCopy;
   en: ExampleCopy;
   code: string;
-  render: () => React.ReactNode;
+  render: (language: SiteLanguage) => React.ReactNode;
   surfaceClassName?: string;
 };
 

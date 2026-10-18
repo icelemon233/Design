@@ -1,19 +1,39 @@
 import * as Cinna from '@cinna-design/react';
 import React from 'react';
+import TransferSample from '../examples/transfer-sample';
+import transferSampleSource from '../examples/transfer-sample?raw';
 import type { ComponentDocConfig } from '../../types';
 
 export const transferDoc: ComponentDocConfig = {
   examples: [
     {
+      id: 'transfer-sample',
+      zh: {
+        title: '交互样板',
+        description: '检查勾选、搜索、穿梭、禁用、空数据与窄容器。',
+        codeToggle: '查看样板源码',
+      },
+      en: {
+        title: 'Interactive sample',
+        description:
+          'Try selection, searching, both move directions, disabled items, empty data and a narrow container.',
+        codeToggle: 'View sample source',
+      },
+      code: transferSampleSource,
+      render: (language) => <TransferSample language={language} />,
+    },
+
+    {
       id: 'basic-transfer',
       zh: {
         title: '基本用法',
-        description: 'dataSource 提供源数据，点击条目可在左右两栏之间移动。',
+        description: 'dataSource 提供源数据，勾选条目后，通过中间按钮移动到另一栏。',
         codeToggle: '查看基本用法代码',
       },
       en: {
         title: 'Basic transfer',
-        description: 'Provide dataSource and click items to move them between the two lists.',
+        description:
+          'Provide dataSource and select items before moving them with the middle buttons.',
         codeToggle: 'View basic transfer code',
       },
       code: `import { Transfer } from '@cinna-design/react';
@@ -39,12 +59,13 @@ export default () => <Transfer dataSource={dataSource} />;`,
       id: 'transfer-target-keys',
       zh: {
         title: '默认目标项',
-        description: 'targetKeys 决定初始展示在右侧目标栏的条目。',
+        description: 'defaultTargetKeys 决定初始展示在右侧目标栏的条目。',
         codeToggle: '查看默认目标项代码',
       },
       en: {
         title: 'Initial target items',
-        description: 'targetKeys decides which items are initially displayed in the target list.',
+        description:
+          'defaultTargetKeys decides which items are initially displayed in the target list.',
         codeToggle: 'View target keys code',
       },
       code: `import { Transfer } from '@cinna-design/react';
@@ -56,7 +77,7 @@ const dataSource = [
 ];
 
 export default () => (
-  <Transfer dataSource={dataSource} targetKeys={['api']} />
+  <Transfer dataSource={dataSource} defaultTargetKeys={['api']} />
 );`,
       render: () => (
         <Cinna.Transfer
@@ -65,7 +86,7 @@ export default () => (
             { key: 'api', title: 'API' },
             { key: 'changelog', title: 'Changelog' },
           ]}
-          targetKeys={['api']}
+          defaultTargetKeys={['api']}
         />
       ),
     },
@@ -127,7 +148,7 @@ export default () => (
   <Transfer
     titles={['Available stages', 'Selected stages']}
     dataSource={dataSource}
-    targetKeys={['review']}
+    defaultTargetKeys={['review']}
   />
 );`,
       render: () => (
@@ -138,7 +159,7 @@ export default () => (
             { key: 'review', title: 'Review' },
             { key: 'ready', title: 'Ready' },
           ]}
-          targetKeys={['review']}
+          defaultTargetKeys={['review']}
         />
       ),
     },

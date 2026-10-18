@@ -473,17 +473,6 @@
   gap: 8px;
 }
 
-.cinna-transfer__list button {
-  border: 0;
-  border-radius: var(--cinna-radius-pill);
-  background: var(--cinna-color-surface-blue);
-  color: var(--cinna-color-text);
-  cursor: pointer;
-  font: inherit;
-  font-weight: 900;
-  padding: 6px 10px;
-}
-
 .cinna-table {
   overflow: auto;
 }

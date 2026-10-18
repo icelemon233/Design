@@ -1,145 +1,206 @@
+import React, { useState } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
-import { Alert, Modal, Tabs } from '../../index';
+import { Tabs, type TabsItem } from '../../index';
 
-describe('tabs regression', () => {
-  it('renders overlays and tabs', () => {
-    const { container } = render(
-      <>
-        <Alert message="Saved" />
-        <Modal open title="Recipe">
-          Modal content
-        </Modal>
-        <Tabs items={[{ key: 'one', label: 'One', children: 'Panel one' }]} />
-      </>,
-    );
+const items: TabsItem[] = [
+  { key: 'a', label: 'Alpha', children: 'Panel A', closable: true },
+  { key: 'b', label: 'Beta', children: 'Panel B', closable: true },
+  { key: 'c', label: 'Cream', children: 'Panel C', closable: true },
+];
 
-    expect(screen.getByRole('dialog')).toHaveTextContent('Modal content');
-    expect(screen.getByRole('tab', { name: 'One' })).toHaveAttribute('aria-selected', 'true');
-    expect(container.querySelector('.cinna-tabs__active-pill')).toBeInTheDocument();
-  });
-
-  it('keeps bordered tab panels stable without switch fade motion', () => {
-    const { container } = render(
-      <>
+describe('tabs editing and lifecycle', () => {
+  it('keeps focus in the widget when only disabled tabs remain after closing', () => {
+    const Demo = () => {
+      const [tabs, setTabs] = useState<TabsItem[]>([
+        items[0],
+        { ...items[1], disabled: true, closable: false },
+      ]);
+      return (
         <Tabs
-          items={[
-            { key: 'overview', label: 'Overview', children: 'Overview panel' },
-            { key: 'activity', label: 'Activity', children: 'Activity panel' },
-          ]}
+          items={tabs}
+          emptyContent="No available tabs"
+          onClose={(key) => setTabs((current) => current.filter((item) => item.key !== key))}
         />
-        <Tabs
-          variant="bordered"
-          items={[
-            { key: 'tab-1', label: 'Tab 1', children: 'Tab 1 panel' },
-            { key: 'tab-2', label: 'Tab 2', children: 'Tab 2 panel' },
-          ]}
-        />
-      </>,
-    );
-
-    const [borderlessPanel, borderedPanel] = Array.from(
-      container.querySelectorAll('.cinna-tabs__panel'),
-    );
-    expect(borderlessPanel.className).toContain('cinna-tabs__panel--motion-');
-    expect(borderedPanel.className).not.toContain('cinna-tabs__panel--motion-');
-
-    fireEvent.click(screen.getByRole('tab', { name: 'Tab 2' }));
-    expect(borderedPanel.className).not.toContain('cinna-tabs__panel--motion-');
+      );
+    };
+    const { container } = render(<Demo />);
+    const active = screen.getByRole('tab', { name: 'Alpha' });
+    active.focus();
+    fireEvent.keyDown(active, { key: 'Delete' });
+    expect(container.querySelector('.cinna-tabs')).toHaveFocus();
+    expect(screen.getByRole('status')).toHaveTextContent('No available tabs');
   });
-
-  it('supports rich tabs with icons, editing, dragging, and style variables', () => {
-    const onChange = vi.fn();
-    const onAdd = vi.fn();
-    const onClose = vi.fn();
-    const onOrderChange = vi.fn();
+  it('treats an empty string key as an ordinary active and reorderable tab', () => {
+    const order = vi.fn();
     const { container } = render(
       <Tabs
-        variant="bordered"
-        tabPosition="left"
-        size="large"
-        draggable
-        addable
-        closable
-        defaultActiveKey="activity"
-        onChange={onChange}
-        onAdd={onAdd}
-        onClose={onClose}
-        onOrderChange={onOrderChange}
-        tabFontSize={16}
-        tabFontWeight={800}
-        tabColor="#6b584b"
-        activeTabColor="#3d8eaa"
-        activeTabBackgroundColor="#ffffff"
-        tabBorderColor="#ead8c0"
-        activeTabBorderColor="#8bd4eb"
-        tabRadius={12}
-        panelColor="#513323"
-        panelBackgroundColor="#fffcf6"
-        panelBorderColor="#ead8c0"
         items={[
-          { key: 'overview', icon: 'O', label: 'Overview', children: 'Overview panel' },
-          { key: 'activity', icon: 'A', label: 'Activity', children: 'Activity panel' },
-          {
-            key: 'settings',
-            icon: 'S',
-            label: 'Settings',
-            children: 'Settings panel',
-            disabled: true,
-          },
+          { key: '', label: 'Alpha', children: 'Panel A' },
+          { key: 'b', label: 'Beta' },
+        ]}
+        draggable
+        onOrderChange={order}
+        emptyContent="No tabs"
+      />,
+    );
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Panel A');
+    expect(screen.queryByText('No tabs')).not.toBeInTheDocument();
+    expect(container.querySelector('.cinna-tabs__active-pill')).toBeInTheDocument();
+    fireEvent.dragStart(screen.getByRole('tab', { name: 'Alpha' }), {
+      dataTransfer: { effectAllowed: '', setData: vi.fn() },
+    });
+    fireEvent.dragOver(screen.getByRole('tab', { name: 'Beta' }), {
+      dataTransfer: { dropEffect: '' },
+    });
+    fireEvent.drop(screen.getByRole('tab', { name: 'Beta' }));
+    expect(order).toHaveBeenCalledWith(['b', ''], expect.any(Array), { fromKey: '', toKey: 'b' });
+  });
+  it('returns focus to the tab selected by the parent after closing', () => {
+    const Demo = () => {
+      const [tabs, setTabs] = useState(items);
+      const [active, setActive] = useState('b');
+      return (
+        <Tabs
+          items={tabs}
+          activeKey={active}
+          onClose={(key) => {
+            setTabs((current) => current.filter((item) => item.key !== key));
+            setActive('a');
+          }}
+        />
+      );
+    };
+    render(<Demo />);
+    fireEvent.click(screen.getByRole('button', { name: 'Close Beta' }));
+    expect(screen.getByRole('tab', { name: 'Alpha' })).toHaveFocus();
+    expect(screen.getByRole('tab', { name: 'Alpha' })).toHaveAttribute('aria-selected', 'true');
+  });
+  it('supports reserved object-property names as ordinary item keys', () => {
+    render(
+      <Tabs
+        closable
+        onClose={vi.fn()}
+        items={[
+          { key: '__proto__', label: 'Prototype' },
+          { key: 'constructor', label: 'Constructor' },
         ]}
       />,
     );
-    const root = container.querySelector('.cinna-tabs');
-
-    expect(root).toHaveClass(
-      'cinna-tabs--bordered',
-      'cinna-tabs--left',
-      'cinna-tabs--large',
-      'cinna-tabs--draggable',
+    expect(screen.getByRole('tab', { name: 'Prototype' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('button', { name: 'Close Constructor' })).toBeEnabled();
+  });
+  it('allows a single item to opt out of global closing', () => {
+    const close = vi.fn();
+    render(
+      <Tabs
+        items={[...items.slice(0, 1), { ...items[1], closable: false }]}
+        closable
+        onClose={close}
+      />,
     );
-    expect(root).toHaveStyle({
-      '--cinna-tabs-tab-font-size': '16px',
-      '--cinna-tabs-tab-font-weight': '800',
-      '--cinna-tabs-tab-color': '#6b584b',
-      '--cinna-tabs-active-color': '#3d8eaa',
-      '--cinna-tabs-active-bg': '#ffffff',
-      '--cinna-tabs-tab-border': '#ead8c0',
-      '--cinna-tabs-active-border': '#8bd4eb',
-      '--cinna-tabs-tab-radius': '12px',
-      '--cinna-tabs-panel-color': '#513323',
-      '--cinna-tabs-panel-bg': '#fffcf6',
-      '--cinna-tabs-panel-border': '#ead8c0',
-    });
-    expect(screen.getByRole('tab', { name: /Activity/ })).toHaveAttribute('aria-selected', 'true');
-    expect(screen.getByText('A')).toHaveClass('cinna-tabs__icon');
-
-    fireEvent.click(screen.getByRole('tab', { name: /Overview/ }));
-    expect(onChange).toHaveBeenCalledWith('overview');
-
+    expect(screen.queryByRole('button', { name: 'Close Beta' })).not.toBeInTheDocument();
+    fireEvent.keyDown(screen.getByRole('tab', { name: 'Beta' }), { key: 'Delete' });
+    expect(close).not.toHaveBeenCalled();
+  });
+  it('does not steal focus when the parent completes closing after the user has moved on', () => {
+    const close = vi.fn();
+    const view = (tabs: TabsItem[]) => (
+      <>
+        <Tabs items={tabs} onClose={close} />
+        <input aria-label="Outside editor" />
+      </>
+    );
+    const { rerender } = render(view(items));
+    fireEvent.click(screen.getByRole('button', { name: 'Close Alpha' }));
+    screen.getByLabelText('Outside editor').focus();
+    rerender(view(items.slice(1)));
+    expect(screen.getByLabelText('Outside editor')).toHaveFocus();
+  });
+  it('closes the active tab and focuses its next available neighbor', () => {
+    const Demo = () => {
+      const [tabs, setTabs] = useState(items);
+      return (
+        <Tabs
+          items={tabs}
+          defaultActiveKey="b"
+          onClose={(key) => setTabs((current) => current.filter((item) => item.key !== key))}
+        />
+      );
+    };
+    render(<Demo />);
+    fireEvent.click(screen.getByRole('button', { name: 'Close Beta' }));
+    expect(screen.getByRole('tab', { name: 'Cream' })).toHaveFocus();
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Panel C');
+    fireEvent.keyDown(screen.getByRole('tab', { name: 'Cream' }), { key: 'Delete' });
+    expect(screen.getByRole('tab', { name: 'Alpha' })).toHaveFocus();
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Panel A');
+  });
+  it('moves focus to the add action when the last tab is removed', () => {
+    const Demo = () => {
+      const [tabs, setTabs] = useState(items.slice(0, 1));
+      return (
+        <Tabs
+          items={tabs}
+          addable
+          emptyContent="No open tabs"
+          onClose={() => setTabs([])}
+          onAdd={() => setTabs(items.slice(0, 1))}
+        />
+      );
+    };
+    render(<Demo />);
+    fireEvent.keyDown(screen.getByRole('tab'), { key: 'Delete' });
+    expect(screen.queryByRole('tablist')).not.toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('No open tabs');
+    expect(screen.getByRole('button', { name: 'Add tab' })).toHaveFocus();
     fireEvent.click(screen.getByRole('button', { name: 'Add tab' }));
-    expect(onAdd).toHaveBeenCalled();
-
-    fireEvent.click(screen.getByRole('button', { name: 'Close Overview' }));
-    expect(onClose).toHaveBeenCalledWith(
-      'overview',
-      expect.objectContaining({ key: 'overview' }),
-      expect.any(Object),
-    );
-
-    fireEvent.dragStart(screen.getByRole('tab', { name: /Overview/ }), {
+    expect(screen.getByRole('tab')).toHaveAttribute('aria-selected', 'true');
+  });
+  it('requests keyboard and mouse reordering without mutating supplied items', () => {
+    const onOrderChange = vi.fn();
+    render(<Tabs items={items} draggable onOrderChange={onOrderChange} />);
+    fireEvent.keyDown(screen.getByRole('tab', { name: 'Alpha' }), {
+      key: 'ArrowRight',
+      altKey: true,
+    });
+    expect(onOrderChange).toHaveBeenLastCalledWith(['b', 'a', 'c'], expect.any(Array), {
+      fromKey: 'a',
+      toKey: 'b',
+    });
+    fireEvent.dragStart(screen.getByRole('tab', { name: 'Alpha' }), {
       dataTransfer: { effectAllowed: '', setData: vi.fn() },
     });
-    fireEvent.dragOver(screen.getByRole('tab', { name: /Activity/ }), {
+    fireEvent.dragOver(screen.getByRole('tab', { name: 'Cream' }), {
       dataTransfer: { dropEffect: '' },
     });
-    fireEvent.drop(screen.getByRole('tab', { name: /Activity/ }), {
-      dataTransfer: { dropEffect: '' },
+    fireEvent.drop(screen.getByRole('tab', { name: 'Cream' }));
+    expect(onOrderChange).toHaveBeenLastCalledWith(['b', 'c', 'a'], expect.any(Array), {
+      fromKey: 'a',
+      toKey: 'c',
     });
-    expect(onOrderChange).toHaveBeenCalledWith(
-      ['activity', 'overview', 'settings'],
-      expect.arrayContaining([expect.objectContaining({ key: 'overview' })]),
-      { fromKey: 'overview', toKey: 'activity' },
+    expect(items.map((item) => item.key)).toEqual(['a', 'b', 'c']);
+  });
+  it('disables all operations while keeping the selected content visible', () => {
+    const onAdd = vi.fn(),
+      onClose = vi.fn(),
+      onChange = vi.fn();
+    render(
+      <Tabs items={items} disabled addable onAdd={onAdd} onClose={onClose} onChange={onChange} />,
     );
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Panel A');
+    for (const button of screen.getAllByRole('tab')) expect(button).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Add tab' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Close Alpha' })).toBeDisabled();
+    fireEvent.click(screen.getByRole('tab', { name: 'Beta' }));
+    expect(onChange).not.toHaveBeenCalled();
+  });
+  it('keeps tab and panel relationships valid for keys containing spaces', () => {
+    render(<Tabs items={[{ key: 'a b', label: 'Notes', children: 'Draft' }]} />);
+    const tab = screen.getByRole('tab'),
+      panel = screen.getByRole('tabpanel');
+    expect(tab.id).not.toMatch(/\s/);
+    expect(tab).toHaveAttribute('aria-controls', panel.id);
+    expect(panel).toHaveAttribute('aria-labelledby', tab.id);
   });
 });

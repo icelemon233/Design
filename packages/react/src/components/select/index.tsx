@@ -103,7 +103,9 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
               ? enabled.length - 1
               : event.key === 'ArrowDown'
                 ? (index + 1) % enabled.length
-                : (index - 1 + enabled.length) % enabled.length;
+                : index < 0
+                  ? enabled.length - 1
+                  : (index - 1 + enabled.length) % enabled.length;
         setHighlight(enabled[index] ?? -1);
       } else if (event.key === 'Enter' && actualOpen) {
         event.preventDefault();
@@ -130,21 +132,39 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
           rest.onKeyDown?.(event);
           if (!event.defaultPrevented) keyboard(event);
         }}
+        onBlur={(event) => {
+          rest.onBlur?.(event);
+          if (actualOpen && !event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+        }}
       >
         <button
           ref={control}
           type="button"
           className="cinna-select__control"
-          aria-labelledby={rest['aria-labelledby']}
+          aria-labelledby={
+            rest['aria-labelledby'] ? rest['aria-labelledby'] + ' ' + id + '-value' : undefined
+          }
           disabled={disabled}
-          aria-label={rest['aria-label'] ?? placeholder}
+          aria-label={rest['aria-labelledby'] ? undefined : (rest['aria-label'] ?? placeholder)}
           aria-haspopup="listbox"
           aria-expanded={actualOpen}
           aria-controls={actualOpen ? id : undefined}
-          aria-activedescendant={actualOpen && highlight >= 0 ? `${id}-${highlight}` : undefined}
-          onClick={() => setOpen(!actualOpen)}
+          onClick={() => {
+            if (!actualOpen) {
+              const current = filtered.findIndex(
+                (option) => !option.disabled && selectedValues.includes(option.value),
+              );
+              setHighlight(
+                current >= 0 ? current : filtered.findIndex((option) => !option.disabled),
+              );
+            }
+            setOpen(!actualOpen);
+          }}
         >
-          <span className={cx(!selectedOptions.length && 'cinna-select__placeholder')}>
+          <span
+            id={id + '-value'}
+            className={cx(!selectedOptions.length && 'cinna-select__placeholder')}
+          >
             {selectedOptions.length
               ? mode === 'multiple'
                 ? selectedOptions.map((option) => <em key={option.value}>{option.label}</em>)
@@ -177,6 +197,11 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                   autoFocus
                   data-cinna-autofocus
                   aria-label="Search options"
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-expanded={actualOpen}
+                  aria-controls={id}
+                  aria-activedescendant={highlight >= 0 ? `${id}-${highlight}` : undefined}
                   className="cinna-select__search"
                   value={query}
                   onChange={(event) => {
@@ -188,8 +213,15 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
               <div
                 id={id}
                 role="listbox"
-                aria-label={placeholder}
+                className="cinna-select__list"
+                aria-label={rest['aria-label'] ?? placeholder}
+                aria-labelledby={rest['aria-labelledby']}
                 aria-multiselectable={mode === 'multiple' || undefined}
+                aria-activedescendant={
+                  !showSearch && highlight >= 0 ? `${id}-${highlight}` : undefined
+                }
+                tabIndex={-1}
+                data-cinna-autofocus={!showSearch || undefined}
               >
                 {!filtered.length && (
                   <span className="cinna-select__empty" role="status">
@@ -211,11 +243,23 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                       selectedValues.includes(option.value) && 'cinna-select__option--active',
                       highlight === index && 'cinna-select__option--highlighted',
                     )}
-                    onMouseEnter={() => setHighlight(index)}
+                    onPointerMove={(event) => {
+                      if (event.pointerType === 'mouse' && (event.movementX || event.movementY))
+                        setHighlight(index);
+                    }}
                     onClick={() => choose(option.value)}
                   >
                     <span>{option.label}</span>
-                    {selectedValues.includes(option.value) && <strong aria-hidden="true">✓</strong>}
+                    {selectedValues.includes(option.value) && (
+                      <svg
+                        className="cinna-select__check"
+                        viewBox="0 0 12 10"
+                        focusable="false"
+                        aria-hidden="true"
+                      >
+                        <path d="M1.6 5.2 4.7 8.1 10.5 1.8" />
+                      </svg>
+                    )}
                   </button>
                 ))}
               </div>

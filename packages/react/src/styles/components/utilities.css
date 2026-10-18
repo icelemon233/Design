@@ -1,11 +1,3 @@
-.cinna-transfer__search {
-  grid-column: 1 / -1;
-}
-
-.cinna-transfer__list strong {
-  color: var(--cinna-color-text);
-}
-
 .cinna-watermark::before {
   content: attr(data-watermark) ' ' attr(data-watermark) ' ' attr(data-watermark) '\A'
     attr(data-watermark) ' ' attr(data-watermark) ' ' attr(data-watermark) '\A' attr(data-watermark)
@@ -348,14 +340,6 @@
   .cinna-menu__submenu-title::after,
   .cinna-menu__expand-icon,
   .cinna-menu__submenu-popup,
-  .cinna-tabs__tab,
-  .cinna-tabs__tab::after,
-  .cinna-tabs__active-pill,
-  .cinna-tabs__active-pill::before,
-  .cinna-tabs__active-pill::after,
-  .cinna-tabs__icon,
-  .cinna-tabs__label,
-  .cinna-tabs__panel,
   .cinna-step,
   .cinna-step__marker,
   .cinna-step__marker::after,

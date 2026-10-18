@@ -329,35 +329,6 @@
   margin-left: 18px;
 }
 
-.cinna-transfer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.cinna-transfer__list {
-  display: grid;
-  gap: 8px;
-  min-height: 160px;
-  padding: 12px;
-}
-
-.cinna-transfer__list button {
-  display: flex;
-  justify-content: space-between;
-  text-align: left;
-}
-
-.cinna-transfer__list em {
-  color: var(--cinna-color-primary-deep);
-  font-style: normal;
-}
-
-.cinna-transfer__empty {
-  color: var(--cinna-color-text-muted);
-  font-weight: 800;
-}
-
 .cinna-anchor {
   align-items: flex-start;
   flex-direction: column;

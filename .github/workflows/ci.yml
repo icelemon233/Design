@@ -54,3 +54,49 @@ jobs:
             playwright-report/
             test-results/
           retention-days: 14
+  samples:
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - engine: chromium
+            profile: all
+          - engine: firefox
+            profile: all
+          - engine: webkit
+            profile: desktop
+          - engine: webkit
+            profile: tablet-touch
+          - engine: webkit
+            profile: phone-touch
+          - engine: webkit
+            profile: reduced-motion
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - uses: pnpm/action-setup@v6
+        with:
+          cache: true
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps ${{ matrix.engine }}
+      - run: pnpm typecheck:samples
+      - run: pnpm build:pages
+      - run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1200x24" pnpm test:samples
+        env:
+          SAMPLE_PRODUCTION: '1'
+          SAMPLE_ENGINE: ${{ matrix.engine }}
+          SAMPLE_PROFILE: ${{ matrix.profile }}
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: samples-browser-report-${{ matrix.engine }}-${{ matrix.profile }}
+          path: |
+            playwright-report/samples/
+            test-results/samples/
+            test-results/samples-results.json
+          retention-days: 14
