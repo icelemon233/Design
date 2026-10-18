@@ -74,7 +74,7 @@ test('notification actions dismiss the notification', async ({ page }) => {
 test('select filters multiple options with keyboard control', async ({ page }) => {
   const root = await example(page, 'select');
   await root.getByRole('button', { name: 'Search ingredients' }).click();
-  const search = root.getByRole('textbox', { name: 'Search options' });
+  const search = root.getByRole('combobox', { name: 'Search options' });
   await expect(search).toBeFocused();
   await search.fill('blue');
   await expectPanelFits(page, root.locator('.cinna-select__popup'));
@@ -232,7 +232,7 @@ test('nested select closes before its modal and invalid fields receive focus', a
   const dialog = page.getByRole('dialog', { name: 'Edit recipe' });
   await dialog.getByRole('button', { name: 'Save category' }).click();
   await expect(dialog.getByRole('alert')).toHaveText('Choose a category.');
-  const select = dialog.getByRole('button', { name: 'Category', exact: true });
+  const select = dialog.getByRole('button', { name: /^Category / });
   await expect(select).toBeFocused();
   await select.click();
   await expect(dialog.getByRole('listbox')).toBeVisible();
