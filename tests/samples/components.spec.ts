@@ -43,6 +43,25 @@ async function setChecked(input: Locator, checked: boolean) {
   else await expect(input).not.toBeChecked();
 }
 
+const settingLabels: Record<string, string> = {
+  borderless: 'Pill',
+  bordered: 'Connected card',
+  top: 'Top',
+  bottom: 'Bottom',
+  left: 'Left',
+  right: 'Right',
+  small: 'Small',
+  medium: 'Medium',
+  large: 'Large',
+};
+async function chooseSetting(lab: Locator, name: string, value: string) {
+  const control = lab.getByRole('button', { name: new RegExp('^' + name + ' ') });
+  await activate(control);
+  await activate(lab.getByRole('option', { name: settingLabels[value], exact: true }));
+  await expect(control).toHaveAttribute('aria-expanded', 'false');
+  await expect(control).toContainText(settingLabels[value]);
+}
+
 async function sample(page: Page, kind: 'tabs' | 'transfer') {
   await page.addInitScript(() => localStorage.setItem('cinna-site-language', 'en'));
   await page.goto('#/' + kind);
@@ -114,6 +133,13 @@ test('Samples use working Chinese labels and report their actual emulation setti
         'aria-selected',
         'true',
       );
+      await expect(lab.getByRole('button', { name: '位置 顶部', exact: true })).toBeVisible();
+      await expect(lab.getByRole('button', { name: '尺寸 默认', exact: true })).toBeVisible();
+      await activate(lab.getByRole('button', { name: /^样式 / }));
+      await expect(lab.getByRole('listbox', { name: '样式', exact: true })).toBeVisible();
+      await page.screenshot({ path: info.outputPath('tabs-chinese-dropdown-open.png') });
+      await activate(lab.getByRole('option', { name: '胶囊', exact: true }));
+      await expect(root).toHaveClass(/cinna-tabs--borderless/);
     } else {
       const source = root.getByRole('region', { name: '待选项目', exact: true });
       await setChecked(source.getByRole('checkbox', { name: 'Tokens', exact: true }), true);
@@ -151,17 +177,105 @@ test('Samples use working Chinese labels and report their actual emulation setti
     contentType: 'application/json',
   });
 });
+test('Tabs sample uses library dropdowns with pointer, keyboard and visible focus feedback', async ({
+  page,
+}, info) => {
+  const { lab, root } = await sample(page, 'tabs');
+  await expect(lab.locator('select')).toHaveCount(0);
+  await expect(lab.locator('.sample-controls .cinna-select')).toHaveCount(3);
+  await expect(root.getByRole('textbox')).toHaveCount(1);
+  const variant = lab.getByRole('button', { name: /^Variant / });
+  await activate(variant);
+  const popup = lab.locator('.cinna-select__popup');
+  await expect(popup).toBeVisible();
+  await expect(lab.getByRole('listbox', { name: 'Variant', exact: true })).toBeFocused();
+  await expect(variant).toHaveCSS('outline-style', 'none');
+  const popupBox = (await popup.boundingBox())!;
+  expect(popupBox.x).toBeGreaterThanOrEqual(0);
+  expect(popupBox.x + popupBox.width).toBeLessThanOrEqual(page.viewportSize()!.width);
+  if (info.project.use.hasTouch)
+    for (const option of await popup.getByRole('option').all())
+      expect((await option.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+  const audit = await new AxeBuilder({ page }).include('[data-sample="tabs"]').analyze();
+  expect(audit.violations).toEqual([]);
+  await page.screenshot({ path: info.outputPath('tabs-dropdown-open.png') });
+  await activate(lab.getByRole('option', { name: 'Pill', exact: true }));
+  await expect(root).toHaveClass(/cinna-tabs--borderless/);
+  await expect(variant).toHaveCSS('outline-style', 'none');
+  await expect(variant).toBeFocused();
+  await page.keyboard.press('ArrowDown');
+  await expect(lab.getByRole('listbox', { name: 'Variant', exact: true })).toBeFocused();
+  await page.keyboard.press('End');
+  await expect(lab.getByRole('listbox', { name: 'Variant', exact: true })).toHaveAttribute(
+    'aria-activedescendant',
+    (await lab.getByRole('option', { name: 'Connected card', exact: true }).getAttribute('id'))!,
+  );
+  await page.keyboard.press('Enter');
+  await expect(popup).toHaveCount(0);
+  await expect(root).toHaveClass(/cinna-tabs--bordered/);
+  await expect(variant).toBeFocused();
+  await expect(variant).toHaveCSS('outline-width', '2px');
+  await expect(variant).toHaveCSS('outline-offset', '-5px');
+  await page.screenshot({ path: info.outputPath('tabs-dropdown-keyboard-focus.png') });
+  await page.keyboard.press('ArrowDown');
+  await page.keyboard.press('Escape');
+  await expect(popup).toHaveCount(0);
+  await expect(variant).toContainText('Connected card');
+  await activate(variant);
+  await page.keyboard.press('Tab');
+  await expect(popup).toHaveCount(0);
+  await expect(lab.getByRole('button', { name: /^Position / })).toBeFocused();
+  for (const name of ['Position', 'Size']) {
+    await activate(lab.getByRole('button', { name: new RegExp('^' + name + ' ') }));
+    await expect(lab.getByRole('listbox', { name, exact: true })).toBeVisible();
+    for (const option of await popup.getByRole('option').all())
+      await expect(option).toBeInViewport();
+    await page.screenshot({
+      path: info.outputPath('tabs-' + name.toLowerCase() + '-dropdown.png'),
+    });
+    await page.keyboard.press('Escape');
+  }
+});
+
+test('Connected cards join the first, middle and last tab with a consistent frame', async ({
+  page,
+}, info) => {
+  const { lab, root } = await sample(page, 'tabs');
+  for (const position of ['top', 'bottom', 'left', 'right']) {
+    await chooseSetting(lab, 'Position', position);
+    const actualPosition =
+      (await root.boundingBox())!.width <= 480 && (position === 'left' || position === 'right')
+        ? 'top'
+        : position;
+    for (const name of ['Overview', 'Activity', 'Settings']) {
+      await activate(root.getByRole('tab', { name, exact: true }));
+      await seam(root, actualPosition);
+      const frame = await root.evaluate((node) => {
+        const item = getComputedStyle(node.querySelector('.cinna-tabs__item--active')!);
+        const panel = getComputedStyle(node.querySelector('.cinna-tabs__panel:not([hidden])')!);
+        return { tab: item.borderTopColor, panel: panel.borderTopColor };
+      });
+      expect(frame.tab).toBe(frame.panel);
+      if (name === 'Activity')
+        await root.screenshot({
+          path: info.outputPath('joined-middle-' + position + '.png'),
+          ...componentShot,
+        });
+    }
+  }
+});
+
 test('Tabs has clean surfaces and connected seams in both variants, four positions and three sizes', async ({
   page,
 }, info) => {
   test.setTimeout(120000);
   const { lab, root } = await sample(page, 'tabs');
   for (const variant of ['borderless', 'bordered']) {
-    await lab.getByRole('combobox', { name: 'Variant', exact: true }).selectOption(variant);
+    await chooseSetting(lab, 'Variant', variant);
     for (const position of ['top', 'bottom', 'left', 'right']) {
-      await lab.getByRole('combobox', { name: 'Position', exact: true }).selectOption(position);
+      await chooseSetting(lab, 'Position', position);
       for (const size of ['small', 'medium', 'large']) {
-        await lab.getByRole('combobox', { name: 'Size', exact: true }).selectOption(size);
+        await chooseSetting(lab, 'Size', size);
         const surfaces = await root.evaluate((node) => {
           const list = getComputedStyle(node.querySelector('.cinna-tabs__list')!);
           const panel = getComputedStyle(node.querySelector('.cinna-tabs__panel:not([hidden])')!);
@@ -234,7 +348,7 @@ test('Tabs keyboard navigation and panel preservation work in the browser', asyn
   await activate(root.getByRole('tab', { name: 'Settings', exact: true }));
   await activate(root.getByRole('tab', { name: 'Overview', exact: true }));
   await expect(root.getByRole('textbox', { name: 'Notes for overview' })).toHaveValue('');
-  await lab.getByRole('combobox', { name: 'Position', exact: true }).selectOption('left');
+  await chooseSetting(lab, 'Position', 'left');
   await root.getByRole('tab', { name: 'Overview', exact: true }).focus();
   await page.keyboard.press(
     (await root.getByRole('tablist').getAttribute('aria-orientation')) === 'vertical'
@@ -321,9 +435,9 @@ test('Tabs keep editing and dragging usable together in narrow containers', asyn
   await setChecked(lab.getByRole('checkbox', { name: 'Editable', exact: true }), true);
   await setChecked(lab.getByRole('checkbox', { name: 'Reorderable', exact: true }), true);
   for (const variant of ['borderless', 'bordered']) {
-    await lab.getByRole('combobox', { name: 'Variant', exact: true }).selectOption(variant);
+    await chooseSetting(lab, 'Variant', variant);
     for (const position of ['top', 'bottom', 'left', 'right']) {
-      await lab.getByRole('combobox', { name: 'Position', exact: true }).selectOption(position);
+      await chooseSetting(lab, 'Position', position);
       const compact = (await root.boundingBox())!.width <= 480;
       if (compact) {
         await expect(root.getByRole('tablist')).toHaveAttribute('aria-orientation', 'horizontal');
@@ -354,7 +468,7 @@ test('Tabs keep editing and dragging usable together in narrow containers', asyn
         await seam(root, compact && ['left', 'right'].includes(position) ? 'top' : position);
     }
   }
-  await lab.getByRole('combobox', { name: 'Position', exact: true }).selectOption('top');
+  await chooseSetting(lab, 'Position', 'top');
   await root.getByRole('tab', { name: 'Overview', exact: true }).focus();
   await page.keyboard.press('End');
   await activate(root.getByRole('button', { name: 'Close Settings', exact: true }));
@@ -505,7 +619,7 @@ test('Tabs style props change rendered typography, colors, radius and panel bord
     (node as HTMLElement).style.setProperty('--cinna-tabs-active-bg', '#d8eff7');
     (node as HTMLElement).style.setProperty('--cinna-tabs-active-border', '#28738d');
   });
-  await lab.getByRole('combobox', { name: 'Variant', exact: true }).selectOption('borderless');
+  await chooseSetting(lab, 'Variant', 'borderless');
   await expect(sampleRoot.locator('.cinna-tabs__active-pill')).toHaveCSS(
     'background-color',
     'rgb(216, 239, 247)',

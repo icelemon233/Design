@@ -52,11 +52,6 @@
   color: var(--cinna-color-text-secondary);
   text-align: center;
 }
-.cinna-select__option--highlighted {
-  background: var(--cinna-color-surface-blue);
-  outline: 2px solid var(--cinna-color-primary);
-  outline-offset: -2px;
-}
 .cinna-select__popup {
   max-height: min(360px, 60dvh);
   overflow: auto;

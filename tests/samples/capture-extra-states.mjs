@@ -58,7 +58,18 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
       };
       await toggle('Editable');
       await toggle('Reorderable');
-      await lab.getByRole('combobox', { name: 'Variant', exact: true }).selectOption('borderless');
+      const chooseVariant = async (label) => {
+        const control = lab.getByRole('button', { name: /^Variant / });
+        const option = lab.getByRole('option', { name: label, exact: true });
+        if (mode.hasTouch) {
+          await control.tap();
+          await option.tap();
+        } else {
+          await control.click();
+          await option.click();
+        }
+      };
+      await chooseVariant('Pill');
       await root
         .getByRole('tab', { name: 'Overview', exact: true })
         .evaluate((node) => node.focus({ preventScroll: true }));
@@ -88,7 +99,7 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
       for (const tab of await root.getByRole('tab').all())
         assert.equal(await tab.isDisabled(), true);
       await capture('tabs-pill-disabled');
-      await lab.getByRole('combobox', { name: 'Variant', exact: true }).selectOption('bordered');
+      await chooseVariant('Connected card');
       await capture('tabs-card-disabled');
       await toggle('Disabled');
       await root

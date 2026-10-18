@@ -14,9 +14,19 @@
   gap: 12px 20px;
   padding: 16px;
   border-radius: 16px;
-  background: var(--cinna-color-surface-blue);
+  border: 1.5px solid var(--cinna-color-border);
+  background: var(--cinna-color-surface);
 }
-.sample-controls > label:not(.cinna-check) {
+.sample-settings,
+.sample-switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  width: 100%;
+  min-width: 0;
+}
+.sample-control {
+  flex: 1 1 140px;
   min-width: 0;
   max-width: 100%;
   display: grid;
@@ -25,16 +35,15 @@
   font-size: 13px;
   font-weight: 700;
 }
-.sample-controls select {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
+.sample-control .cinna-select__control {
   min-height: 44px;
-  padding: 8px 12px;
-  border: 1.5px solid var(--cinna-color-border);
-  border-radius: 12px;
-  color: var(--cinna-color-text);
-  background: var(--cinna-color-surface);
+  font-weight: 700;
+}
+.sample-control .cinna-select__control > span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .sample-controls .cinna-check {
   min-width: 0;
@@ -62,21 +71,6 @@
 .sample-panel-content p {
   margin: 0;
 }
-.sample-panel-content label {
-  display: grid;
-  min-width: 0;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 8px;
-}
 .sample-note {
-  width: 100%;
   max-width: 420px;
-  min-width: 0;
-  min-height: 44px;
-  padding: 10px 12px;
-  border: 1.5px solid var(--cinna-color-border);
-  border-radius: 12px;
-  background: var(--cinna-color-surface);
-  color: var(--cinna-color-text);
-  font: inherit;
 }

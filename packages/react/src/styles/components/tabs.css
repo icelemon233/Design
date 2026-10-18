@@ -308,13 +308,14 @@
 }
 
 .cinna-tabs--bordered {
+  --cinna-tabs-frame-width: 2px;
   --cinna-tabs-tab-radius: 16px;
-  --cinna-tabs-tab-bg: var(--cinna-color-surface);
+  --cinna-tabs-tab-bg: var(--cinna-color-bg);
   --cinna-tabs-active-color: var(--cinna-color-primary-deep);
   --cinna-tabs-panel-bg: var(--cinna-color-surface);
   --cinna-tabs-active-bg: var(--cinna-tabs-panel-bg);
   --cinna-tabs-tab-border: var(--cinna-color-border);
-  --cinna-tabs-active-border: var(--cinna-color-primary-deep);
+  --cinna-tabs-active-border: var(--cinna-tabs-panel-border);
   gap: 0;
 }
 .cinna-tabs--bordered .cinna-tabs__nav {
@@ -327,10 +328,11 @@
 }
 .cinna-tabs--bordered .cinna-tabs__item {
   max-width: var(--cinna-tabs-viewport-width, none);
+  border-width: var(--cinna-tabs-frame-width);
 }
 .cinna-tabs--bordered .cinna-tabs__panel {
   padding: 20px;
-  border: 1.5px solid var(--cinna-tabs-panel-border);
+  border: var(--cinna-tabs-frame-width) solid var(--cinna-tabs-panel-border);
   border-radius: var(--cinna-radius-lg);
 }
 .cinna-tabs--bordered .cinna-tabs__item--active {
@@ -339,56 +341,65 @@
   background: var(--cinna-tabs-active-bg);
 }
 .cinna-tabs--bordered.cinna-tabs--top .cinna-tabs__nav {
-  margin-bottom: -1.5px;
+  margin-bottom: calc(-1 * var(--cinna-tabs-frame-width));
   border-radius: var(--cinna-tabs-tab-radius) var(--cinna-tabs-tab-radius) 0 0;
 }
 .cinna-tabs--bordered.cinna-tabs--top .cinna-tabs__item {
   border-radius: var(--cinna-tabs-tab-radius) var(--cinna-tabs-tab-radius) 0 0;
 }
 .cinna-tabs--bordered.cinna-tabs--top .cinna-tabs__item--active {
-  border-bottom-color: var(--cinna-tabs-active-bg);
+  border-bottom-width: 0;
+}
+.cinna-tabs--bordered.cinna-tabs--top .cinna-tabs__item--active .cinna-tabs__tab {
+  padding-bottom: var(--cinna-tabs-frame-width);
 }
 .cinna-tabs--bordered.cinna-tabs--top .cinna-tabs__panel {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 .cinna-tabs--bordered.cinna-tabs--bottom .cinna-tabs__nav {
-  margin-top: -1.5px;
+  margin-top: calc(-1 * var(--cinna-tabs-frame-width));
   border-radius: 0 0 var(--cinna-tabs-tab-radius) var(--cinna-tabs-tab-radius);
 }
 .cinna-tabs--bordered.cinna-tabs--bottom .cinna-tabs__item {
   border-radius: 0 0 var(--cinna-tabs-tab-radius) var(--cinna-tabs-tab-radius);
 }
 .cinna-tabs--bordered.cinna-tabs--bottom .cinna-tabs__item--active {
-  border-top-color: var(--cinna-tabs-active-bg);
+  border-top-width: 0;
+}
+.cinna-tabs--bordered.cinna-tabs--bottom .cinna-tabs__item--active .cinna-tabs__tab {
+  padding-top: var(--cinna-tabs-frame-width);
 }
 .cinna-tabs--bordered.cinna-tabs--bottom .cinna-tabs__panel {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 .cinna-tabs--bordered.cinna-tabs--left .cinna-tabs__nav {
-  margin-right: -1.5px;
+  margin-right: calc(-1 * var(--cinna-tabs-frame-width));
   border-radius: var(--cinna-tabs-tab-radius) 0 0 var(--cinna-tabs-tab-radius);
 }
 .cinna-tabs--bordered.cinna-tabs--left .cinna-tabs__item {
   border-radius: var(--cinna-tabs-tab-radius) 0 0 var(--cinna-tabs-tab-radius);
 }
 .cinna-tabs--bordered.cinna-tabs--left .cinna-tabs__item--active {
-  border-right-color: var(--cinna-tabs-active-bg);
+  border-right-width: 0;
 }
 .cinna-tabs--bordered.cinna-tabs--left .cinna-tabs__panel {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 .cinna-tabs--bordered.cinna-tabs--right .cinna-tabs__nav {
-  margin-left: -1.5px;
+  margin-left: calc(-1 * var(--cinna-tabs-frame-width));
   border-radius: 0 var(--cinna-tabs-tab-radius) var(--cinna-tabs-tab-radius) 0;
 }
 .cinna-tabs--bordered.cinna-tabs--right .cinna-tabs__item {
   border-radius: 0 var(--cinna-tabs-tab-radius) var(--cinna-tabs-tab-radius) 0;
 }
 .cinna-tabs--bordered.cinna-tabs--right .cinna-tabs__item--active {
-  border-left-color: var(--cinna-tabs-active-bg);
+  border-left-width: 0;
+}
+.cinna-tabs--bordered.cinna-tabs--right .cinna-tabs__item--active .cinna-tabs__tab {
+  padding-left: calc(var(--cinna-tabs-tab-padding-x) + var(--cinna-tabs-frame-width));
 }
 .cinna-tabs--bordered.cinna-tabs--right .cinna-tabs__panel {
   border-top-right-radius: 0;

@@ -1,15 +1,18 @@
 import {
   Checkbox,
   Icon,
+  Input,
+  Select,
   Tabs,
   type TabsPosition,
   type TabsProps,
   type TabsVariant,
 } from '@cinna-design/react';
-import { useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 
 export default function TabsSample({ language = 'en' }: { language?: 'zh' | 'en' }) {
   const zh = language === 'zh';
+  const id = useId();
   const [variant, setVariant] = useState<TabsVariant>('bordered');
   const [position, setPosition] = useState<TabsPosition>('top');
   const [size, setSize] = useState<NonNullable<TabsProps['size']>>('medium');
@@ -40,19 +43,13 @@ export default function TabsSample({ language = 'en' }: { language?: 'zh' | 'en'
           {zh ? '当前标签：' : 'Current tab: '}
           {labelFor(key)}
         </p>
-        <label>
-          {zh ? '笔记' : 'Notes'}
-          <input
-            className="sample-note"
-            aria-label={'Notes for ' + key}
-            defaultValue=""
-            placeholder={
-              zh
-                ? '输入后切换标签，检查内容是否保留'
-                : 'Type, then switch tabs to check preservation'
-            }
-          />
-        </label>
+        <Input
+          className="sample-note"
+          label={zh ? '笔记' : 'Notes'}
+          aria-label={'Notes for ' + key}
+          defaultValue=""
+          placeholder={zh ? '写点内容，再切换标签' : 'Write a note, then switch tabs'}
+        />
       </div>
     ),
   }));
@@ -63,74 +60,85 @@ export default function TabsSample({ language = 'en' }: { language?: 'zh' | 'en'
         role="group"
         aria-label={zh ? '配置 Tabs' : 'Configure tabs'}
       >
-        <label>
-          {zh ? '样式' : 'Variant'}
-          <select
-            value={variant}
-            onChange={(event) => setVariant(event.target.value as TabsVariant)}
-          >
-            <option value="borderless">{zh ? '胶囊' : 'Pill'}</option>
-            <option value="bordered">{zh ? '连体卡片' : 'Connected card'}</option>
-          </select>
-        </label>
-        <label>
-          {zh ? '位置' : 'Position'}
-          <select
-            value={position}
-            onChange={(event) => setPosition(event.target.value as TabsPosition)}
-          >
-            {(['top', 'bottom', 'left', 'right'] as const).map((value) => (
-              <option key={value}>{value}</option>
-            ))}
-          </select>
-        </label>
-        <label>
-          {zh ? '尺寸' : 'Size'}
-          <select
-            value={size}
-            onChange={(event) => setSize(event.target.value as NonNullable<TabsProps['size']>)}
-          >
-            {(['small', 'medium', 'large'] as const).map((value) => (
-              <option key={value}>{value}</option>
-            ))}
-          </select>
-        </label>
-        <Checkbox
-          label={zh ? '允许增删' : 'Editable'}
-          checked={editable}
-          onChange={(event) => setEditable(event.target.checked)}
-        />
-        <Checkbox
-          label={zh ? '允许排序' : 'Reorderable'}
-          checked={drag}
-          onChange={(event) => setDrag(event.target.checked)}
-        />
-        <Checkbox
-          label={zh ? '整体禁用' : 'Disabled'}
-          checked={disabled}
-          onChange={(event) => setDisabled(event.target.checked)}
-        />
-        <Checkbox
-          label={zh ? '很多标签' : 'Many tabs'}
-          checked={many}
-          onChange={(event) => {
-            const next = event.target.checked
-              ? [...keys, ...Array.from({ length: 12 }, (_, index) => 'extra-' + (index + 1))]
-              : keys.filter((key) => !key.startsWith('extra-'));
-            setKeys(next);
-            if (!event.target.checked && active?.startsWith('extra-')) setActive(next[0]);
-          }}
-        />
-        <Checkbox
-          label={zh ? '标签栏底色' : 'Tint tab strip'}
-          checked={tint}
-          onChange={(event) => setTint(event.target.checked)}
-        />
-        <Checkbox
-          label={zh ? '保留内容状态' : 'Preserve panel state'}
-          checked={keep}
-          onChange={(event) => setKeep(event.target.checked)}
-        />
+        <div className="sample-settings">
+          <div className="sample-control">
+            <span id={id + '-variant'}>{zh ? '样式' : 'Variant'}</span>
+            <Select
+              aria-labelledby={id + '-variant'}
+              value={variant}
+              onChange={(value) => setVariant(value as TabsVariant)}
+              options={[
+                { value: 'borderless', label: zh ? '胶囊' : 'Pill' },
+                { value: 'bordered', label: zh ? '连体卡片' : 'Connected card' },
+              ]}
+            />
+          </div>
+          <div className="sample-control">
+            <span id={id + '-position'}>{zh ? '位置' : 'Position'}</span>
+            <Select
+              aria-labelledby={id + '-position'}
+              value={position}
+              onChange={(value) => setPosition(value as TabsPosition)}
+              options={[
+                { value: 'top', label: zh ? '顶部' : 'Top' },
+                { value: 'bottom', label: zh ? '底部' : 'Bottom' },
+                { value: 'left', label: zh ? '左侧' : 'Left' },
+                { value: 'right', label: zh ? '右侧' : 'Right' },
+              ]}
+            />
+          </div>
+          <div className="sample-control">
+            <span id={id + '-size'}>{zh ? '尺寸' : 'Size'}</span>
+            <Select
+              aria-labelledby={id + '-size'}
+              value={size}
+              onChange={(value) => setSize(value as NonNullable<TabsProps['size']>)}
+              options={[
+                { value: 'small', label: zh ? '小' : 'Small' },
+                { value: 'medium', label: zh ? '默认' : 'Medium' },
+                { value: 'large', label: zh ? '大' : 'Large' },
+              ]}
+            />
+          </div>
+        </div>
+        <div className="sample-switches">
+          <Checkbox
+            label={zh ? '允许增删' : 'Editable'}
+            checked={editable}
+            onChange={(event) => setEditable(event.target.checked)}
+          />
+          <Checkbox
+            label={zh ? '允许排序' : 'Reorderable'}
+            checked={drag}
+            onChange={(event) => setDrag(event.target.checked)}
+          />
+          <Checkbox
+            label={zh ? '整体禁用' : 'Disabled'}
+            checked={disabled}
+            onChange={(event) => setDisabled(event.target.checked)}
+          />
+          <Checkbox
+            label={zh ? '很多标签' : 'Many tabs'}
+            checked={many}
+            onChange={(event) => {
+              const next = event.target.checked
+                ? [...keys, ...Array.from({ length: 12 }, (_, index) => 'extra-' + (index + 1))]
+                : keys.filter((key) => !key.startsWith('extra-'));
+              setKeys(next);
+              if (!event.target.checked && active?.startsWith('extra-')) setActive(next[0]);
+            }}
+          />
+          <Checkbox
+            label={zh ? '标签栏底色' : 'Tint tab strip'}
+            checked={tint}
+            onChange={(event) => setTint(event.target.checked)}
+          />
+          <Checkbox
+            label={zh ? '保留内容状态' : 'Preserve panel state'}
+            checked={keep}
+            onChange={(event) => setKeep(event.target.checked)}
+          />
+        </div>
       </div>
       <p className="sample-help">
         {zh
