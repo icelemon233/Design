@@ -99,22 +99,32 @@ async function seam(root: Locator, position: string) {
   await expect
     .poll(
       async () => {
-        const active = await root.locator('.cinna-tabs__item--active').boundingBox();
-        const panel = await root.getByRole('tabpanel').boundingBox();
-        if (!active || !panel) return 100;
-        return Math.abs(
-          position === 'top'
-            ? active.y + active.height - panel.y
-            : position === 'bottom'
-              ? panel.y + panel.height - active.y
-              : position === 'left'
-                ? active.x + active.width - panel.x
-                : panel.x + panel.width - active.x,
-        );
+        return root.evaluate((node, edge) => {
+          const item = node.querySelector<HTMLElement>('.cinna-tabs__item--active');
+          const panel = node.querySelector<HTMLElement>('.cinna-tabs__panel:not([hidden])');
+          if (!item || !panel) return 100;
+          const tabBox = item.getBoundingClientRect();
+          const panelBox = panel.getBoundingClientRect();
+          const overlap =
+            edge === 'top'
+              ? tabBox.bottom - panelBox.top
+              : edge === 'bottom'
+                ? panelBox.bottom - tabBox.top
+                : edge === 'left'
+                  ? tabBox.right - panelBox.left
+                  : panelBox.right - tabBox.left;
+          const panelStyle = getComputedStyle(panel);
+          const frame = parseFloat(
+            edge === 'top' || edge === 'bottom'
+              ? panelStyle.borderTopWidth
+              : panelStyle.borderLeftWidth,
+          );
+          return Math.abs(overlap - frame);
+        }, position);
       },
-      { message: 'the selected tab meets the content frame without a gap' },
+      { message: 'the selected tab overlaps exactly the content border' },
     )
-    .toBeLessThanOrEqual(2);
+    .toBeLessThanOrEqual(0.02);
 }
 
 test('Samples use working Chinese labels and report their actual emulation settings', async ({
