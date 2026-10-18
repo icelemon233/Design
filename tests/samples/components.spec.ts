@@ -190,6 +190,10 @@ test('Tabs sample uses library dropdowns with pointer, keyboard and visible focu
   await expect(popup).toBeVisible();
   await expect(lab.getByRole('listbox', { name: 'Variant', exact: true })).toBeFocused();
   await expect(variant).toHaveCSS('outline-style', 'none');
+  const tapHighlight = await variant.evaluate((node) =>
+    getComputedStyle(node).getPropertyValue('-webkit-tap-highlight-color'),
+  );
+  if (tapHighlight) expect(tapHighlight).toBe('rgba(0, 0, 0, 0)');
   const popupBox = (await popup.boundingBox())!;
   expect(popupBox.x).toBeGreaterThanOrEqual(0);
   expect(popupBox.x + popupBox.width).toBeLessThanOrEqual(page.viewportSize()!.width);

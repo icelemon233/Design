@@ -1,3 +1,8 @@
+.cinna-select__control,
+.cinna-select__option {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .cinna-select__control {
   display: flex;
   align-items: center;
