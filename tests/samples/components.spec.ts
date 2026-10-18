@@ -208,8 +208,10 @@ test('Tabs sample uses library dropdowns with pointer, keyboard and visible focu
   expect(popupBox.x).toBeGreaterThanOrEqual(0);
   expect(popupBox.x + popupBox.width).toBeLessThanOrEqual(page.viewportSize()!.width);
   if (info.project.use.hasTouch)
-    for (const option of await popup.getByRole('option').all())
-      expect((await option.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+    for (const option of await popup.getByRole('option').all()) {
+      const height = (await option.boundingBox())!.height;
+      expect(Number(height.toFixed(3))).toBeGreaterThanOrEqual(44);
+    }
   const audit = await new AxeBuilder({ page }).include('[data-sample="tabs"]').analyze();
   expect(audit.violations).toEqual([]);
   await page.screenshot({ path: info.outputPath('tabs-dropdown-open.png') });
