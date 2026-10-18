@@ -39,6 +39,9 @@
   min-height: 44px;
   font-weight: 700;
 }
+.sample-control .cinna-select {
+  width: 100%;
+}
 .sample-control .cinna-select__control > span:first-child {
   min-width: 0;
   overflow: hidden;
